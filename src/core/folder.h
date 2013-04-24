@@ -6,7 +6,7 @@
 
 using namespace std;
 
-typedef vector<const Item*> itemList;
+typedef vector<Item*> itemList;
 
 class Folder : public Item
 {
@@ -17,7 +17,8 @@ public:
 
     itemList getAllItems() const;
 
-    void addItem(const Item* item);
+    void addItem(Item* item);
+    void removeSubItem(Item *item);
 
 private:
     itemList items_;

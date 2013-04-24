@@ -12,10 +12,12 @@ int main()
     folder->addItem(item1);
     folder->addItem(item2);
     cout << folder->getName() << endl;
-    for(int i = 0; i < folder->getAllItems().size(); i++) {
+    for(size_t i = 0; i < folder->getAllItems().size(); i++) {
         cout << "\t-" << folder->getAllItems()[i]->getName() << endl;
     }
-    delete folder;
+    cout << "folder size : " << folder->getAllItems().size() << endl;
+    delete item1;
+    cout << "folder size : " << folder->getAllItems().size() << endl;
     return 0;
 }
 
