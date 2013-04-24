@@ -1,10 +1,12 @@
 #include <iostream>
+#include "item.h"
 
 using namespace std;
 
 int main()
 {
-    cout << "Hello World!" << endl;
+    Item item("test");
+    cout << item.getItemName() << endl;
     return 0;
 }
 
