@@ -6,7 +6,7 @@ using namespace std;
 int main()
 {
     Item item("test");
-    cout << item.getItemName() << endl;
+    cout << item.getName() << endl;
     return 0;
 }
 

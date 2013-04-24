@@ -13,7 +13,7 @@ public:
     Item(const Item& item);
     ~Item();
 
-    const string& getItemName() const;
+    const string& getName() const;
 
 private:
     string itemName_;

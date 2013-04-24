@@ -15,7 +15,7 @@ Item::~Item()
 
 }
 
-const string& Item::getItemName() const
+const string& Item::getName() const
 {
     return itemName_;
 }
