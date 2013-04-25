@@ -7,11 +7,18 @@ Item::Item(const string& itemName, Folder* parent)
 {
     itemName_ = itemName;
     parent_ = parent;
+    if(parent_ != nullptr) {
+        parent_->addSubItem(this);
+    }
 }
 
 Item::Item(const Item &item)
 {
     itemName_ = item.itemName_;
+    parent_ = item.parent_;
+    if(parent_ != nullptr) {
+        parent_->addSubItem(this);
+    }
 }
 
 Item::~Item()
