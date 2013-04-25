@@ -1,9 +1,9 @@
 #include "item.h"
-
+#include "folder.h"
 // debug
 #include <iostream>
 
-Item::Item(const string& itemName, Item* parent)
+Item::Item(const string& itemName, Folder* parent)
 {
     itemName_ = itemName;
     parent_ = parent;
@@ -30,10 +30,6 @@ const string& Item::getName() const
     return itemName_;
 }
 
-void Item::setParent(Item *parent) {
+void Item::setParent(Folder *parent) {
     parent_ = parent;
-}
-
-void Item::removeSubItem(Item *item) {
-
 }
