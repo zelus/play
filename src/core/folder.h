@@ -17,7 +17,7 @@ public:
 
     itemList getAllItems() const;
 
-    void addItem(Item* item);
+    void addSubItem(Item* item);
     void removeSubItem(Item *item);
 
 private:

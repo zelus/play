@@ -26,7 +26,7 @@ itemList Folder::getAllItems() const
     return items_;
 }
 
-void Folder::addItem(Item *item)
+void Folder::addSubItem(Item *item)
 {
     items_.push_back(item);
     item->setParent(this);
