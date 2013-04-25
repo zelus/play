@@ -48,13 +48,20 @@ void Item::setParent(Folder *parent)
 void Item::addSubItem(Item *item)
 {
     stringstream ss;
-    ss << "The Item " << item->getName() << " is not a container.";
+    ss << "The Item " << itemName_ << " is not a container.";
     throw logic_error(ss.str());
 }
 
 void Item::removeSubItem(Item *item)
 {
     stringstream ss;
-    ss << "The Item " << item->getName() << " is not a container.";
+    ss << "The Item " << itemName_ << " is not a container.";
+    throw logic_error(ss.str());
+}
+
+Item* Item::getSubItem(const string &itemName) const
+{
+    stringstream ss;
+    ss << "The Item " << itemName_ << " is not a container.";
     throw logic_error(ss.str());
 }

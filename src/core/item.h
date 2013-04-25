@@ -21,6 +21,7 @@ public:
     void setParent(Folder* parent);
     virtual void addSubItem(Item* item);
     virtual void removeSubItem(Item* item);
+    virtual Item* getSubItem(const string& itemName) const;
 
 protected:
     string itemName_;

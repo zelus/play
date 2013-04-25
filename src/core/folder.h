@@ -16,10 +16,10 @@ public:
     ~Folder();
 
     itemList getAllItems() const;
-    Item* getItem(const string& itemName) const;
 
     void addSubItem(Item* item);
     void removeSubItem(Item *item);
+    Item* getSubItem(const string& itemName) const;
 
 private:
     itemList items_;

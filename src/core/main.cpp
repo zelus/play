@@ -15,7 +15,7 @@ int main()
         cout << "\t-" << folder->getAllItems()[i]->getName() << endl;
     }
     cout << "folder size : " << folder->getAllItems().size() << endl;
-    cout << folder->getItem("test1")->getName() << endl;
+    cout << folder->getSubItem("test1")->getName() << endl;
     delete item1;
     cout << "folder size : " << folder->getAllItems().size() << endl;
     return 0;

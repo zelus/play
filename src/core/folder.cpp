@@ -26,24 +26,14 @@ itemList Folder::getAllItems() const
     return items_;
 }
 
-Item* Folder::getItem(const string &itemName) const
-{
-    itemList::const_iterator it;
-    for(it = items_.begin(); it != items_.end(); ++it) {
-        if((*it)->getName() == itemName) {
-            return *it;
-        }
-    }
-    return nullptr;
-}
-
 void Folder::addSubItem(Item *item)
 {
     items_.push_back(item);
     item->setParent(this);
 }
 
-void Folder::removeSubItem(Item *item) {
+void Folder::removeSubItem(Item *item)
+{
     itemList::iterator it;
     for(it = items_.begin(); it != items_.end(); ++it) {
         if((*it)->getName() == item->getName()) {
@@ -52,4 +42,15 @@ void Folder::removeSubItem(Item *item) {
             return;
         }
     }
+}
+
+Item* Folder::getSubItem(const string &itemName) const
+{
+    itemList::const_iterator it;
+    for(it = items_.begin(); it != items_.end(); ++it) {
+        if((*it)->getName() == itemName) {
+            return *it;
+        }
+    }
+    return nullptr;
 }
