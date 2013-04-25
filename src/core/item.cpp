@@ -1,5 +1,7 @@
 #include "item.h"
 #include "folder.h"
+#include <stdexcept>
+#include <sstream>
 // debug
 #include <iostream>
 
@@ -28,7 +30,8 @@ Item::~Item()
     }
 }
 
-const Item* Item::getParent() const {
+const Item* Item::getParent() const
+{
     return parent_;
 }
 
@@ -37,6 +40,21 @@ const string& Item::getName() const
     return itemName_;
 }
 
-void Item::setParent(Folder *parent) {
+void Item::setParent(Folder *parent)
+{
     parent_ = parent;
+}
+
+void Item::addSubItem(Item *item)
+{
+    stringstream ss;
+    ss << "The Item " << item->getName() << " is not a container.";
+    throw logic_error(ss.str());
+}
+
+void Item::removeSubItem(Item *item)
+{
+    stringstream ss;
+    ss << "The Item " << item->getName() << " is not a container.";
+    throw logic_error(ss.str());
 }

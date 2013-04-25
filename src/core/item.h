@@ -19,6 +19,8 @@ public:
     const string& getName() const;
 
     void setParent(Folder* parent);
+    virtual void addSubItem(Item* item);
+    virtual void removeSubItem(Item* item);
 
 protected:
     string itemName_;
