@@ -20,7 +20,7 @@ public:
 
     void setParent(Folder* parent);
 
-private:
+protected:
     string itemName_;
     Folder* parent_;
 };

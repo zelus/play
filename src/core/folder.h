@@ -11,11 +11,12 @@ typedef vector<Item*> itemList;
 class Folder : public Item
 {
 public:
-    Folder(const string& folderName = "");
+    Folder(const string& folderName = "", Folder* parent = nullptr);
     Folder(const Folder& folder);
     ~Folder();
 
     itemList getAllItems() const;
+    Item* getItem(const string& itemName) const;
 
     void addSubItem(Item* item);
     void removeSubItem(Item *item);
