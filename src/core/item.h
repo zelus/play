@@ -11,7 +11,7 @@ class Item
 {
 
 public:
-    Item(const string& itemName = "", Folder* parent = nullptr);
+    Item(const string& itemName = "", Item* parent = nullptr);
     Item(const Item& item);
     ~Item();
 
@@ -25,7 +25,7 @@ public:
 
 protected:
     string itemName_;
-    Folder* parent_;
+    Item* parent_;
 };
 
 #endif // ITEM_H

@@ -4,7 +4,7 @@
 // debug
 #include <iostream>
 
-Folder::Folder(const string& folderName, Folder* parent) : Item(folderName,parent)
+Folder::Folder(const string& folderName, Item* parent) : Item(folderName,parent)
 {
 
 }

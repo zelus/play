@@ -1,6 +1,6 @@
 #include "movie.h"
 
-Movie::Movie(const string& movieName, Folder* parent) : Item(movieName, parent)
+Movie::Movie(const string& movieName, Item* parent) : Item(movieName, parent)
 {
     notation_ = 0;
     summary_ = "";

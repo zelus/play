@@ -5,12 +5,16 @@
 // debug
 #include <iostream>
 
-Item::Item(const string& itemName, Folder* parent)
+Item::Item(const string& itemName, Item* parent)
 {
     itemName_ = itemName;
     parent_ = parent;
     if(parent_ != nullptr) {
-        parent_->addSubItem(this);
+        try {
+            parent_->addSubItem(this);
+        }catch(logic_error& e) {
+            throw e;
+        }
     }
 }
 
@@ -19,7 +23,11 @@ Item::Item(const Item &item)
     itemName_ = item.itemName_;
     parent_ = item.parent_;
     if(parent_ != nullptr) {
-        parent_->addSubItem(this);
+        try {
+            parent_->addSubItem(this);
+        }catch(logic_error& e) {
+            throw e;
+        }
     }
 }
 

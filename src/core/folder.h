@@ -11,7 +11,7 @@ typedef vector<Item*> itemList;
 class Folder : public Item
 {
 public:
-    Folder(const string& folderName = "", Folder* parent = nullptr);
+    Folder(const string& folderName = "", Item* parent = nullptr);
     Folder(const Folder& folder);
     ~Folder();
 

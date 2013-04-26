@@ -6,7 +6,7 @@
 class Movie : public Item
 {
 public:
-    Movie(const string& movieName = "", Folder* parent = nullptr);
+    Movie(const string& movieName = "", Item* parent = nullptr);
     Movie(const Movie& movie);
     ~Movie();
 
