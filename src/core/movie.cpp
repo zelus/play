@@ -1,12 +1,12 @@
 #include "movie.h"
 
-Movie::Movie(const string& movieName, Item* parent) : Item(movieName, parent)
+Movie::Movie(const string& movieName, Item* parent) : Item(movieName,MOVIE_TYPE,parent)
 {
     notation_ = 0;
     summary_ = "";
 }
 
-Movie::Movie(const Movie &movie) : Item(movie.itemName_, movie.parent_)
+Movie::Movie(const Movie &movie) : Item(movie.itemName_,MOVIE_TYPE,movie.parent_)
 {
     notation_ = movie.notation_;
     summary_ = movie.summary_;

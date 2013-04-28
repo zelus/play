@@ -36,6 +36,7 @@ const Item* ItemManager::findItem(const string &itemName, ItemType itemType, Ite
             return recursiveSearchResult;
         }
     }
+    return nullptr;
 }
 
 void ItemManager::createMovie(const string &movieName, const string &movieSummary, const short movieNotation, Item *parentFolder)

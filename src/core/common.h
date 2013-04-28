@@ -7,7 +7,8 @@ class Item;
 
 enum ItemType {
     ANY_TYPE,
-    MOVIE
+    FOLDER_TYPE,
+    MOVIE_TYPE
 };
 
 typedef std::vector<Item*> ItemList;

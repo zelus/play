@@ -5,10 +5,11 @@
 // debug
 #include <iostream>
 
-Item::Item(const string& itemName, Item* parent)
+Item::Item(const string& itemName, ItemType itemType, Item* parent)
 {
     itemName_ = itemName;
     parent_ = parent;
+    itemType_ = itemType;
     if(parent_ != nullptr) {
         try {
             parent_->addSubItem(this);
@@ -22,6 +23,7 @@ Item::Item(const Item &item)
 {
     itemName_ = item.itemName_;
     parent_ = item.parent_;
+    itemType_ = item.itemType_;
     if(parent_ != nullptr) {
         try {
             parent_->addSubItem(this);
@@ -46,6 +48,11 @@ const Item* Item::getParent() const
 const string& Item::getName() const
 {
     return itemName_;
+}
+
+ItemType Item::getType() const
+{
+    return itemType_;
 }
 
 void Item::setParent(Folder *parent)

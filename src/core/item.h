@@ -12,12 +12,13 @@ class Item
 {
 
 public:
-    Item(const string& itemName = "", Item* parent = nullptr);
+    Item(const string& itemName = "", ItemType itemType = ANY_TYPE, Item* parent = nullptr);
     Item(const Item& item);
     ~Item();
 
     const Item* getParent() const;
     const string& getName() const;
+    ItemType getType() const;
 
     void setParent(Folder* parent);
     virtual void addSubItem(Item* item);
@@ -28,6 +29,7 @@ public:
 protected:
     string itemName_;
     Item* parent_;
+    ItemType itemType_;
 };
 
 #endif // ITEM_H

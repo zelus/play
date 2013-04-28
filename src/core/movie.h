@@ -1,6 +1,7 @@
 #ifndef MOVIE_H
 #define MOVIE_H
 
+#include "common.h"
 #include "item.h"
 
 class Movie : public Item

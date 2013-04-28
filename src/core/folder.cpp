@@ -4,12 +4,12 @@
 // debug
 #include <iostream>
 
-Folder::Folder(const string& folderName, Item* parent) : Item(folderName,parent)
+Folder::Folder(const string& folderName, Item* parent) : Item(folderName,FOLDER_TYPE,parent)
 {
 
 }
 
-Folder::Folder(const Folder &folder) : Item(folder.itemName_,folder.parent_)
+Folder::Folder(const Folder &folder) : Item(folder.itemName_,FOLDER_TYPE,folder.parent_)
 {
 
 }
