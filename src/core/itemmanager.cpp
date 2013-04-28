@@ -17,16 +17,24 @@ ItemManager::~ItemManager()
 
 const Item* ItemManager::findItem(const string &itemName, ItemType itemType, Item *parentFolder) const
 {
+    Item* searchStart = parentFolder;
     if(parentFolder == nullptr) {
-        /*
-         * Search from tree root
-         */
+        searchStart = treeRoot_;
     }
-    else {
-        /*
-         * Search in the item below the given folder
-         */
-
+    ItemList folderChilds;
+    try {
+        folderChilds = searchStart->getAllSubItems();
+    }catch(logic_error& e) {
+        return nullptr;
+    }
+    for(size_t i = 0; i < folderChilds.size(); ++i) {
+        if(folderChilds[i]->getName() == itemName && folderChilds[i]->getType() == itemType) {
+            return folderChilds[i];
+        }
+        const Item* recursiveSearchResult = findItem(itemName,itemType,folderChilds[i]);
+        if(recursiveSearchResult != nullptr) {
+            return recursiveSearchResult;
+        }
     }
 }
 

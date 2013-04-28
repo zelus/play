@@ -14,8 +14,6 @@ public:
     Folder(const Folder& folder);
     ~Folder();
 
-
-
     void addSubItem(Item* item);
     void removeSubItem(Item *item);
     Item* getSubItem(const string& itemName) const;
