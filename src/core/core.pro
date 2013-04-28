@@ -14,4 +14,5 @@ HEADERS += \
     item.h \
     folder.h \
     movie.h \
-    itemmanager.h
+    itemmanager.h \
+    common.h

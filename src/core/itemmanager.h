@@ -2,6 +2,9 @@
 #define ITEMMANAGER_H
 
 #include "item.h"
+#include "movie.h"
+#include "common.h"
+#include <string>
 
 class ItemManager
 {
@@ -10,9 +13,9 @@ public:
     ItemManager(const ItemManager& itemManager);
     ~ItemManager();
 
-    const Item* findItem(const string& itemName, ItemType itemType = ANY_TYPE, Item* folder = nullptr) const;
+    const Item* findItem(const string& itemName, ItemType itemType = ANY_TYPE, Item* parentFolder = nullptr) const;
 
-    void createMovie(const string& movieName, const string& movieSummary = "", const short movieNotation = 0, Item* folder = nullptr);
+    void createMovie(const string& movieName, const string& movieSummary = "", const short movieNotation = 0, Item* parentFolder = nullptr);
 
 private:
     Item* treeRoot_;
