@@ -2,12 +2,10 @@
 #define FOLDER_H
 
 #include "item.h"
+#include "common.h"
 #include <string>
-#include <vector>
 
 using namespace std;
-
-typedef vector<Item*> itemList;
 
 class Folder : public Item
 {
@@ -16,14 +14,15 @@ public:
     Folder(const Folder& folder);
     ~Folder();
 
-    itemList getAllItems() const;
+
 
     void addSubItem(Item* item);
     void removeSubItem(Item *item);
     Item* getSubItem(const string& itemName) const;
+    ItemList getAllSubItems() const;
 
 private:
-    itemList items_;
+    ItemList items_;
 
 };
 

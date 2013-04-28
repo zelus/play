@@ -11,13 +11,13 @@ int main()
     //Item* item2 = new Item("test2",item1);
     folder->addSubItem(item1);
     cout << folder->getName() << endl;
-    for(size_t i = 0; i < folder->getAllItems().size(); i++) {
-        cout << "\t-" << folder->getAllItems()[i]->getName() << endl;
+    for(size_t i = 0; i < folder->getAllSubItems().size(); i++) {
+        cout << "\t-" << folder->getAllSubItems()[i]->getName() << endl;
     }
-    cout << "folder size : " << folder->getAllItems().size() << endl;
+    cout << "folder size : " << folder->getAllSubItems().size() << endl;
     cout << folder->getSubItem("test1")->getName() << endl;
     delete item1;
-    cout << "folder size : " << folder->getAllItems().size() << endl;
+    cout << "folder size : " << folder->getAllSubItems().size() << endl;
     return 0;
 }
 

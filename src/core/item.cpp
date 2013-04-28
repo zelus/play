@@ -73,3 +73,10 @@ Item* Item::getSubItem(const string &itemName) const
     ss << "The Item " << itemName_ << " is not a container.";
     throw logic_error(ss.str());
 }
+
+ItemList Item::getAllSubItems() const
+{
+    stringstream ss;
+    ss << "The Item " << itemName_ << " is not a container.";
+    throw logic_error(ss.str());
+}

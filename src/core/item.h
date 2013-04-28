@@ -1,6 +1,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 
+#include "common.h"
 #include <string>
 
 using namespace std;
@@ -22,6 +23,7 @@ public:
     virtual void addSubItem(Item* item);
     virtual void removeSubItem(Item* item);
     virtual Item* getSubItem(const string& itemName) const;
+    virtual ItemList getAllSubItems() const;
 
 protected:
     string itemName_;
