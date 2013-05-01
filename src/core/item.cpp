@@ -5,6 +5,13 @@
 // debug
 #include <iostream>
 
+/*!
+  \brief Construct an Item from the given parameters.
+  \note If a parent is given the constructed Item is added to its parent child list.
+  \param itemName The name of the Item.
+  \param itemType The type of the Item.
+  \param parent The parent of the Item.
+ */
 Item::Item(const string& itemName, ItemType itemType, Item* parent)
 {
     itemName_ = itemName;
@@ -19,6 +26,10 @@ Item::Item(const string& itemName, ItemType itemType, Item* parent)
     }
 }
 
+/*!
+  \brief Construct an Item from the given Item.
+  \param item The Item to contruct from.
+ */
 Item::Item(const Item &item)
 {
     itemName_ = item.itemName_;

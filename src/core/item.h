@@ -1,3 +1,9 @@
+/*!
+  \file item.h
+  \author Gwendal Daniel
+  \date 2013-04-28
+ */
+
 #ifndef ITEM_H
 #define ITEM_H
 
@@ -8,6 +14,9 @@ using namespace std;
 
 class Folder;
 
+/*!
+  \brief Represents an abstract Item.
+ */
 class Item
 {
 
