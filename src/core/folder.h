@@ -1,3 +1,9 @@
+/*!
+  \file folder.h
+  \author Gwendal Daniel
+  \date 2013-04-28
+ */
+
 #ifndef FOLDER_H
 #define FOLDER_H
 
@@ -7,6 +13,14 @@
 
 using namespace std;
 
+/*!
+  \brief Represents a concrete Item with folder properties.
+
+  The Folder class is a part of the \em composite pattern used to store
+  the Item tree. It is derivated from the Item class and represents an Item
+  with children management methods.
+  It overrides children management default methods defined in Item class.
+ */
 class Folder : public Item
 {
 public:

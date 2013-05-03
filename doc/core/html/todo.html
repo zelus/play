@@ -57,10 +57,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="_todo000001"></a> </p>
 <dl>
-<dt>Member <a class="el" href="classItem.html#a3fed8ca8026d1c3bfeef8a5516eeefd8">Item::setParent</a> (<a class="el" href="classFolder.html">Folder</a> *parent) </dt>
-<dd>Wrong type for parent parameter, should be Item* </dd>
+<dt>Member <a class="el" href="classFolder.html#a4f0e9f1ce101045cdd0335029acf8710">Folder::removeSubItem</a> (<a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> *item) </dt>
+<dd>Raise an exception if the item is not in the child list. </dd>
 </dl>
 <p><a class="anchor" id="_todo000002"></a> </p>
+<dl>
+<dt>Member <a class="el" href="classItem.html#a3fed8ca8026d1c3bfeef8a5516eeefd8">Item::setParent</a> (<a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> *parent) </dt>
+<dd>Wrong type for parent parameter, should be Item* </dd>
+</dl>
+<p><a class="anchor" id="_todo000003"></a> </p>
 <dl>
 <dt>Member <a class="el" href="classMovie.html#a29ff2137f9ba0ac471f044c9a9353720">Movie::Movie</a> (const string &amp;movieName="", <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> *parent=nullptr) </dt>
 <dd>An other constructor should be defined that allow a <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> creation with a given notation and a given summary. </dd>
@@ -80,7 +85,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri May 3 2013 11:13:27 for play.core by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri May 3 2013 11:58:46 for play.core by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>
