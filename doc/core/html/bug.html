@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>play.core: common.h Source File</title>
+<title>play.core: Bug List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
@@ -28,9 +28,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li class="current"><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
-      <li class="current"><a href="files.html"><span>Files</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -49,34 +49,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
-  <div id="navrow2" class="tabs2">
-    <ul class="tablist">
-      <li><a href="files.html"><span>File&#160;List</span></a></li>
-    </ul>
-  </div>
+</div>
 <div class="header">
   <div class="headertitle">
-<div class="title">common.h</div>  </div>
+<div class="title">Bug List </div>  </div>
 </div>
 <div class="contents">
-<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef COMMON_H</span>
-<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define COMMON_H</span>
-<a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;vector&gt;</span>
-<a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="keyword">class </span><a class="code" href="classItem.html" title="Represents an abstract Item.">Item</a>;
-<a name="l00007"></a>00007 
-<a name="l00008"></a>00008 <span class="keyword">enum</span> ItemType {
-<a name="l00009"></a>00009     ANY_TYPE,
-<a name="l00010"></a>00010     FOLDER_TYPE,
-<a name="l00011"></a>00011     MOVIE_TYPE
-<a name="l00012"></a>00012 };
-<a name="l00013"></a>00013 
-<a name="l00014"></a>00014 <span class="keyword">typedef</span> std::vector&lt;Item*&gt; ItemList;
-<a name="l00015"></a>00015 
-<a name="l00016"></a>00016 <span class="preprocessor">#endif // COMMON_H</span>
-</pre></div></div>
-</div>
+<div class="textblock"><p><a class="anchor" id="_bug000001"></a> </p>
+<dl>
+<dt>Member <a class="el" href="classItem.html#a3fed8ca8026d1c3bfeef8a5516eeefd8">Item::setParent</a> (<a class="el" href="classFolder.html">Folder</a> *parent) </dt>
+<dd>No managing of previous parent child list </dd>
+</dl>
+</div></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"

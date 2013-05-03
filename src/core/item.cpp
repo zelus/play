@@ -6,7 +6,7 @@
 #include <iostream>
 
 /*!
-  \brief Construct an Item from the given parameters.
+  \brief Constructs an Item from the given parameters.
   \note If a parent is given the constructed Item is added to its parent child list.
   \param itemName The name of the Item.
   \param itemType The type of the Item.
@@ -27,7 +27,7 @@ Item::Item(const string& itemName, ItemType itemType, Item* parent)
 }
 
 /*!
-  \brief Construct an Item from the given Item.
+  \brief Constructs an Item from the given Item.
   \param item The Item to contruct from.
  */
 Item::Item(const Item &item)
@@ -44,6 +44,11 @@ Item::Item(const Item &item)
     }
 }
 
+/*!
+  \brief Deletes the Item.
+
+  If the Item has a parent it also delete references to it in the parent child list.
+ */
 Item::~Item()
 {
     if(parent_ != nullptr) {
@@ -51,26 +56,49 @@ Item::~Item()
     }
 }
 
+/*!
+  \return the parent of the Item.
+ */
 const Item* Item::getParent() const
 {
     return parent_;
 }
 
+/*!
+  \return the name of the Item.
+ */
 const string& Item::getName() const
 {
     return itemName_;
 }
 
+/*!
+  \return the ItemType of the Item.
+ */
 ItemType Item::getType() const
 {
     return itemType_;
 }
 
+/*!
+  \brief Set a new parent to the Item.
+  \param parent the new parent.
+  \todo Wrong type for parent parameter, should be Item*
+  \bug No managing of previous parent child list
+ */
 void Item::setParent(Folder *parent)
 {
     parent_ = parent;
 }
 
+/*!
+  \brief Basic implementation of the addSubItem method.
+  \param item the Item to add to the child list.
+  \exception std::logic_error if the Item can not have children.
+  \warning This method fails default because basic Items are not allowed to have children.
+  See design pattern \em composite for further informations about global interfaces.
+  \note This method should be overriden by inherited classes that can handle children.
+ */
 void Item::addSubItem(Item *item)
 {
     stringstream ss;
@@ -78,6 +106,14 @@ void Item::addSubItem(Item *item)
     throw logic_error(ss.str());
 }
 
+/*!
+  \brief Basic implementation of the removeSubItem method.
+  \param item the Item to remove from the child list.
+  \exception std::logic_error if the Item can not have children.
+  \warning This method fails default because basic Items are not allowed to have children.
+  See design pattern \em composite for further informations about global interfaces.
+  \note This method should be overriden by inherited classes that can handle children.
+ */
 void Item::removeSubItem(Item *item)
 {
     stringstream ss;
@@ -85,6 +121,14 @@ void Item::removeSubItem(Item *item)
     throw logic_error(ss.str());
 }
 
+/*!
+  \brief Basic implementation of the getSubItem method.
+  \param itemName the name of the wanted Item.
+  \exception std::logic_error if the Item can not have children.
+  \warning This method fails default because basic Items are not allowed to have children.
+  See design pattern \em composite for further informations about global interfaces.
+  \note This method should be overriden by inherited classes that can handle children.
+ */
 Item* Item::getSubItem(const string &itemName) const
 {
     stringstream ss;
@@ -92,6 +136,14 @@ Item* Item::getSubItem(const string &itemName) const
     throw logic_error(ss.str());
 }
 
+/*!
+  \brief Basic implementation of the getAllSubItems method.
+
+  \exception std::logic_error if the Item can not have children.
+  \warning This method fails default because basic Items are not allowed to have children.
+  See design pattern \em composite for further imformations about global interfaces.
+  \note This method should be overriden by inherited classes that can handle children.
+ */
 ItemList Item::getAllSubItems() const
 {
     stringstream ss;
