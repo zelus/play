@@ -30,6 +30,7 @@ public:
 
     void addSubItem(Item* item);
     void removeSubItem(Item *item);
+    void deleteSubItem(Item *item);
     Item* getSubItem(const string& itemName) const;
     ItemList getAllSubItems() const;
 

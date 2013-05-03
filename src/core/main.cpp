@@ -16,8 +16,14 @@ int main()
     }
     cout << "folder size : " << folder->getAllSubItems().size() << endl;
     cout << folder->getSubItem("test1")->getName() << endl;
-    delete item1;
-    cout << "folder size : " << folder->getAllSubItems().size() << endl;
+
+    Folder* folder2 = new Folder("fold2");
+    folder2->addSubItem(item1);
+
+    folder2->deleteSubItem(item1);
+
+    cout << "folder1 size : " << folder->getAllSubItems().size() << endl;
+    cout << "folder2 size : " << folder2 ->getAllSubItems().size() << endl;
     return 0;
 }
 

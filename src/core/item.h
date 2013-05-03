@@ -25,13 +25,14 @@ public:
     Item(const Item& item);
     ~Item();
 
-    const Item* getParent() const;
+    Item* getParent() const;
     const string& getName() const;
     ItemType getType() const;
 
     void setParent(Item* parent);
     virtual void addSubItem(Item* item);
     virtual void removeSubItem(Item* item);
+    virtual void deleteSubItem(Item* item);
     virtual Item* getSubItem(const string& itemName) const;
     virtual ItemList getAllSubItems() const;
 

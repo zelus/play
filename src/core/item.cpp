@@ -46,20 +46,20 @@ Item::Item(const Item &item)
 
 /*!
   \brief Deletes the Item.
-
-  If the Item has a parent it also delete references to it in the parent child list.
+  \warning This method doesn't ensure consistency of the
+  composite pattern : no deletion on eventual parent is done,
+  if you want to delete an Item wich has a parent you have to
+  use Item::deleteSubItem parent method instead.
  */
 Item::~Item()
 {
-    if(parent_ != nullptr) {
-        parent_->removeSubItem(this);
-    }
+
 }
 
 /*!
   \return the parent of the Item.
  */
-const Item* Item::getParent() const
+Item* Item::getParent() const
 {
     return parent_;
 }
@@ -82,29 +82,15 @@ ItemType Item::getType() const
 
 /*!
   \brief Set a new parent to the Item.
-
-  If the Item already has a parent it is removed from its parent
-  child list.
-  If the new parent is not a nullptr it is added to its child list.
   \param parent the new parent.
+  \warning This method doesn't ensure consistency of the
+  composite pattern : the Item is not removed from its eventual parent,
+  if you want to remove an Item from its parent you have to use
+  Item::removeSubItem parent method instead.
  */
 void Item::setParent(Item *parent)
 {
-    if(parent_ != nullptr) {
-        try {
-            parent_->removeSubItem(this);
-        }catch(logic_error& e) {
-            throw e;
-        }
-    }
     parent_ = parent;
-    if(parent_ != nullptr) {
-        try {
-            parent_->addSubItem(this);
-        }catch(logic_error& e) {
-            throw e;
-        }
-    }
 }
 
 /*!
@@ -131,6 +117,21 @@ void Item::addSubItem(Item *item)
   \note This method should be overriden by inherited classes that can handle children.
  */
 void Item::removeSubItem(Item *item)
+{
+    stringstream ss;
+    ss << "The Item " << itemName_ << " is not a container.";
+    throw logic_error(ss.str());
+}
+
+/*!
+  \brief Basic implementation of the deleteSubItem method.
+  \param item the Item to remove from the child list.
+  \exception std::logic_error if the Item can not have children.
+  \warning This method fails default because basic Items are not allowed to have children.
+  See design pattern \em composite for further informations about global interfaces.
+  \note This method should be overriden by inherited classes that can handle children.
+ */
+void Item::deleteSubItem(Item *item)
 {
     stringstream ss;
     ss << "The Item " << itemName_ << " is not a container.";

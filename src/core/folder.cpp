@@ -39,27 +39,57 @@ Folder::~Folder()
 
 /*!
   \brief Overrides the basic addSubItem method defined in Item class.
+
+  If the Item already has a not nullptr parent, it is removed from its parent child list.
+  The Item parent is then setted to the current Folder.
   \param item the Item to add to the child list.
  */
 void Folder::addSubItem(Item *item)
 {
-    items_.push_back(item);
-    item->setParent(this);
+    Item* itemParent = item->getParent();
+    if(itemParent != this) {
+        if(itemParent != nullptr) {
+            itemParent->removeSubItem(item);
+        }
+        item->setParent(this);
+        items_.push_back(item);
+    }
 }
 
 /*!
   \brief Overrides the basic removeSubItem method defined in Item class.
+
+  The Item parent is restored to its default value : nullptr.
   \param item the Item to remove from the child list.
-  \note The removed Item is not deleted.
+  \note The removed Item is not deleted. To delete a child Item see deleteSubItem method instead.
   \todo Raise an exception if the item is not in the child list.
  */
 void Folder::removeSubItem(Item *item)
 {
     ItemList::iterator it;
     for(it = items_.begin(); it != items_.end(); ++it) {
-        if((*it)->getName() == item->getName()) {
-            (*it)->setParent(nullptr);
+        if((*it)->getName() == item->getName()) {            
             items_.erase(it);
+            (*it)->setParent(nullptr);
+            return;
+        }
+    }
+}
+
+/*!
+  \brief Overrides the basic deleteSubItem method defined in Item class.
+
+  The given Item is removed from the child list and the destructor is called.
+  \param item the Item to delete.
+  \todo Raise an exception if the Item is not in the child list.
+ */
+void Folder::deleteSubItem(Item *item)
+{
+    ItemList::iterator it;
+    for(it = items_.begin(); it != items_.end(); ++it) {
+        if((*it)->getName() == item->getName()) {
+            items_.erase(it);
+            delete (*it);
             return;
         }
     }
