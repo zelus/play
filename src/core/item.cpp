@@ -82,13 +82,29 @@ ItemType Item::getType() const
 
 /*!
   \brief Set a new parent to the Item.
+
+  If the Item already has a parent it is removed from its parent
+  child list.
+  If the new parent is not a nullptr it is added to its child list.
   \param parent the new parent.
-  \todo Wrong type for parent parameter, should be Item*
-  \bug No managing of previous parent child list
  */
-void Item::setParent(Folder *parent)
+void Item::setParent(Item *parent)
 {
+    if(parent_ != nullptr) {
+        try {
+            parent_->removeSubItem(this);
+        }catch(logic_error& e) {
+            throw e;
+        }
+    }
     parent_ = parent;
+    if(parent_ != nullptr) {
+        try {
+            parent_->addSubItem(this);
+        }catch(logic_error& e) {
+            throw e;
+        }
+    }
 }
 
 /*!

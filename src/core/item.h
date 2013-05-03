@@ -29,7 +29,7 @@ public:
     const string& getName() const;
     ItemType getType() const;
 
-    void setParent(Folder* parent);
+    void setParent(Item* parent);
     virtual void addSubItem(Item* item);
     virtual void removeSubItem(Item* item);
     virtual Item* getSubItem(const string& itemName) const;
