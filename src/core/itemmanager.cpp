@@ -39,12 +39,10 @@ const Item* ItemManager::findItem(const string &itemName, ItemType itemType, Ite
     return nullptr;
 }
 
-void ItemManager::createMovie(const string &movieName, const string &movieSummary, const short movieNotation, Item *parentFolder)
+Movie* ItemManager::createMovie(const string &movieName, const string &movieSummary, const short movieNotation, Item *parentFolder)
 {
     try {
-        Movie* movie = new Movie(movieName,parentFolder);
-        movie->setSummary(movieSummary);
-        movie->setNotation(movieNotation);
+        return new Movie(movieName,movieSummary,movieNotation,parentFolder);
     }catch(logic_error& e) {
         throw e;
     }

@@ -15,7 +15,7 @@ public:
 
     const Item* findItem(const string& itemName, ItemType itemType = ANY_TYPE, Item* parentFolder = nullptr) const;
 
-    void createMovie(const string& movieName, const string& movieSummary = "", const short movieNotation = 0, Item* parentFolder = nullptr);
+    Movie* createMovie(const string& movieName, const string& movieSummary = "", const short movieNotation = 0, Item* parentFolder = nullptr);
 
 private:
     Item* treeRoot_;
