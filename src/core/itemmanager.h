@@ -16,6 +16,7 @@ public:
 
     Item* findItem(const string& itemName, ItemType itemType = ANY_TYPE, Item* parentFolder = nullptr) const;
     Movie* findMovie(const string& movieName, Item* parentFolder = nullptr) const;
+    Folder* findFolder(const string& folderName, Item* parentFolder = nullptr) const;
 
     Movie* createMovie(const string& movieName, const string& movieSummary = "", const short movieNotation = 0, Item* parentFolder = nullptr);
     Folder* createFolder(const string& folderName, Item* parentFolder = nullptr);

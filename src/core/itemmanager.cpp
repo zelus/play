@@ -48,6 +48,11 @@ Movie* ItemManager::findMovie(const string &movieName, Item *parentFolder) const
     return dynamic_cast<Movie*>(findItem(movieName,MOVIE_TYPE,parentFolder));
 }
 
+Folder* ItemManager::findFolder(const string &folderName, Item *parentFolder) const
+{
+    return dynamic_cast<Folder*>(findItem(folderName, FOLDER_TYPE, parentFolder));
+}
+
 Movie* ItemManager::createMovie(const string &movieName, const string &movieSummary, const short movieNotation, Item *parentFolder)
 {
     try {
