@@ -1,8 +1,12 @@
 #include "itemmanager.h"
 #include <stdexcept>
 
+// debug
+#include <iostream>
+
 ItemManager::ItemManager()
 {
+    treeRoot_ = new Folder("_root_");
 }
 
 ItemManager::ItemManager(const ItemManager &itemManager)
@@ -15,7 +19,7 @@ ItemManager::~ItemManager()
     delete treeRoot_;
 }
 
-const Item* ItemManager::findItem(const string &itemName, ItemType itemType, Item *parentFolder) const
+Item* ItemManager::findItem(const string &itemName, ItemType itemType, Item *parentFolder) const
 {
     Item* searchStart = parentFolder;
     if(parentFolder == nullptr) {
@@ -31,7 +35,7 @@ const Item* ItemManager::findItem(const string &itemName, ItemType itemType, Ite
         if(folderChilds[i]->getName() == itemName && folderChilds[i]->getType() == itemType) {
             return folderChilds[i];
         }
-        const Item* recursiveSearchResult = findItem(itemName,itemType,folderChilds[i]);
+        Item* recursiveSearchResult = findItem(itemName,itemType,folderChilds[i]);
         if(recursiveSearchResult != nullptr) {
             return recursiveSearchResult;
         }
@@ -39,10 +43,34 @@ const Item* ItemManager::findItem(const string &itemName, ItemType itemType, Ite
     return nullptr;
 }
 
+Movie* ItemManager::findMovie(const string &movieName, Item *parentFolder) const
+{
+    return dynamic_cast<Movie*>(findItem(movieName,MOVIE_TYPE,parentFolder));
+}
+
 Movie* ItemManager::createMovie(const string &movieName, const string &movieSummary, const short movieNotation, Item *parentFolder)
 {
     try {
-        return new Movie(movieName,movieSummary,movieNotation,parentFolder);
+        if(parentFolder == nullptr) {
+            return new Movie(movieName,movieSummary,movieNotation,treeRoot_);
+        }
+        else {
+            return new Movie(movieName, movieSummary,movieNotation,parentFolder);
+        }
+    }catch(logic_error& e) {
+        throw e;
+    }
+}
+
+Folder* ItemManager::createFolder(const string &folderName, Item *parentFolder)
+{
+    try {
+        if(parentFolder == nullptr) {
+            return new Folder(folderName, treeRoot_);
+        }
+        else {
+            return new Folder(folderName, parentFolder);
+        }
     }catch(logic_error& e) {
         throw e;
     }

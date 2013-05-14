@@ -1,29 +1,29 @@
 #include <iostream>
-#include "item.h"
-#include "folder.h"
+#include "itemmanager.h"
 
 using namespace std;
 
 int main()
 {
-    Item* item1 = new Item("test1");
-    Folder* folder = new Folder("fold1");
-    //Item* item2 = new Item("test2",item1);
-    folder->addSubItem(item1);
-    cout << folder->getName() << endl;
-    for(size_t i = 0; i < folder->getAllSubItems().size(); i++) {
-        cout << "\t-" << folder->getAllSubItems()[i]->getName() << endl;
-    }
-    cout << "folder size : " << folder->getAllSubItems().size() << endl;
-    cout << folder->getSubItem("test1")->getName() << endl;
+    ItemManager im;
+    cout << "test" << endl;
 
-    Folder* folder2 = new Folder("fold2");
-    folder2->addSubItem(item1);
-
-    folder2->deleteSubItem(item1);
-
-    cout << "folder1 size : " << folder->getAllSubItems().size() << endl;
-    cout << "folder2 size : " << folder2 ->getAllSubItems().size() << endl;
+    /*cout << "test2" << endl;
+    cout << mov1->getParent()->getName() << endl;
+    cout << "root size = " << mov1->getParent()->getAllSubItems().size() << endl;*/
+    Item* fold = im.createFolder("fold");
+    Item* mov1 = im.createMovie("mov1","this is a wonderful movie",10,fold);
+    /*cout << "test3" << endl;
+    cout << fold->getParent()->getName() << endl;
+    cout << mov1->getParent()->getName() << endl;
+    cout << "root size = " << mov1->getParent()->getAllSubItems().size() << endl;*/
+    fold->addSubItem(mov1);
+    cout << "test4" << endl;
+    cout << fold->getAllSubItems().size() << endl;
+    cout << fold->getParent()->getName() << endl;
+    cout << mov1->getParent()->getName() << endl;
+    //im.findMovie("mov1");
+    cout << im.findMovie("mov1")->getSummary() << endl;
     return 0;
 }
 

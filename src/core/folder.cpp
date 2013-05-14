@@ -49,13 +49,13 @@ Folder::~Folder()
 void Folder::addSubItem(Item *item)
 {
     Item* itemParent = item->getParent();
-    if(itemParent != this) {
-        if(itemParent != nullptr) {
-            itemParent->removeSubItem(item);
-        }
-        item->setParent(this);
-        items_.push_back(item);
+    if(itemParent != this && itemParent != nullptr) {
+        cout << "removing "<< item->getName() << " from previous parent : " << itemParent->getName() << endl;
+        itemParent->removeSubItem(item);
     }
+    item->setParent(this);
+    items_.push_back(item);
+    cout << "testest" << endl;
 }
 
 /*!
@@ -70,9 +70,10 @@ void Folder::removeSubItem(Item *item)
 {
     ItemList::iterator it;
     for(it = items_.begin(); it != items_.end(); ++it) {
-        if((*it)->getName() == item->getName()) {            
-            items_.erase(it);
+        cout << "searching "<< (*it)->getName() << endl;
+        if((*it)->getName() == item->getName()) {
             (*it)->setParent(nullptr);
+            items_.erase(it);
             return;
         }
     }
@@ -93,8 +94,8 @@ void Folder::deleteSubItem(Item *item)
     ItemList::iterator it;
     for(it = items_.begin(); it != items_.end(); ++it) {
         if((*it)->getName() == item->getName()) {
-            items_.erase(it);
             delete (*it);
+            items_.erase(it);
             return;
         }
     }

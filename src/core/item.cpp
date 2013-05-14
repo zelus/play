@@ -14,6 +14,7 @@
  */
 Item::Item(const string& itemName, ItemType itemType, Item* parent)
 {
+    //cout << "?" << endl;
     itemName_ = itemName;
     parent_ = parent;
     itemType_ = itemType;
