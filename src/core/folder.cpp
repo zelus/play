@@ -1,6 +1,8 @@
 #include "folder.h"
 #include "item.h"
 
+#include <stdexcept>
+#include <sstream>
 // debug
 #include <iostream>
 
@@ -61,9 +63,9 @@ void Folder::addSubItem(Item *item)
 
   The Item parent is restored to its default value : nullptr.
   \param item the Item to remove from the child list.
+  \exception std::logic_error if the Folder doesn't contain the Item.
   \note The removed Item is not deleted. To delete a child Item see deleteSubItem method instead.
-  \todo Raise an exception if the item is not in the child list.
- */
+  */
 void Folder::removeSubItem(Item *item)
 {
     ItemList::iterator it;
@@ -74,6 +76,9 @@ void Folder::removeSubItem(Item *item)
             return;
         }
     }
+    stringstream ss;
+    ss << "The Folder " << itemName_ << " doesn't contain the Item " << item->getName();
+    throw logic_error(ss.str());
 }
 
 /*!
@@ -81,7 +86,7 @@ void Folder::removeSubItem(Item *item)
 
   The given Item is removed from the child list and the destructor is called.
   \param item the Item to delete.
-  \todo Raise an exception if the Item is not in the child list.
+  \exception std::logic_error if the Folder doesn't contain the Item.
  */
 void Folder::deleteSubItem(Item *item)
 {
@@ -93,6 +98,9 @@ void Folder::deleteSubItem(Item *item)
             return;
         }
     }
+    stringstream ss;
+    ss << "The Folder " << itemName_ << " doesn't contain the Item " << item->getName();
+    throw logic_error(ss.str());
 }
 
 /*!

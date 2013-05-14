@@ -28,7 +28,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
@@ -70,21 +69,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00023"></a>00023 {
 <a name="l00024"></a>00024 <span class="keyword">public</span>:
 <a name="l00025"></a>00025     <a class="code" href="classMovie.html#a29ff2137f9ba0ac471f044c9a9353720" title="Constructs a Movie from the given parameters.">Movie</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; movieName = <span class="stringliteral">&quot;&quot;</span>, <a class="code" href="classItem.html" title="Represents an abstract Item.">Item</a>* parent = <span class="keyword">nullptr</span>);
-<a name="l00026"></a>00026     <a class="code" href="classMovie.html#a29ff2137f9ba0ac471f044c9a9353720" title="Constructs a Movie from the given parameters.">Movie</a>(<span class="keyword">const</span> <a class="code" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a>&amp; movie);
-<a name="l00027"></a>00027     <a class="code" href="classMovie.html#abf1d82f3db5306141635e34cdb80273c" title="Deletes the Movie.">~Movie</a>();
-<a name="l00028"></a>00028 
-<a name="l00029"></a>00029     <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; <a class="code" href="classMovie.html#a3e1f79e2a27e767125700336c2735f95">getSummary</a>() <span class="keyword">const</span>;
-<a name="l00030"></a>00030     <span class="keywordtype">short</span> <a class="code" href="classMovie.html#aca0ba32ceeebab5391d63f21d873f8a8">getNotation</a>() <span class="keyword">const</span>;
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032     <span class="keywordtype">void</span> <a class="code" href="classMovie.html#a175642db541f082da1e5065996a6d6d1" title="Sets a new summary to the Movie.">setSummary</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; summary);
-<a name="l00033"></a>00033     <span class="keywordtype">void</span> <a class="code" href="classMovie.html#a71de7e0a8be012b00ceaf075fe2bb83f" title="Sets a new notation to the Movie.">setNotation</a>(<span class="keyword">const</span> <span class="keywordtype">short</span> notation);
-<a name="l00034"></a>00034 
-<a name="l00035"></a>00035 <span class="keyword">private</span>:
-<a name="l00036"></a>00036     <span class="keywordtype">string</span> summary_;
-<a name="l00037"></a>00037     <span class="keywordtype">short</span> notation_;
-<a name="l00038"></a>00038 };
-<a name="l00039"></a>00039 
-<a name="l00040"></a>00040 <span class="preprocessor">#endif // MOVIE_H</span>
+<a name="l00026"></a>00026     <a class="code" href="classMovie.html#a29ff2137f9ba0ac471f044c9a9353720" title="Constructs a Movie from the given parameters.">Movie</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; movieName, <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; movieSummary, <span class="keyword">const</span> <span class="keywordtype">short</span> movieNotation, <a class="code" href="classItem.html" title="Represents an abstract Item.">Item</a>* parent = <span class="keyword">nullptr</span>);
+<a name="l00027"></a>00027     <a class="code" href="classMovie.html#a29ff2137f9ba0ac471f044c9a9353720" title="Constructs a Movie from the given parameters.">Movie</a>(<span class="keyword">const</span> <a class="code" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a>&amp; movie);
+<a name="l00028"></a>00028     <a class="code" href="classMovie.html#abf1d82f3db5306141635e34cdb80273c" title="Deletes the Movie.">~Movie</a>();
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030     <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; <a class="code" href="classMovie.html#a3e1f79e2a27e767125700336c2735f95">getSummary</a>() <span class="keyword">const</span>;
+<a name="l00031"></a>00031     <span class="keywordtype">short</span> <a class="code" href="classMovie.html#aca0ba32ceeebab5391d63f21d873f8a8">getNotation</a>() <span class="keyword">const</span>;
+<a name="l00032"></a>00032 
+<a name="l00033"></a>00033     <span class="keywordtype">void</span> <a class="code" href="classMovie.html#a175642db541f082da1e5065996a6d6d1" title="Sets a new summary to the Movie.">setSummary</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; summary);
+<a name="l00034"></a>00034     <span class="keywordtype">void</span> <a class="code" href="classMovie.html#a71de7e0a8be012b00ceaf075fe2bb83f" title="Sets a new notation to the Movie.">setNotation</a>(<span class="keyword">const</span> <span class="keywordtype">short</span> notation);
+<a name="l00035"></a>00035 
+<a name="l00036"></a>00036 <span class="keyword">private</span>:
+<a name="l00037"></a>00037     <span class="keywordtype">string</span> summary_;
+<a name="l00038"></a>00038     <span class="keywordtype">short</span> notation_;
+<a name="l00039"></a>00039 };
+<a name="l00040"></a>00040 
+<a name="l00041"></a>00041 <span class="preprocessor">#endif // MOVIE_H</span>
 </pre></div></div>
 </div>
 <!-- window showing the filter options -->
@@ -101,7 +101,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri May 3 2013 11:58:46 for play.core by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue May 14 2013 14:14:57 for play.core by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

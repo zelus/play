@@ -28,7 +28,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
@@ -94,6 +93,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the basic addSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class.  <a href="#ab4dc4f34d8962b17b4109b879f515d90"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFolder.html#a4f0e9f1ce101045cdd0335029acf8710">removeSubItem</a> (<a class="el" href="classItem.html">Item</a> *item)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the basic removeSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class.  <a href="#a4f0e9f1ce101045cdd0335029acf8710"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFolder.html#a71ae365b392e42d08f52c9b118803286">deleteSubItem</a> (<a class="el" href="classItem.html">Item</a> *item)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the basic deleteSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class.  <a href="#a71ae365b392e42d08f52c9b118803286"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classItem.html">Item</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFolder.html#ac11905436ff6ca0d2c788c47403e8607">getSubItem</a> (const string &amp;itemName) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the basic getSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class.  <a href="#ac11905436ff6ca0d2c788c47403e8607"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">ItemList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFolder.html#a0cbb309bce189c6270cf70107ca97d94">getAllSubItems</a> () const </td></tr>
@@ -201,6 +202,7 @@ Public Member Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Overrides the basic addSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class. </p>
+<p>If the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> already has a not nullptr parent, it is removed from its parent child list. The <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> parent is then setted to the current <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a>. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">item</td><td>the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> to add to the child list. </td></tr>
@@ -209,6 +211,40 @@ Public Member Functions</h2></td></tr>
 </dl>
 
 <p>Reimplemented from <a class="el" href="classItem.html#ac8f334be74bfce0ef235174c93fe92da">Item</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a71ae365b392e42d08f52c9b118803286"></a><!-- doxytag: member="Folder::deleteSubItem" ref="a71ae365b392e42d08f52c9b118803286" args="(Item *item)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Folder::deleteSubItem </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classItem.html">Item</a> *&#160;</td>
+          <td class="paramname"><em>item</em></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Overrides the basic deleteSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class. </p>
+<p>The given <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> is removed from the child list and the destructor is called. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">item</td><td>the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> to delete. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::logic_error</td><td>if the <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> doesn't contain the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="classItem.html#afb31ddd2d75d65de406c58faae9bb256">Item</a>.</p>
 
 </div>
 </div>
@@ -277,14 +313,20 @@ Public Member Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Overrides the basic removeSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class. </p>
+<p>The <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> parent is restored to its default value : nullptr. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">item</td><td>the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> to remove from the child list. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="note"><dt><b>Note:</b></dt><dd>The removed <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> is not deleted. </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Raise an exception if the item is not in the child list. </dd></dl>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::logic_error</td><td>if the <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> doesn't contain the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="note"><dt><b>Note:</b></dt><dd>The removed <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> is not deleted. To delete a child <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> see deleteSubItem method instead. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classItem.html#a721341f149ee9d24bdba038d0337d5f6">Item</a>.</p>
 
@@ -309,7 +351,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri May 3 2013 11:58:46 for play.core by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue May 14 2013 14:14:57 for play.core by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

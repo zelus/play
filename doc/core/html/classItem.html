@@ -28,7 +28,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
@@ -92,15 +91,17 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> from the given <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>.  <a href="#a74a0ff4d80e6a46b672304bf7b604ad2"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItem.html#a11663c84075b78c3ae5e30fdfcd7c458">~Item</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>.  <a href="#a11663c84075b78c3ae5e30fdfcd7c458"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classItem.html">Item</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItem.html#adc648fb55c1de8ef7155ae7c867abbfa">getParent</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classItem.html">Item</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItem.html#a3bd8d92bb79f042db15e8e9381fe2e49">getParent</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItem.html#a200045522653d7519b792f1e6f99168c">getName</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">ItemType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItem.html#aab1466a8d14dda2edb1c488769c93225">getType</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItem.html#a3fed8ca8026d1c3bfeef8a5516eeefd8">setParent</a> (<a class="el" href="classFolder.html">Folder</a> *parent)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a new parent to the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>.  <a href="#a3fed8ca8026d1c3bfeef8a5516eeefd8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItem.html#afab45e064df9df96e30c51b45eb5d540">setParent</a> (<a class="el" href="classItem.html">Item</a> *parent)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Set a new parent to the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>.  <a href="#afab45e064df9df96e30c51b45eb5d540"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItem.html#ac8f334be74bfce0ef235174c93fe92da">addSubItem</a> (<a class="el" href="classItem.html">Item</a> *item)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic implementation of the addSubItem method.  <a href="#ac8f334be74bfce0ef235174c93fe92da"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItem.html#a721341f149ee9d24bdba038d0337d5f6">removeSubItem</a> (<a class="el" href="classItem.html">Item</a> *item)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic implementation of the removeSubItem method.  <a href="#a721341f149ee9d24bdba038d0337d5f6"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItem.html#afb31ddd2d75d65de406c58faae9bb256">deleteSubItem</a> (<a class="el" href="classItem.html">Item</a> *item)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic implementation of the deleteSubItem method.  <a href="#afb31ddd2d75d65de406c58faae9bb256"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classItem.html">Item</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItem.html#a6c14777f3f79c0c59cf5afd39309336f">getSubItem</a> (const string &amp;itemName) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic implementation of the getSubItem method.  <a href="#a6c14777f3f79c0c59cf5afd39309336f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual ItemList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItem.html#ac0dd29293787c0412afe49f5b45f7918">getAllSubItems</a> () const </td></tr>
@@ -201,7 +202,7 @@ ItemType&#160;</td><td class="memItemRight" valign="bottom"><b>itemType_</b></td
 <div class="memdoc">
 
 <p>Deletes the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>. </p>
-<p>If the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> has a parent it also delete references to it in the parent child list. </p>
+<dl class="warning"><dt><b>Warning:</b></dt><dd>This method doesn't ensure consistency of the composite pattern : no deletion on eventual parent is done, if you want to delete an <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> wich has a parent you have to use <a class="el" href="classItem.html#afb31ddd2d75d65de406c58faae9bb256" title="Basic implementation of the deleteSubItem method.">Item::deleteSubItem</a> parent method instead. </dd></dl>
 
 </div>
 </div>
@@ -238,6 +239,41 @@ ItemType&#160;</td><td class="memItemRight" valign="bottom"><b>itemType_</b></td
 <dl class="note"><dt><b>Note:</b></dt><dd>This method should be overriden by inherited classes that can handle children. </dd></dl>
 
 <p>Reimplemented in <a class="el" href="classFolder.html#ab4dc4f34d8962b17b4109b879f515d90">Folder</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afb31ddd2d75d65de406c58faae9bb256"></a><!-- doxytag: member="Item::deleteSubItem" ref="afb31ddd2d75d65de406c58faae9bb256" args="(Item *item)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Item::deleteSubItem </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classItem.html">Item</a> *&#160;</td>
+          <td class="paramname"><em>item</em></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Basic implementation of the deleteSubItem method. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">item</td><td>the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> to remove from the child list. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::logic_error</td><td>if the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> can not have children. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="warning"><dt><b>Warning:</b></dt><dd>This method fails default because basic Items are not allowed to have children. See design pattern <em>composite</em> for further informations about global interfaces. </dd></dl>
+<dl class="note"><dt><b>Note:</b></dt><dd>This method should be overriden by inherited classes that can handle children. </dd></dl>
+
+<p>Reimplemented in <a class="el" href="classFolder.html#a71ae365b392e42d08f52c9b118803286">Folder</a>.</p>
 
 </div>
 </div>
@@ -286,12 +322,12 @@ ItemType&#160;</td><td class="memItemRight" valign="bottom"><b>itemType_</b></td
 
 </div>
 </div>
-<a class="anchor" id="adc648fb55c1de8ef7155ae7c867abbfa"></a><!-- doxytag: member="Item::getParent" ref="adc648fb55c1de8ef7155ae7c867abbfa" args="() const " -->
+<a class="anchor" id="a3bd8d92bb79f042db15e8e9381fe2e49"></a><!-- doxytag: member="Item::getParent" ref="a3bd8d92bb79f042db15e8e9381fe2e49" args="() const " -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classItem.html">Item</a> * Item::getParent </td>
+          <td class="memname"><a class="el" href="classItem.html">Item</a> * Item::getParent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -390,14 +426,14 @@ ItemType&#160;</td><td class="memItemRight" valign="bottom"><b>itemType_</b></td
 
 </div>
 </div>
-<a class="anchor" id="a3fed8ca8026d1c3bfeef8a5516eeefd8"></a><!-- doxytag: member="Item::setParent" ref="a3fed8ca8026d1c3bfeef8a5516eeefd8" args="(Folder *parent)" -->
+<a class="anchor" id="afab45e064df9df96e30c51b45eb5d540"></a><!-- doxytag: member="Item::setParent" ref="afab45e064df9df96e30c51b45eb5d540" args="(Item *parent)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void Item::setParent </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classFolder.html">Folder</a> *&#160;</td>
+          <td class="paramtype"><a class="el" href="classItem.html">Item</a> *&#160;</td>
           <td class="paramname"><em>parent</em></td><td>)</td>
           <td></td>
         </tr>
@@ -412,8 +448,7 @@ ItemType&#160;</td><td class="memItemRight" valign="bottom"><b>itemType_</b></td
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>Wrong type for parent parameter, should be Item* </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Bug:</a></b></dt><dd>No managing of previous parent child list </dd></dl>
+<dl class="warning"><dt><b>Warning:</b></dt><dd>This method doesn't ensure consistency of the composite pattern : the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> is not removed from its eventual parent, if you want to remove an <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> from its parent you have to use <a class="el" href="classItem.html#a721341f149ee9d24bdba038d0337d5f6" title="Basic implementation of the removeSubItem method.">Item::removeSubItem</a> parent method instead. </dd></dl>
 
 </div>
 </div>
@@ -436,7 +471,7 @@ ItemType&#160;</td><td class="memItemRight" valign="bottom"><b>itemType_</b></td
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri May 3 2013 11:58:46 for play.core by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue May 14 2013 14:14:57 for play.core by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>
