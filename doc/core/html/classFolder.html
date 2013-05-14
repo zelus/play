@@ -97,6 +97,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the basic deleteSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class.  <a href="#a71ae365b392e42d08f52c9b118803286"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classItem.html">Item</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFolder.html#ac11905436ff6ca0d2c788c47403e8607">getSubItem</a> (const string &amp;itemName) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the basic getSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class.  <a href="#ac11905436ff6ca0d2c788c47403e8607"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFolder.html#a9b93266ecbe60131f5b062a0867e82dd">containsSubItem</a> (const string &amp;itemName) const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the basic containsSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class.  <a href="#a9b93266ecbe60131f5b062a0867e82dd"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">ItemList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFolder.html#a0cbb309bce189c6270cf70107ca97d94">getAllSubItems</a> () const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the basic getAllSubItems method defined in the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class.  <a href="#a0cbb309bce189c6270cf70107ca97d94"></a><br/></td></tr>
 </table>
@@ -211,6 +213,34 @@ Public Member Functions</h2></td></tr>
 </dl>
 
 <p>Reimplemented from <a class="el" href="classItem.html#ac8f334be74bfce0ef235174c93fe92da">Item</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9b93266ecbe60131f5b062a0867e82dd"></a><!-- doxytag: member="Folder::containsSubItem" ref="a9b93266ecbe60131f5b062a0867e82dd" args="(const string &amp;itemName) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Folder::containsSubItem </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>itemName</em></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Overrides the basic containsSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">itemName</td><td>the name of the wanted <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if the wanted <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> is in the child list, false otherwise. </dd></dl>
+
+<p>Reimplemented from <a class="el" href="classItem.html#a1b2af18554fa8b33db93ee2550b776e5">Item</a>.</p>
 
 </div>
 </div>
@@ -351,7 +381,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Tue May 14 2013 14:14:57 for play.core by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed May 15 2013 01:26:07 for play.core by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

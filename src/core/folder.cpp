@@ -48,14 +48,17 @@ Folder::~Folder()
  */
 void Folder::addSubItem(Item *item)
 {
+    if(containsSubItem(item->getName())) {
+        stringstream ss;
+        ss << "The Folder " << itemName_ << " already contains an Item with the name " << item->getName();
+        throw logic_error(ss.str());
+    }
     Item* itemParent = item->getParent();
     if(itemParent != this && itemParent != nullptr) {
-        cout << "removing "<< item->getName() << " from previous parent : " << itemParent->getName() << endl;
         itemParent->removeSubItem(item);
     }
     item->setParent(this);
     items_.push_back(item);
-    cout << "testest" << endl;
 }
 
 /*!
@@ -70,7 +73,6 @@ void Folder::removeSubItem(Item *item)
 {
     ItemList::iterator it;
     for(it = items_.begin(); it != items_.end(); ++it) {
-        cout << "searching "<< (*it)->getName() << endl;
         if((*it)->getName() == item->getName()) {
             (*it)->setParent(nullptr);
             items_.erase(it);
@@ -119,6 +121,23 @@ Item* Folder::getSubItem(const string &itemName) const
         }
     }
     return nullptr;
+}
+
+/*!
+  \brief Overrides the basic containsSubItem method defined in Item class.
+  \param itemName the name of the wanted Item.
+  \return true if the wanted Item is in the child list, false
+  otherwise.
+ */
+bool Folder::containsSubItem(const string &itemName) const
+{
+    ItemList::const_iterator it;
+    for(it = items_.begin(); it != items_.end(); ++it) {
+        if((*it)->getName() == itemName) {
+            return true;
+        }
+    }
+    return false;
 }
 
 /*!

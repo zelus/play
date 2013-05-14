@@ -32,6 +32,7 @@ public:
     void removeSubItem(Item *item);
     void deleteSubItem(Item *item);
     Item* getSubItem(const string& itemName) const;
+    bool containsSubItem(const string& itemName) const;
     ItemList getAllSubItems() const;
 
 private:

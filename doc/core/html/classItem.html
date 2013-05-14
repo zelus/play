@@ -104,6 +104,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic implementation of the deleteSubItem method.  <a href="#afb31ddd2d75d65de406c58faae9bb256"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classItem.html">Item</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItem.html#a6c14777f3f79c0c59cf5afd39309336f">getSubItem</a> (const string &amp;itemName) const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic implementation of the getSubItem method.  <a href="#a6c14777f3f79c0c59cf5afd39309336f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItem.html#a1b2af18554fa8b33db93ee2550b776e5">containsSubItem</a> (const string &amp;itemName) const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic implementation of the containsSubItem method.  <a href="#a1b2af18554fa8b33db93ee2550b776e5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual ItemList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItem.html#ac0dd29293787c0412afe49f5b45f7918">getAllSubItems</a> () const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic implementation of the getAllSubItems method.  <a href="#ac0dd29293787c0412afe49f5b45f7918"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
@@ -239,6 +241,41 @@ ItemType&#160;</td><td class="memItemRight" valign="bottom"><b>itemType_</b></td
 <dl class="note"><dt><b>Note:</b></dt><dd>This method should be overriden by inherited classes that can handle children. </dd></dl>
 
 <p>Reimplemented in <a class="el" href="classFolder.html#ab4dc4f34d8962b17b4109b879f515d90">Folder</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1b2af18554fa8b33db93ee2550b776e5"></a><!-- doxytag: member="Item::containsSubItem" ref="a1b2af18554fa8b33db93ee2550b776e5" args="(const string &amp;itemName) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Item::containsSubItem </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>itemName</em></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Basic implementation of the containsSubItem method. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">itemName</td><td>the name of the wanted <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::logic_error</td><td>if the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> can not have children. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="warning"><dt><b>Warning:</b></dt><dd>This method fails default because basic Items are not allowed to have children. See design pattern <em>composite</em> for further informations about global interfaces. </dd></dl>
+<dl class="note"><dt><b>Note:</b></dt><dd>This method should be overriden by inherited classes that can handle children. </dd></dl>
+
+<p>Reimplemented in <a class="el" href="classFolder.html#a9b93266ecbe60131f5b062a0867e82dd">Folder</a>.</p>
 
 </div>
 </div>
@@ -471,7 +508,7 @@ ItemType&#160;</td><td class="memItemRight" valign="bottom"><b>itemType_</b></td
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Tue May 14 2013 14:14:57 for play.core by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed May 15 2013 01:26:07 for play.core by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

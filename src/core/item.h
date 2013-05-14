@@ -34,6 +34,7 @@ public:
     virtual void removeSubItem(Item* item);
     virtual void deleteSubItem(Item* item);
     virtual Item* getSubItem(const string& itemName) const;
+    virtual bool containsSubItem(const string& itemName) const;
     virtual ItemList getAllSubItems() const;
 
 protected:

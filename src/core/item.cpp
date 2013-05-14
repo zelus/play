@@ -14,7 +14,6 @@
  */
 Item::Item(const string& itemName, ItemType itemType, Item* parent)
 {
-    //cout << "?" << endl;
     itemName_ = itemName;
     parent_ = parent;
     itemType_ = itemType;
@@ -148,6 +147,21 @@ void Item::deleteSubItem(Item *item)
   \note This method should be overriden by inherited classes that can handle children.
  */
 Item* Item::getSubItem(const string &itemName) const
+{
+    stringstream ss;
+    ss << "The Item " << itemName_ << " is not a container.";
+    throw logic_error(ss.str());
+}
+
+/*!
+  \brief Basic implementation of the containsSubItem method.
+  \param itemName the name of the wanted Item.
+  \exception std::logic_error if the Item can not have children.
+  \warning This method fails default because basic Items are not allowed to have children.
+  See design pattern \em composite for further informations about global interfaces.
+  \note This method should be overriden by inherited classes that can handle children.
+ */
+bool Item::containsSubItem(const string &itemName) const
 {
     stringstream ss;
     ss << "The Item " << itemName_ << " is not a container.";
