@@ -7,7 +7,7 @@ int main()
 {
     ItemManager im;
     Item* fold = im.createFolder("fold");
-    Item* mov1 = im.createMovie("mov1","this is a wonderful movie",10,fold);
+    Item* mov1 = im.createMovie("mov1",fold,"this is a wonderful movie",10);
     // fixme #2
     //fold->addSubItem(mov1);
     cout << fold->getAllSubItems().size() << endl;
