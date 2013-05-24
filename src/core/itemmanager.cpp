@@ -169,10 +169,16 @@ Folder* ItemManager::createFolder(const string &folderName, Item *parentFolder)
 
   \param item the Item to convert.
   \return the casted Movie if the conversion is successful, nullptr otherwhise.
+  \exception std::runtime_error if the cast cannot be done (nullptr as given Item
+  or not possible dynamic conversion).
  */
 Movie* ItemManager::itemToMovie(Item *item) const
 {
-    return dynamic_cast<Movie*>(item);
+    Movie* movie =  dynamic_cast<Movie*>(item);
+    if(movie == nullptr) {
+        throw runtime_error("Unable to cast the given Item into Movie");
+    }
+    return movie;
 }
 
 /*!
@@ -180,8 +186,14 @@ Movie* ItemManager::itemToMovie(Item *item) const
 
   \param item the Item to convert.
   \return the casted Folder if the conversion is successful, nullptr otherwhise.
+  \exception std::runtime_error if the cast cannot be done (nullptr as given Item
+  or not possible dynamic conversion).
  */
 Folder* ItemManager::itemToFolder(Item *item) const
 {
-    return dynamic_cast<Folder*>(item);
+    Folder* folder = dynamic_cast<Folder*>(item);
+    if(folder == nullptr) {
+        throw runtime_error("Unable to cast the given Item into Folder");
+    }
+    return folder;
 }
