@@ -29,9 +29,9 @@ public:
     ItemManager(const ItemManager& itemManager);
     ~ItemManager();
 
-    Item* findItem(const string& itemName, ItemType itemType = ANY_TYPE, Item* parentFolder = nullptr) const;
-    Movie* findMovie(const string& movieName, Item* parentFolder = nullptr) const;
-    Folder* findFolder(const string& folderName, Item* parentFolder = nullptr) const;
+    ItemList findItem(const string& itemName, ItemType itemType = ANY_TYPE, Item* parentFolder = nullptr) const;
+    MovieList findMovie(const string& movieName, Item* parentFolder = nullptr) const;
+    FolderList findFolder(const string& folderName, Item* parentFolder = nullptr) const;
 
     Movie* createMovie(const string& movieName, Item* parentFolder = nullptr, const string& movieSummary = "", const short movieNotation = 0);
     Folder* createFolder(const string& folderName, Item* parentFolder = nullptr);
@@ -39,7 +39,13 @@ public:
     Movie* itemToMovie(Item* item) const;
     Folder* itemToFolder(Item* item) const;
 
+    MovieList itemListToMovieList(const ItemList& itemList) const;
+    FolderList itemListToFolderList(const ItemList& itemList) const;
+
 private:
+
+    void recursiveFindItem(const string& itemName, ItemType itemType, Item* parentFolder, ItemList& foundedItems) const;
+
     Item* treeRoot_;
 };
 

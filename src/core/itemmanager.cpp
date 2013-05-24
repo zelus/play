@@ -48,74 +48,63 @@ ItemManager::~ItemManager()
 /*!
   \brief Generic find Item method.
 
-  Searches the Item with the given name and type in all or part of the
+  Searches Items with given name and type in all or part of the
   Item tree.
   \param itemName the name of the wanted Item.
   \param itemType the type of the wanted Item.
   \param parentFolder the Item to start the research from. It allow research
   in subtrees, wich is faster than a complete research.
-  \return the Item pointer if the wanted Item is in the Item tree, nullptr
-  otherwhise.
+  \return the list of all the Item corresponding to the given parameters. If no Item
+  corresponds the returned list is empty.
   \note The Item is returned through the global interface Item, to get
   concrete Item types object use the appropriated find method. You can also
   use this method with the appropriated cast method.
   \note If ANY_TYPE is given as itemType all the items corresponding to the other
   parameters are returned.
  */
-Item* ItemManager::findItem(const string &itemName, ItemType itemType, Item *parentFolder) const
+ItemList ItemManager::findItem(const string &itemName, ItemType itemType, Item *parentFolder) const
 {
+    ItemList foundedItems;
     Item* searchStart = parentFolder;
     if(parentFolder == nullptr) {
         searchStart = treeRoot_;
     }
-    ItemList folderChilds;
-    try {
-        folderChilds = searchStart->getAllSubItems();
-    }catch(logic_error& e) {
-        return nullptr;
-    }
-    for(size_t i = 0; i < folderChilds.size(); ++i) {
-        if(folderChilds[i]->getName() == itemName && (folderChilds[i]->getType() == itemType || itemType == ANY_TYPE)) {
-            return folderChilds[i];
-        }
-        Item* recursiveSearchResult = findItem(itemName,itemType,folderChilds[i]);
-        if(recursiveSearchResult != nullptr) {
-            return recursiveSearchResult;
-        }
-    }
-    return nullptr;
+    recursiveFindItem(itemName,itemType,searchStart,foundedItems);
+    return foundedItems;
 }
 
 /*!
   \brief Find Movie method.
 
   This method is a shortcut for findItem call with MOVIE_TYPE property.
-  It hides the ItemType enumeration to client. The returned object is then
-  casted into a Movie pointer.
+  It hides the ItemType enumeration to client. The returned list is then
+  casted into a MovieList.
   \param movieName the name of the wanted Movie.
   \param parentFolder the Item to start the research from.
-  \return the Movie pointer if the Movie is in the Item tree, nullptr otherwhise.
-  \note If for some reasons the type conversion can't be done, it returns nullptr.
+  \return the list of all the Movie corresponding to the given parameters. If no Movie
+  corresponds the returned list is empty.
+  \exception std::runtime_error if at least one type conversion can't be done.
  */
-Movie* ItemManager::findMovie(const string &movieName, Item *parentFolder) const
+MovieList ItemManager::findMovie(const string &movieName, Item *parentFolder) const
 {
-    return itemToMovie(findItem(movieName,MOVIE_TYPE,parentFolder));
+    return itemListToMovieList(findItem(movieName,MOVIE_TYPE,parentFolder));
 }
 
 /*!
   \brief Find Folder method.
 
   This method is a shortcut for findItem call with FOLDER_TYPE property.
-  It hides the ItemType enumeration to client. The returned object is then
-  casted into a Folder pointer.
+  It hides the ItemType enumeration to client. The returned list is then
+  casted into a FolderList.
   \param folderName the name of the wanted Folder.
   \param parentFolder the Item to start the research from.
-  \return the Folder pointer if the Folder is in the Item tree, nullptr otherwhise.
-  \note If for some reasons the type conversion can't be done, it returns nullptr.
+  \return the list of all the Folder corresponding to the given parameters. If no Folder
+  corresponds the returned list is empty.
+  \exception std::runtime_error if at least one type conversion can't be done.
  */
-Folder* ItemManager::findFolder(const string &folderName, Item *parentFolder) const
+FolderList ItemManager::findFolder(const string &folderName, Item *parentFolder) const
 {
-    return itemToFolder(findItem(folderName, FOLDER_TYPE, parentFolder));
+    return itemListToFolderList(findItem(folderName,FOLDER_TYPE,parentFolder));
 }
 
 /*!
@@ -185,7 +174,7 @@ Movie* ItemManager::itemToMovie(Item *item) const
   \brief Converts an Item pointer into a Folder pointer.
 
   \param item the Item to convert.
-  \return the casted Folder if the conversion is successful, nullptr otherwhise.
+  \return the casted Folder.
   \exception std::runtime_error if the cast cannot be done (nullptr as given Item
   or not possible dynamic conversion).
  */
@@ -196,4 +185,74 @@ Folder* ItemManager::itemToFolder(Item *item) const
         throw runtime_error("Unable to cast the given Item into Folder");
     }
     return folder;
+}
+
+/*!
+  \brief Converts an ItemList into a MovieList.
+
+  \param itemList the ItemList to convert.
+  \return a MovieList containing the casted Movies.
+  \exception std::runtime_error if at least one type conversion can't be done.
+*/
+MovieList ItemManager::itemListToMovieList(const ItemList &itemList) const
+{
+    MovieList movieList;
+    for(size_t i = 0; i < itemList.size(); ++i) {
+        try {
+            movieList.push_back(itemToMovie(itemList[i]));
+        }catch(runtime_error& e) {
+            throw runtime_error("Unable to cast an Item from given ItemList into Movie");
+        }
+    }
+    return movieList;
+}
+
+/*!
+  \brief Converts an ItemList into a FolderList.
+
+  \param itemList the ItemList to convert.
+  \return a FolderList containing the casted Folders.
+  \exception std::runtime_error if at least one type conversion can't be done.
+*/
+FolderList ItemManager::itemListToFolderList(const ItemList &itemList) const
+{
+    FolderList folderList;
+    for(size_t i = 0; i < itemList.size(); ++i) {
+        try {
+            folderList.push_back(itemToFolder(itemList[i]));
+        }catch(runtime_error& e) {
+            throw runtime_error("Unable to cast an Item from given ItemList into Folder");
+        }
+    }
+    return folderList;
+}
+
+/*!
+  \brief Private findItem method.
+
+  Searches Items with given name and type in all or part of the
+  Item tree. All matching Items are put recursively in the foundedItems list.
+  This method hides the recursive list management to client.
+  \param itemName the name of the wanted Item.
+  \param itemType the type of the wanted Item.
+  \param parentFolder the Item to start the research from. It allow research
+  in subtrees, wich is faster than a complete research.
+  \param foundedItems the list containing the foundedItems. This list is a parameter
+  (and not the return value of the method) because of the recursive aspect of the search
+  process.
+*/
+void ItemManager::recursiveFindItem(const string &itemName, ItemType itemType, Item *parentFolder, ItemList &foundedItems) const
+{
+    ItemList folderChilds;
+    try {
+        folderChilds = parentFolder->getAllSubItems();
+    }catch(logic_error& e) {
+        return;
+    }
+    for(size_t i = 0; i < folderChilds.size(); ++i) {
+        if(folderChilds[i]->getName() == itemName && (folderChilds[i]->getType() == itemType || itemType == ANY_TYPE)) {
+            foundedItems.push_back(folderChilds[i]);
+        }
+        recursiveFindItem(itemName,itemType,folderChilds[i],foundedItems);
+    }
 }
