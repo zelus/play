@@ -13,7 +13,7 @@ int main()
     cout << fold->getAllSubItems().size() << endl;
     cout << fold->getParent()->getName() << endl;
     cout << mov1->getParent()->getName() << endl;
-    cout << im.findMovie("mov1")->getSummary() << endl;
+    cout << im.itemToMovie(im.findItem("mov1",FOLDER_TYPE))->getSummary() << endl;
     return 0;
 }
 

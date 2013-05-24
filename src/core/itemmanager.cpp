@@ -59,6 +59,8 @@ ItemManager::~ItemManager()
   \note The Item is returned through the global interface Item, to get
   concrete Item types object use the appropriated find method. You can also
   use this method with the appropriated cast method.
+  \note If ANY_TYPE is given as itemType all the items corresponding to the other
+  parameters are returned.
  */
 Item* ItemManager::findItem(const string &itemName, ItemType itemType, Item *parentFolder) const
 {
@@ -73,7 +75,7 @@ Item* ItemManager::findItem(const string &itemName, ItemType itemType, Item *par
         return nullptr;
     }
     for(size_t i = 0; i < folderChilds.size(); ++i) {
-        if(folderChilds[i]->getName() == itemName && folderChilds[i]->getType() == itemType) {
+        if(folderChilds[i]->getName() == itemName && (folderChilds[i]->getType() == itemType || itemType == ANY_TYPE)) {
             return folderChilds[i];
         }
         Item* recursiveSearchResult = findItem(itemName,itemType,folderChilds[i]);
