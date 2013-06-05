@@ -37,6 +37,9 @@ public:
     virtual bool containsSubItem(const string& itemName) const;
     virtual ItemList getAllSubItems() const;
 
+    void addTag(Tag* tag);
+    void removeTag(Tag* tag);
+
 protected:
     string itemName_;
     Item* parent_;

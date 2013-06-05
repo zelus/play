@@ -1,5 +1,6 @@
 #include "item.h"
 #include "folder.h"
+#include "tag.h"
 #include <stdexcept>
 #include <sstream>
 // debug
@@ -181,4 +182,14 @@ ItemList Item::getAllSubItems() const
     stringstream ss;
     ss << "The Item " << itemName_ << " is not a container.";
     throw logic_error(ss.str());
+}
+
+void Item::addTag(Tag *tag)
+{
+
+}
+
+void Item::removeTag(Tag *tag)
+{
+
 }

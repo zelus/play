@@ -8,11 +8,13 @@ SOURCES += main.cpp \
     item.cpp \
     folder.cpp \
     movie.cpp \
-    itemmanager.cpp
+    itemmanager.cpp \
+    tag.cpp
 
 HEADERS += \
     item.h \
     folder.h \
     movie.h \
     itemmanager.h \
-    common.h
+    common.h \
+    tag.h
