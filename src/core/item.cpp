@@ -193,6 +193,8 @@ void Item::addTag(Tag *tag)
             throw logic_error(ss.str());
         }
     }
+    tagList_.push_back(tag);
+    tag->registerItem(this);
 }
 
 void Item::removeTag(Tag *tag)
