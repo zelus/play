@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>play.core: folder.h File Reference</title>
+<title>play.core: tag.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
@@ -53,29 +53,41 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="files.html"><span>File&#160;List</span></a></li>
     </ul>
   </div>
-</div>
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">folder.h File Reference</div>  </div>
+<div class="title">tag.h</div>  </div>
 </div>
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="item_8h_source.html">item.h</a>&quot;</code><br/>
-<code>#include &quot;common.h&quot;</code><br/>
-<code>#include &lt;string&gt;</code><br/>
+<div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef TAG_H</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define TAG_H</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include &quot;common.h&quot;</span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00006"></a>00006 
+<a name="l00007"></a>00007 <span class="keyword">using namespace </span>std;
+<a name="l00008"></a>00008 
+<a name="l00016"></a><a class="code" href="classTag.html">00016</a> <span class="keyword">class </span><a class="code" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a>
+<a name="l00017"></a>00017 {
+<a name="l00018"></a>00018 <span class="keyword">public</span>:
+<a name="l00019"></a>00019     <a class="code" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a>(<span class="keyword">const</span> <span class="keywordtype">string</span> tagName = <span class="stringliteral">&quot;&quot;</span>);
+<a name="l00020"></a>00020     <a class="code" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a>(<span class="keyword">const</span> <a class="code" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a>&amp; tag);
+<a name="l00021"></a>00021     ~<a class="code" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a>();
+<a name="l00022"></a>00022 
+<a name="l00023"></a>00023     <span class="keyword">const</span> <span class="keywordtype">string</span>&amp; getTagName() <span class="keyword">const</span>;
+<a name="l00024"></a>00024 
+<a name="l00025"></a>00025     <span class="keywordtype">void</span> registerItem(<a class="code" href="classItem.html" title="Represents an abstract Item.">Item</a>* item);
+<a name="l00026"></a>00026     <span class="keywordtype">void</span> unregisterItem(<a class="code" href="classItem.html" title="Represents an abstract Item.">Item</a>* item);
+<a name="l00027"></a>00027 
+<a name="l00028"></a>00028     ItemList getAllRegisteredItems() <span class="keyword">const</span>;
+<a name="l00029"></a>00029 
+<a name="l00030"></a>00030 <span class="keyword">private</span>:
+<a name="l00031"></a>00031     <span class="keywordtype">string</span> tagName_;
+<a name="l00032"></a>00032     ItemList registeredItems_;
+<a name="l00033"></a>00033 };
+<a name="l00034"></a>00034 
+<a name="l00035"></a>00035 <span class="preprocessor">#endif // TAG_H</span>
+</pre></div></div>
 </div>
-<p><a href="folder_8h_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr><td colspan="2"><h2><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFolder.html">Folder</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a concrete <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> with folder properties.  <a href="classFolder.html#details">More...</a><br/></td></tr>
-</table>
-<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock"><dl class="author"><dt><b>Author:</b></dt><dd>Gwendal Daniel </dd></dl>
-<dl class="date"><dt><b>Date:</b></dt><dd>2013-04-28 </dd></dl>
-</div></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"

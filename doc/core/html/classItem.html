@@ -108,6 +108,11 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic implementation of the containsSubItem method.  <a href="#a1b2af18554fa8b33db93ee2550b776e5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual ItemList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItem.html#ac0dd29293787c0412afe49f5b45f7918">getAllSubItems</a> () const </td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic implementation of the getAllSubItems method.  <a href="#ac0dd29293787c0412afe49f5b45f7918"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItem.html#aaac22bfbe0dc62fb2a68c8d9a9545a52">addTag</a> (<a class="el" href="classTag.html">Tag</a> *tag)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new <a class="el" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a> to the <a class="el" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a> list.  <a href="#aaac22bfbe0dc62fb2a68c8d9a9545a52"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItem.html#ae518005fac59895ccfbb6a60a315ea53">removeTag</a> (<a class="el" href="classTag.html">Tag</a> *tag)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes a <a class="el" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a> from the <a class="el" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a> list.  <a href="#ae518005fac59895ccfbb6a60a315ea53"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">TagList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItem.html#aa827d6551444f10f47ae43aec4003949">getAllTags</a> () const </td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad142b2c61176febbeb2ca598b9f6bab8"></a><!-- doxytag: member="Item::itemName_" ref="ad142b2c61176febbeb2ca598b9f6bab8" args="" -->
@@ -116,6 +121,8 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>itemName_</b></td><
 <a class="el" href="classItem.html">Item</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>parent_</b></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab713550b1f24a5b645d8d93ad4e628cf"></a><!-- doxytag: member="Item::itemType_" ref="ab713550b1f24a5b645d8d93ad4e628cf" args="" -->
 ItemType&#160;</td><td class="memItemRight" valign="bottom"><b>itemType_</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a06a892dbd8a9bd0f1c1e75d599b125ce"></a><!-- doxytag: member="Item::tagList_" ref="a06a892dbd8a9bd0f1c1e75d599b125ce" args="" -->
+TagList&#160;</td><td class="memItemRight" valign="bottom"><b>tagList_</b></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Represents an abstract <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>. </p>
@@ -244,6 +251,33 @@ ItemType&#160;</td><td class="memItemRight" valign="bottom"><b>itemType_</b></td
 
 </div>
 </div>
+<a class="anchor" id="aaac22bfbe0dc62fb2a68c8d9a9545a52"></a><!-- doxytag: member="Item::addTag" ref="aaac22bfbe0dc62fb2a68c8d9a9545a52" args="(Tag *tag)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Item::addTag </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classTag.html">Tag</a> *&#160;</td>
+          <td class="paramname"><em>tag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Adds a new <a class="el" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a> to the <a class="el" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a> list. </p>
+<p>If the addition succeeds the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> is then registered to the <a class="el" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a>. </p>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::logic_error</td><td>if the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> is already tagged by the <a class="el" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="note"><dt><b>Note:</b></dt><dd>This method ensure <a class="el" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a> and <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> lists consistency. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a1b2af18554fa8b33db93ee2550b776e5"></a><!-- doxytag: member="Item::containsSubItem" ref="a1b2af18554fa8b33db93ee2550b776e5" args="(const string &amp;itemName) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -339,6 +373,23 @@ ItemType&#160;</td><td class="memItemRight" valign="bottom"><b>itemType_</b></td
 <dl class="note"><dt><b>Note:</b></dt><dd>This method should be overriden by inherited classes that can handle children. </dd></dl>
 
 <p>Reimplemented in <a class="el" href="classFolder.html#a0cbb309bce189c6270cf70107ca97d94">Folder</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa827d6551444f10f47ae43aec4003949"></a><!-- doxytag: member="Item::getAllTags" ref="aa827d6551444f10f47ae43aec4003949" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TagList Item::getAllTags </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="return"><dt><b>Returns:</b></dt><dd>the list of <a class="el" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a> associated to the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>. </dd></dl>
 
 </div>
 </div>
@@ -463,6 +514,33 @@ ItemType&#160;</td><td class="memItemRight" valign="bottom"><b>itemType_</b></td
 
 </div>
 </div>
+<a class="anchor" id="ae518005fac59895ccfbb6a60a315ea53"></a><!-- doxytag: member="Item::removeTag" ref="ae518005fac59895ccfbb6a60a315ea53" args="(Tag *tag)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Item::removeTag </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classTag.html">Tag</a> *&#160;</td>
+          <td class="paramname"><em>tag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Removes a <a class="el" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a> from the <a class="el" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a> list. </p>
+<p>If the removal succeeds the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> is then unregistered to the <a class="el" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a>. </p>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::logic_error</td><td>if the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> is not tagged by the <a class="el" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="note"><dt><b>Note:</b></dt><dd>This method ensure <a class="el" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a> and <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> lists consistency. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="afab45e064df9df96e30c51b45eb5d540"></a><!-- doxytag: member="Item::setParent" ref="afab45e064df9df96e30c51b45eb5d540" args="(Item *parent)" -->
 <div class="memitem">
 <div class="memproto">
@@ -508,7 +586,7 @@ ItemType&#160;</td><td class="memItemRight" valign="bottom"><b>itemType_</b></td
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Fri May 24 2013 04:45:09 for play.core by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Jun 5 2013 13:31:08 for play.core by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

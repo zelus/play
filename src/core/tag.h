@@ -6,6 +6,13 @@
 
 using namespace std;
 
+/*!
+  \brief Represents a simple Tag (key-word)
+
+  This class is managed by the TagManager class : it shouldn't
+  be manipulated directly (it may break the global consistency of
+  the application).
+ */
 class Tag
 {
 public:
@@ -17,6 +24,8 @@ public:
 
     void registerItem(Item* item);
     void unregisterItem(Item* item);
+
+    ItemList getAllRegisteredItems() const;
 
 private:
     string tagName_;

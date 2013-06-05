@@ -184,6 +184,13 @@ ItemList Item::getAllSubItems() const
     throw logic_error(ss.str());
 }
 
+/*!
+  \brief Adds a new Tag to the Tag list.
+
+  If the addition succeeds the Item is then registered to the Tag.
+  \exception std::logic_error if the Item is already tagged by the Tag.
+  \note This method ensure Tag and Item lists consistency.
+ */
 void Item::addTag(Tag *tag)
 {
     for(size_t i = 0; i < tagList_.size(); i++) {
@@ -194,9 +201,17 @@ void Item::addTag(Tag *tag)
         }
     }
     tagList_.push_back(tag);
+    // @TODO catch exception
     tag->registerItem(this);
 }
 
+/*!
+  \brief Removes a Tag from the Tag list.
+
+  If the removal succeeds the Item is then unregistered to the Tag.
+  \exception std::logic_error if the Item is not tagged by the Tag.
+  \note This method ensure Tag and Item lists consistency.
+ */
 void Item::removeTag(Tag *tag)
 {
     TagList::iterator it;
@@ -211,8 +226,15 @@ void Item::removeTag(Tag *tag)
         ss << "Cannot erase the Tag " << tag->getTagName() << " from the Item " << itemName_ << " : the Item is not tagged with the Tag.";
         throw logic_error(ss.str());
     }
+    else {
+        // @TODO catch exception
+        tag->unregisterItem(this);
+    }
 }
 
+/*!
+  \return the list of Tag associated to the Item.
+ */
 TagList Item::getAllTags() const
 {
     return tagList_;

@@ -1,6 +1,7 @@
 #include <iostream>
 #include "common.h"
 #include "itemmanager.h"
+#include "tag.h";
 
 using namespace std;
 
@@ -33,6 +34,11 @@ int main()
         cout << il2[i]->getParent()->getName() << endl;
     }
     //cout << im.itemToMovie(im.findItem("mov1",MOVIE_TYPE)[0])->getSummary() << endl;
+    cout << "Tag tests" << endl;
+    Tag* tag1 = new Tag("tag1");
+    mov1->addTag(tag1);
+    cout << tag1->getAllRegisteredItems()[0]->getName() << endl;
+    cout << mov1->getAllTags()[0]->getTagName() << endl;
     return 0;
 }
 
