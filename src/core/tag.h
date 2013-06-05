@@ -16,6 +16,7 @@ public:
     const string& getTagName() const;
 
     void registerItem(Item* item);
+    void unregisterItem(Item* item);
 
 private:
     string tagName_;
