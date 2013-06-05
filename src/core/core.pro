@@ -9,7 +9,8 @@ SOURCES += main.cpp \
     folder.cpp \
     movie.cpp \
     itemmanager.cpp \
-    tag.cpp
+    tag.cpp \
+    tagmanager.cpp
 
 HEADERS += \
     item.h \
@@ -17,4 +18,5 @@ HEADERS += \
     movie.h \
     itemmanager.h \
     common.h \
-    tag.h
+    tag.h \
+    tagmanager.h

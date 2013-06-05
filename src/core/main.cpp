@@ -1,7 +1,7 @@
 #include <iostream>
 #include "common.h"
 #include "itemmanager.h"
-#include "tag.h";
+#include "tag.h"
 
 using namespace std;
 
