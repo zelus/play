@@ -186,10 +186,32 @@ ItemList Item::getAllSubItems() const
 
 void Item::addTag(Tag *tag)
 {
-
+    for(size_t i = 0; i < tagList_.size(); i++) {
+        if(tagList_[i]->getTagName() == tag->getTagName()) {
+            stringstream ss;
+            ss << "Cannot add Tag " << tag->getTagName() << " to the Item " << itemName_ << " : Item is already tagged with this Tag.";
+            throw logic_error(ss.str());
+        }
+    }
 }
 
 void Item::removeTag(Tag *tag)
 {
+    TagList::iterator it;
+    for(it = tagList_.begin(); it != tagList_.end(); ++it) {
+        if((*it)->getTagName() == tag->getTagName()) {
+            tagList_.erase(it);
+            break;
+        }
+    }
+    if(it == tagList_.end()) {
+        stringstream ss;
+        ss << "Cannot erase the Tag " << tag->getTagName() << " from the Item " << itemName_ << " : the Item is not tagged with the Tag.";
+        throw logic_error(ss.str());
+    }
+}
 
+TagList Item::getAllTags() const
+{
+    return tagList_;
 }

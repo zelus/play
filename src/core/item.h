@@ -39,11 +39,13 @@ public:
 
     void addTag(Tag* tag);
     void removeTag(Tag* tag);
+    TagList getAllTags() const;
 
 protected:
     string itemName_;
     Item* parent_;
     ItemType itemType_;
+    TagList tagList_;
 };
 
 #endif // ITEM_H
