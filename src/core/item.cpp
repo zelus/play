@@ -171,7 +171,8 @@ ItemList Item::getAllSubItems() const
   \brief Adds a new Tag to the Tag list.
 
   If the addition succeeds the Item is then registered to the Tag.
-  \exception std::logic_error if the Item is already tagged by the Tag.
+  \exception std::logic_error if the Item is already tagged by the Tag or
+  if the Tag has even registered the Item.
   \note This method ensure Tag and Item lists consistency.
  */
 void Item::addTag(Tag *tag)
@@ -184,15 +185,19 @@ void Item::addTag(Tag *tag)
         }
     }
     tagList_.push_back(tag);
-    // @TODO catch exception
-    tag->registerItem(this);
+    try {
+        tag->registerItem(this);
+    }catch(logic_error& e) {
+        throw e;
+    }
 }
 
 /*!
   \brief Removes a Tag from the Tag list.
 
   If the removal succeeds the Item is then unregistered to the Tag.
-  \exception std::logic_error if the Item is not tagged by the Tag.
+  \exception std::logic_error if the Item is not tagged by the Tag or
+  if the Tag has not registered the Item.
   \note This method ensure Tag and Item lists consistency.
  */
 void Item::removeTag(Tag *tag)
@@ -210,8 +215,11 @@ void Item::removeTag(Tag *tag)
         throw logic_error(ss.str());
     }
     else {
-        // @TODO catch exception
-        tag->unregisterItem(this);
+        try {
+            tag->unregisterItem(this);
+        }catch(logic_error& e) {
+            throw e;
+        }
     }
 }
 
