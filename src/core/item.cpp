@@ -12,30 +12,13 @@
   \param itemName The name of the Item.
   \param itemType The type of the Item.
   \param parent The parent of the Item.
+  \exception std::logic_error if the given parent cannot handle subItems.
  */
 Item::Item(const string& itemName, ItemType itemType, Item* parent)
 {
     itemName_ = itemName;
     parent_ = parent;
     itemType_ = itemType;
-    if(parent_ != nullptr) {
-        try {
-            parent_->addSubItem(this);
-        }catch(logic_error& e) {
-            throw e;
-        }
-    }
-}
-
-/*!
-  \brief Constructs an Item from the given Item.
-  \param item The Item to contruct from.
- */
-Item::Item(const Item &item)
-{
-    itemName_ = item.itemName_;
-    parent_ = item.parent_;
-    itemType_ = item.itemType_;
     if(parent_ != nullptr) {
         try {
             parent_->addSubItem(this);

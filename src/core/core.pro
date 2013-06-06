@@ -2,21 +2,9 @@ TEMPLATE = app
 CONFIG += console
 CONFIG -= qt
 
-QMAKE_CXXFLAGS += -std=c++0x
+include(../../common.pri)
 
 SOURCES += main.cpp \
-    item.cpp \
-    folder.cpp \
-    movie.cpp \
-    itemmanager.cpp \
-    tag.cpp \
-    tagmanager.cpp
+
 
 HEADERS += \
-    item.h \
-    folder.h \
-    movie.h \
-    itemmanager.h \
-    common.h \
-    tag.h \
-    tagmanager.h

@@ -22,7 +22,7 @@ class Item
 
 public:
     Item(const string& itemName = "", ItemType itemType = ANY_TYPE, Item* parent = nullptr);
-    Item(const Item& item);
+    Item(const Item& item) = delete;
     ~Item();
 
     Item* getParent() const;
