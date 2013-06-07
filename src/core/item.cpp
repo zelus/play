@@ -29,7 +29,10 @@ Item::Item(const string& itemName, ItemType itemType, Item* parent)
 }
 
 /*!
-  \brief Deletes the Item.
+  \brief Deletes the Item and its references into its Tags.
+
+  The Item reference into the registered Item list of each Tag is
+  removed.
   \warning This method doesn't ensure consistency of the
   composite pattern : no deletion on eventual parent is done,
   if you want to delete an Item wich has a parent you have to
@@ -37,7 +40,9 @@ Item::Item(const string& itemName, ItemType itemType, Item* parent)
  */
 Item::~Item()
 {
-
+    for(size_t i = 0; i < tagList_.size(); ++i) {
+        tagList_[i]->unregisterItem(this);
+    }
 }
 
 /*!
@@ -202,24 +207,26 @@ void Item::addTag(Tag *tag)
  */
 void Item::removeTag(Tag *tag)
 {
+    bool updated = false;
     TagList::iterator it;
     for(it = tagList_.begin(); it != tagList_.end(); ++it) {
         if((*it)->getTagName() == tag->getTagName()) {
             tagList_.erase(it);
+            updated = true;
             break;
         }
     }
-    if(it == tagList_.end()) {
-        stringstream ss;
-        ss << "Cannot erase the Tag " << tag->getTagName() << " from the Item " << itemName_ << " : the Item is not tagged with the Tag.";
-        throw logic_error(ss.str());
-    }
-    else {
+    if(updated) {
         try {
             tag->unregisterItem(this);
         }catch(logic_error& e) {
             throw e;
         }
+    }
+    else {
+        stringstream ss;
+        ss << "Cannot erase the Tag " << tag->getTagName() << " from the Item " << itemName_ << " : the Item is not tagged with the Tag.";
+        throw logic_error(ss.str());
     }
 }
 

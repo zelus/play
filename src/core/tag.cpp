@@ -3,6 +3,8 @@
 
 #include <stdexcept>
 #include <sstream>
+// debug
+#include <iostream>
 
 /*!
   \brief Constructs a Tag from the given parameters.
@@ -78,13 +80,15 @@ void Tag::registerItem(Item *item)
 void Tag::unregisterItem(Item *item)
 {
     ItemList::iterator it;
+    bool updated = false;
     for(it = registeredItems_.begin(); it != registeredItems_.end(); ++it) {
         if((*it)->getName() == item->getName()) {
             registeredItems_.erase(it);
+            updated = true;
             break;
         }
     }
-    if(it == registeredItems_.end()) {
+    if(!updated) {
         stringstream ss;
         ss << "Cannot unregister the Item " << item->getName() << " from the Tag " << tagName_ << " : the Item is not registered to the Tag";
         throw logic_error(ss.str());

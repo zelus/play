@@ -75,6 +75,21 @@ void TestItem::test_constructor_movieparent()
 }
 
 /*
+  Dectructor test with a Tag list containing two Tags.
+  Item check is done by the registeredItems list size to
+  avoid core dump during the test.
+ */
+void TestItem::test_destructor()
+{
+    Item* item = new Item("item");
+    item->addTag(tag1);
+    item->addTag(tag2);
+    delete item;
+    CPPUNIT_ASSERT_MESSAGE("Tag1 contains a reference to the Item", tag1->getAllRegisteredItems().size() == 0);
+    CPPUNIT_ASSERT_MESSAGE("Tag2 contains a reference to the Item", tag2->getAllRegisteredItems().size() == 0);
+}
+
+/*
   getParent test with a Folder object as parent.
   Parent is tested by its name.
  */
