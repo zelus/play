@@ -8,6 +8,7 @@
 #include "item.h"
 #include "folder.h"
 #include "movie.h"
+#include "tag.h"
 
 using namespace std;
 
@@ -37,6 +38,10 @@ class TestItem : public CppUnit::TestFixture
   CPPUNIT_TEST_EXCEPTION(test_getSubItem,logic_error);
   CPPUNIT_TEST_EXCEPTION(test_containsSubItem,logic_error);
   CPPUNIT_TEST_EXCEPTION(test_getAllSubItems,logic_error);
+
+  CPPUNIT_TEST(test_addTag);
+  CPPUNIT_TEST_EXCEPTION(test_addTag_doubleaddition,logic_error);
+  CPPUNIT_TEST_EXCEPTION(test_addTag_evenregistered,logic_error);
 
   CPPUNIT_TEST_SUITE_END();
 
@@ -68,10 +73,16 @@ public:
   void test_containsSubItem();
   void test_getAllSubItems();
 
+  void test_addTag();
+  void test_addTag_doubleaddition();
+  void test_addTag_evenregistered();
+
 private:
   Folder* folder1;
   Folder* folder2;
   Item* item1;
   Item* item2;
+  Tag* tag1;
+  Tag* tag2;
 };
 #endif // TEST_ITEM_H

@@ -10,6 +10,8 @@ void TestItem::setUp()
     folder2 = new Folder("folder2",nullptr);
     item1 = new Item("item1",ANY_TYPE,nullptr);
     item2 = new Item("item2",ANY_TYPE,nullptr);
+    tag1 = new Tag("tag1");
+    tag2 = new Tag("tag2");
 }
 
 void TestItem::tearDown()
@@ -22,6 +24,8 @@ void TestItem::tearDown()
     }
     delete folder1;
     delete folder2;
+    delete tag1;
+    delete tag2;
 }
 
 /*
@@ -200,4 +204,45 @@ void TestItem::test_getAllSubItems()
     item1->getAllSubItems();
 }
 
-// TODO test TAG RELATED METHODS
+// Crash because of the inconsistency between
+// deleted Items and registered pointers in Tag.
+/*
+  addTag test with a new Tag (not even in the Tag list).
+  Consistency of the related Tag registered Item list is
+  not checked (see TestTag for those tests).
+ */
+void TestItem::test_addTag()
+{
+    item1->addTag(tag1);
+    TagList tagList = item1->getAllTags();
+    bool containsTag = false;
+    for(size_t i = 0; i < tagList.size(); ++i) {
+        if(tagList[i]->getTagName() == tag1->getTagName()) {
+            containsTag = true;
+        }
+    }
+    CPPUNIT_ASSERT_MESSAGE("Item doesn't contain added Tag",containsTag);
+}
+
+/*
+  addTag test with addition of a Tag already in the Tag list.
+  A std::logic_error is expected (Item cannot have the same Tag
+  twice).
+ */
+void TestItem::test_addTag_doubleaddition()
+{
+    item1->addTag(tag1);
+    item1->addTag(tag1);
+}
+
+/*
+  addTag test with addition of a Tag wich as the Item in its
+  registered Item list.
+  A std::logic_error is expected (The model is not consistent
+  in that case).
+ */
+void TestItem::test_addTag_evenregistered()
+{
+    tag1->registerItem(item1);
+    item1->addTag(tag1);
+}
