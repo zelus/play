@@ -219,8 +219,6 @@ void TestItem::test_getAllSubItems()
     item1->getAllSubItems();
 }
 
-// Crash because of the inconsistency between
-// deleted Items and registered pointers in Tag.
 /*
   addTag test with a new Tag (not even in the Tag list).
   Consistency of the related Tag registered Item list is
@@ -251,7 +249,7 @@ void TestItem::test_addTag_doubleaddition()
 }
 
 /*
-  addTag test with addition of a Tag wich as the Item in its
+  addTag test with addition of a Tag wich has the Item in its
   registered Item list.
   A std::logic_error is expected (The model is not consistent
   in that case).
@@ -260,4 +258,47 @@ void TestItem::test_addTag_evenregistered()
 {
     tag1->registerItem(item1);
     item1->addTag(tag1);
+}
+
+/*
+  removeTag test with an existing Tag (previously added into
+  the Tag list).
+  Consistency of the related Tag registered Item list is
+  not checked (see TestTag for those tests).
+ */
+void TestItem::test_removeTag_existingtag()
+{
+    item1->addTag(tag1);
+    item1->removeTag(tag1);
+    TagList tagList = item1->getAllTags();
+    bool containsTag = false;
+    for(size_t i = 0; i < tagList.size(); ++i) {
+        if(tagList[i]->getTagName() == tag1->getTagName()) {
+            containsTag = true;
+        }
+    }
+    CPPUNIT_ASSERT_MESSAGE("Item still contain removed Tag",!containsTag);
+}
+
+/*
+  removeTag test with a non-existing Tag (not in the Tag List).
+  A std::logic_error is expected (Item cannot remove a Tag it
+  doesn't contain).
+ */
+void TestItem::test_removeTag_nonexistingtag()
+{
+    item1->removeTag(tag1);
+}
+
+/*
+  removeTag test with removal of a Tag wich doesn't have
+  the Item in its registered Item List.
+  A std::logic_error is expected (The model is not consistent
+  in that case).
+ */
+void TestItem::test_removeTag_unregisteredtag()
+{
+    item1->addTag(tag1);
+    tag1->unregisterItem(item1);
+    item1->removeTag(tag1);
 }

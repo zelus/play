@@ -45,6 +45,10 @@ class TestItem : public CppUnit::TestFixture
   CPPUNIT_TEST_EXCEPTION(test_addTag_doubleaddition,logic_error);
   CPPUNIT_TEST_EXCEPTION(test_addTag_evenregistered,logic_error);
 
+  CPPUNIT_TEST(test_removeTag_existingtag);
+  CPPUNIT_TEST_EXCEPTION(test_removeTag_nonexistingtag,logic_error);
+  CPPUNIT_TEST_EXCEPTION(test_removeTag_unregisteredtag,logic_error);
+
   CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -80,6 +84,10 @@ public:
   void test_addTag();
   void test_addTag_doubleaddition();
   void test_addTag_evenregistered();
+
+  void test_removeTag_existingtag();
+  void test_removeTag_nonexistingtag();
+  void test_removeTag_unregisteredtag();
 
 private:
   Folder* folder1;
