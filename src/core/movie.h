@@ -24,7 +24,7 @@ class Movie : public Item
 public:
     Movie(const string& movieName = "", Item* parent = nullptr);
     Movie(const string& movieName, const string& movieSummary, const short movieNotation, Item* parent = nullptr);
-    Movie(const Movie& movie);
+    Movie(const Movie& movie) = delete;
     ~Movie();
 
     const string& getSummary() const;

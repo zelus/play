@@ -1,4 +1,6 @@
 #include "movie.h"
+// debug
+#include <iostream>
 
 /*!
   \brief Constructs a Movie from the given parameters.
@@ -30,18 +32,6 @@ Movie::Movie(const string &movieName, const string &movieSummary, const short mo
 {
     notation_ = movieNotation;
     summary_ = movieSummary;
-}
-
-/*!
-  \brief Constructs a Movie from the given Movie.
-
-  Notation and summary of the given movie are also copied.
-  \param movie the Movie to construct from.
- */
-Movie::Movie(const Movie &movie) : Item(movie.itemName_,MOVIE_TYPE,movie.parent_)
-{
-    notation_ = movie.notation_;
-    summary_ = movie.summary_;
 }
 
 /*!
