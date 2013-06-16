@@ -20,6 +20,12 @@ void TestFolder::tearDown()
     delete folder1;
 }
 
+/*
+  Destructor test with a Folder containing two Items.
+  SubItem deletion checking is done with the MockItem
+  mock : a boolean is setted to true if the Item mocked
+  destructor has been called.
+ */
 void TestFolder::test_destructor()
 {
     Folder* folder = new Folder("folder");
@@ -30,4 +36,31 @@ void TestFolder::test_destructor()
     delete folder;
     CPPUNIT_ASSERT_MESSAGE("item1 hasn't been deleted",item1Deleted);
     CPPUNIT_ASSERT_MESSAGE("item2 hasn't been deleted",item2Deleted);
+}
+
+/*
+  addSubItem test. Folder consistency is checked by
+  the folder size and the contain method. Item
+  consistency is checked by the getParent method.
+ */
+void TestFolder::test_addSubItem()
+{
+    folder1->addSubItem(item1);
+    folder1->addSubItem(item2);
+    CPPUNIT_ASSERT_MESSAGE("folder doesn't contain the two items",folder1->getAllSubItems().size() == 2);
+    CPPUNIT_ASSERT_MESSAGE("folder doesn't contain item1", folder1->containsSubItem("item1"));
+    CPPUNIT_ASSERT_MESSAGE("folder doesn't contain item2", folder1->containsSubItem("item2"));
+    CPPUNIT_ASSERT_MESSAGE("wrong item1 parent", item1->getParent()->getName() == "folder1");
+    CPPUNIT_ASSERT_MESSAGE("wrong item2 parent", item2->getParent()->getName() == "folder1");
+}
+
+/*
+  addSubItem test with addition of an Item already in the sub item list.
+  A std::logic_error is expected (Item cannot have the same child twice,
+  see documentation for further explanations).
+ */
+void TestFolder::test_addSubItem_doubleaddition()
+{
+    folder1->addSubItem(item1);
+    folder1->addSubItem(item1);
 }
