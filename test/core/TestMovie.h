@@ -5,7 +5,7 @@
 
 #include <stdexcept>
 
-#include "movie.h"
+#include "Movie.h"
 
 using namespace std;
 

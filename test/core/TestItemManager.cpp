@@ -1,4 +1,4 @@
-#include "test_itemmanager.h"
+#include "TestItemManager.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestItemManager);
 

@@ -8,7 +8,7 @@
 #define MOVIE_H
 
 #include "common.h"
-#include "item.h"
+#include "Item.h"
 
 /*!
   \brief Represents a concrete Item with movies informations

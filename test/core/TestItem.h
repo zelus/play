@@ -5,10 +5,10 @@
 
 #include <stdexcept>
 
-#include "item.h"
-#include "folder.h"
-#include "movie.h"
-#include "tag.h"
+#include "Item.h"
+#include "Folder.h"
+#include "Movie.h"
+#include "Tag.h"
 
 using namespace std;
 

@@ -1,5 +1,5 @@
-#include "tagmanager.h"
-#include "tag.h"
+#include "TagManager.h"
+#include "Tag.h"
 
 /*!
   \brief Constructs a new TagManager.

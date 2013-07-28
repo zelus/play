@@ -1,5 +1,5 @@
-#include "folder.h"
-#include "item.h"
+#include "Folder.h"
+#include "Item.h"
 
 #include <stdexcept>
 #include <sstream>

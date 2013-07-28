@@ -7,9 +7,9 @@
 #ifndef ITEMMANAGER_H
 #define ITEMMANAGER_H
 
-#include "item.h"
-#include "folder.h"
-#include "movie.h"
+#include "Item.h"
+#include "Folder.h"
+#include "Movie.h"
 #include "common.h"
 #include <string>
 

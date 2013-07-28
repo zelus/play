@@ -1,4 +1,4 @@
-#include "test_folder.h"
+#include "TestFolder.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestFolder);
 

@@ -1,4 +1,4 @@
-#include "test_movie.h"
+#include "TestMovie.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestMovie);
 

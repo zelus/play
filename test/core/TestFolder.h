@@ -5,9 +5,9 @@
 
 #include <stdexcept>
 
-#include "folder.h"
-#include "item.h"
-#include "mock_item.h"
+#include "Folder.h"
+#include "Item.h"
+#include "MockItem.h"
 
 using namespace std;
 

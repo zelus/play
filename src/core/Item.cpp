@@ -1,6 +1,6 @@
-#include "item.h"
-#include "folder.h"
-#include "tag.h"
+#include "Item.h"
+#include "Folder.h"
+#include "Tag.h"
 #include <stdexcept>
 #include <sstream>
 // debug

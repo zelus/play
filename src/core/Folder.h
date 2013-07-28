@@ -7,7 +7,7 @@
 #ifndef FOLDER_H
 #define FOLDER_H
 
-#include "item.h"
+#include "Item.h"
 #include "common.h"
 #include <string>
 

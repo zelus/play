@@ -1,4 +1,4 @@
-#include "itemmanager.h"
+#include "ItemManager.h"
 #include <stdexcept>
 
 // debug
