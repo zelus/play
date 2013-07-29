@@ -230,7 +230,7 @@ void TestItem::test_addTag()
     Item::TagList tagList = item1->getAllTags();
     bool containsTag = false;
     for(size_t i = 0; i < tagList.size(); ++i) {
-        if(tagList[i]->getTagName() == tag1->getTagName()) {
+        if(tagList[i]->getName() == tag1->getName()) {
             containsTag = true;
         }
     }
@@ -273,7 +273,7 @@ void TestItem::test_removeTag_existingtag()
     Item::TagList tagList = item1->getAllTags();
     bool containsTag = false;
     for(size_t i = 0; i < tagList.size(); ++i) {
-        if(tagList[i]->getTagName() == tag1->getTagName()) {
+        if(tagList[i]->getName() == tag1->getName()) {
             containsTag = true;
         }
     }

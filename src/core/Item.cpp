@@ -183,9 +183,9 @@ ItemList Item::getAllSubItems() const
 void Item::addTag(Tag<Item*> *tag)
 {
     for(size_t i = 0; i < tagList_.size(); i++) {
-        if(tagList_[i]->getTagName() == tag->getTagName()) {
+        if(tagList_[i]->getName() == tag->getName()) {
             stringstream ss;
-            ss << "Cannot add Tag " << tag->getTagName() << " to the Item " << itemName_ << " : Item is already tagged with this Tag.";
+            ss << "Cannot add Tag " << tag->getName() << " to the Item " << itemName_ << " : Item is already tagged with this Tag.";
             throw logic_error(ss.str());
         }
     }
@@ -210,7 +210,7 @@ void Item::removeTag(Tag<Item*> *tag)
     bool updated = false;
     TagList::iterator it;
     for(it = tagList_.begin(); it != tagList_.end(); ++it) {
-        if((*it)->getTagName() == tag->getTagName()) {
+        if((*it)->getName() == tag->getName()) {
             tagList_.erase(it);
             updated = true;
             break;
@@ -225,7 +225,7 @@ void Item::removeTag(Tag<Item*> *tag)
     }
     else {
         stringstream ss;
-        ss << "Cannot erase the Tag " << tag->getTagName() << " from the Item " << itemName_ << " : the Item is not tagged with the Tag.";
+        ss << "Cannot erase the Tag " << tag->getName() << " from the Item " << itemName_ << " : the Item is not tagged with the Tag.";
         throw logic_error(ss.str());
     }
 }

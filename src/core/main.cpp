@@ -38,7 +38,7 @@ int main()
     Tag<Item*>* tag1 = new Tag<Item*>("tag1");
     mov1->addTag(tag1);
     cout << tag1->getAllRegisteredItems()[0]->getName() << endl;
-    cout << mov1->getAllTags()[0]->getTagName() << endl;
+    cout << mov1->getAllTags()[0]->getName() << endl;
     return 0;
 }
 

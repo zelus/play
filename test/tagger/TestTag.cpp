@@ -16,5 +16,5 @@ void TestTag::tearDown()
 
 void TestTag::test_constructor()
 {
-    CPPUNIT_ASSERT_MESSAGE("Wrong Tag name",tag1_->getTagName() == "tag1");
+    CPPUNIT_ASSERT_MESSAGE("Wrong Tag name",tag1_->getName() == "tag1");
 }

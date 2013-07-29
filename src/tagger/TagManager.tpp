@@ -1,5 +1,3 @@
-using namespace std;
-
 /*!
   \brief Constructs a new TagManager.
  */
@@ -28,7 +26,7 @@ TagManager<T>::TagManager(TagManager &tagManager)
 template<typename T>
 TagManager<T>::~TagManager()
 {
-    typename vector<Tag<T>*>::iterator it;
+    typename std::vector<Tag<T>*>::iterator it;
     for(it = tags_.begin(); it != tags_.end(); ++it) {
         delete (*it);
     }
@@ -46,7 +44,7 @@ TagManager<T>::~TagManager()
 template<typename T>
 Tag<T>* TagManager<T>::getTag(const string &tagName)
 {
-    typename vector<Tag<T>*>::iterator it;
+    typename std::vector<Tag<T>*>::iterator it;
     for(it = tags_.begin(); it != tags_.end(); ++it) {
         if((*it)->getTagName() == tagName) {
             return *it;

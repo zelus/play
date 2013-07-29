@@ -1,5 +1,7 @@
-SOURCES +=
+SOURCES += \
 
 HEADERS += \
         Tag.h \
-        TagManager.h
+        TagManager.h \
+        Tag.tpp \
+        TagManager.tpp

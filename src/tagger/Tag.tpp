@@ -3,14 +3,12 @@
 // debug
 #include <iostream>
 
-using namespace std;
-
 /*!
   \brief Constructs a Tag from the given parameters.
   \param tagName the name of the Tag.
  */
 template<typename T>
-Tag<T>::Tag(const string tagName)
+Tag<T>::Tag(const std::string tagName)
 {
     tagName_ = tagName;
 }
@@ -37,7 +35,7 @@ Tag<T>::~Tag()
     for(size_t i = 0; i < registeredItems_.size(); i++) {
         try {
             registeredItems_[i]->removeTag(this);
-        }catch(logic_error& e) {
+        }catch(std::exception& e) {
 
         }
     }
@@ -47,7 +45,7 @@ Tag<T>::~Tag()
   \return the name of the Tag.
  */
 template<typename T>
-const string& Tag<T>::getTagName() const
+const std::string& Tag<T>::getName() const
 {
     return tagName_;
 }
@@ -65,9 +63,9 @@ void Tag<T>::registerItem(T item)
 {
     for(size_t i = 0; i < registeredItems_.size(); i++) {
         if(registeredItems_[i]->getName() == item->getName()) {
-            stringstream ss;
+            std::stringstream ss;
             ss << "Cannot register the Item " << item->getName() << " to the Tag " << tagName_ << " : the Item is already registered to the Tag";
-            throw logic_error(ss.str());
+            throw std::logic_error(ss.str());
         }
     }
     registeredItems_.push_back(item);
@@ -94,9 +92,9 @@ void Tag<T>::unregisterItem(T item)
         }
     }
     if(!updated) {
-        stringstream ss;
+        std::stringstream ss;
         ss << "Cannot unregister the Item " << item->getName() << " from the Tag " << tagName_ << " : the Item is not registered to the Tag";
-        throw logic_error(ss.str());
+        throw std::logic_error(ss.str());
     }
 }
 

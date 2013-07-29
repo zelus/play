@@ -20,7 +20,7 @@ public:
     Tag(const Tag& tag);
     ~Tag();
 
-    const std::string& getTagName() const;
+    const std::string& getName() const;
 
     void registerItem(T item);
     void unregisterItem(T item);
