@@ -54,6 +54,17 @@ Item* Item::getParent() const
 }
 
 /*!
+  \return the id of the Item.
+  \note This method is required by the Tag template.
+  \bug The method return the name of the Item, a unique ID must
+  be returned containing the full path of the item.
+ */
+const string& Item::getId() const
+{
+    return itemName_;
+}
+
+/*!
   \return the name of the Item.
  */
 const string& Item::getName() const

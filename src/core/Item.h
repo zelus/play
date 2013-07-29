@@ -28,6 +28,7 @@ public:
     virtual ~Item();
 
     Item* getParent() const;
+    const string& getId() const;
     const string& getName() const;
     ItemType getType() const;
 
