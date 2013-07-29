@@ -15,20 +15,10 @@ Tag<T>::Tag(const std::string tagName)
 }
 
 /*!
-  \brief Constructs a Tag from the given Tag.
-  \param tag the Tag to construct from.
-  \warning The registered Item list is not copied into the
-  constructed Tag. This would break global consistency between
-  Item and Tag crossed-references.
- */
-template<typename T>
-Tag<T>::Tag(const Tag &tag)
-{
-    tagName_ = tag.tagName_;
-}
-
-/*!
-  \brief Deletes the Tag and all its references in registeredItems.
+  \brief Deletes the Tag.
+  \note No reference checking is done during the deletion,
+  if the tagged item maintain a Tag list this destructor has to be
+  wrapped into an other function wich ensure Tag list consistency.
  */
 template<typename T>
 Tag<T>::~Tag()

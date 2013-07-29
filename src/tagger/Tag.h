@@ -17,7 +17,7 @@ class Tag
 public:
     typedef typename std::vector<T> RegisteredItems;
     Tag(const std::string tagName);
-    Tag(const Tag& tag);
+    Tag(const Tag& tag) = delete;
     ~Tag();
 
     const std::string& getName() const;
@@ -26,6 +26,8 @@ public:
     void unregisterItem(T item);
 
     RegisteredItems getAllRegisteredItems() const;
+    Tag<T>& operator=(const Tag<T>&) = delete;
+
 private:
     std::string tagName_;
     RegisteredItems registeredItems_;

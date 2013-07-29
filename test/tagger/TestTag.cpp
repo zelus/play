@@ -16,5 +16,7 @@ void TestTag::tearDown()
 
 void TestTag::test_constructor()
 {
+    Tag<Item*> tag2("pouet");
+    tag2 = *tag1_;
     CPPUNIT_ASSERT_MESSAGE("Wrong Tag name",tag1_->getName() == "tag1");
 }
