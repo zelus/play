@@ -16,7 +16,7 @@ class Tag
 {
 public:
     typedef typename std::vector<T> RegisteredItems;
-    Tag(const std::string tagName = "");
+    Tag(const std::string tagName);
     Tag(const Tag& tag);
     ~Tag();
 

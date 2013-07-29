@@ -1,7 +1,8 @@
-#include <stdexcept>
 #include <sstream>
 // debug
 #include <iostream>
+
+#include "TaggerException.h"
 
 /*!
   \brief Constructs a Tag from the given parameters.
@@ -65,7 +66,7 @@ void Tag<T>::registerItem(T item)
         if(registeredItems_[i]->getName() == item->getName()) {
             std::stringstream ss;
             ss << "Cannot register the Item " << item->getName() << " to the Tag " << tagName_ << " : the Item is already registered to the Tag";
-            throw std::logic_error(ss.str());
+            throw TaggerException(ss.str(),__FILE__, __LINE__);
         }
     }
     registeredItems_.push_back(item);
@@ -94,7 +95,7 @@ void Tag<T>::unregisterItem(T item)
     if(!updated) {
         std::stringstream ss;
         ss << "Cannot unregister the Item " << item->getName() << " from the Tag " << tagName_ << " : the Item is not registered to the Tag";
-        throw std::logic_error(ss.str());
+        throw TaggerException(ss.str(), __FILE__, __LINE__);
     }
 }
 
