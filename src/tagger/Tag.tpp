@@ -33,17 +33,7 @@ Tag<T>::Tag(const Tag &tag)
 template<typename T>
 Tag<T>::~Tag()
 {
-    // Should be removed ? Does it mean something to
-    // remove the references, it may be done in a high level class
-    // depending of the application
-    // An app doesn't allways need to add tags to the items
-    for(size_t i = 0; i < registeredItems_.size(); i++) {
-        try {
-            registeredItems_[i]->removeTag(this);
-        }catch(std::exception& e) {
 
-        }
-    }
 }
 
 /*!
