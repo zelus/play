@@ -1,16 +1,16 @@
-#include "Tag.h"
-#include "Item.h"
-
 #include <stdexcept>
 #include <sstream>
 // debug
 #include <iostream>
 
+using namespace std;
+
 /*!
   \brief Constructs a Tag from the given parameters.
   \param tagName the name of the Tag.
  */
-Tag::Tag(const string tagName)
+template<typename T>
+Tag<T>::Tag(const string tagName)
 {
     tagName_ = tagName;
 }
@@ -22,7 +22,8 @@ Tag::Tag(const string tagName)
   constructed Tag. This would break global consistency between
   Item and Tag crossed-references.
  */
-Tag::Tag(const Tag &tag)
+template<typename T>
+Tag<T>::Tag(const Tag &tag)
 {
     tagName_ = tag.tagName_;
 }
@@ -30,7 +31,8 @@ Tag::Tag(const Tag &tag)
 /*!
   \brief Deletes the Tag and all its references in registeredItems.
  */
-Tag::~Tag()
+template<typename T>
+Tag<T>::~Tag()
 {
     for(size_t i = 0; i < registeredItems_.size(); i++) {
         try {
@@ -44,7 +46,8 @@ Tag::~Tag()
 /*!
   \return the name of the Tag.
  */
-const string& Tag::getTagName() const
+template<typename T>
+const string& Tag<T>::getTagName() const
 {
     return tagName_;
 }
@@ -57,7 +60,8 @@ const string& Tag::getTagName() const
   the Tag list of the Item is not updated. See Item::addTag for consistent Tag
   addition.
  */
-void Tag::registerItem(Item *item)
+template<typename T>
+void Tag<T>::registerItem(T item)
 {
     for(size_t i = 0; i < registeredItems_.size(); i++) {
         if(registeredItems_[i]->getName() == item->getName()) {
@@ -77,9 +81,10 @@ void Tag::registerItem(Item *item)
   the Tag list of the Item is not updated. See Item::removeTag for consistent Tag
   removal.
  */
-void Tag::unregisterItem(Item *item)
+template<typename T>
+void Tag<T>::unregisterItem(T item)
 {
-    ItemList::iterator it;
+    typename RegisteredItems::iterator it;
     bool updated = false;
     for(it = registeredItems_.begin(); it != registeredItems_.end(); ++it) {
         if((*it)->getName() == item->getName()) {
@@ -98,7 +103,8 @@ void Tag::unregisterItem(Item *item)
 /*!
   \return the list of registered Items.
  */
-ItemList Tag::getAllRegisteredItems() const
+template<typename T>
+typename Tag<T>::RegisteredItems Tag<T>::getAllRegisteredItems() const
 {
     return registeredItems_;
 }

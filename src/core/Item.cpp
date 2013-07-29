@@ -180,7 +180,7 @@ ItemList Item::getAllSubItems() const
   if the Tag has even registered the Item.
   \note This method ensure Tag and Item lists consistency.
  */
-void Item::addTag(Tag *tag)
+void Item::addTag(Tag<Item*> *tag)
 {
     for(size_t i = 0; i < tagList_.size(); i++) {
         if(tagList_[i]->getTagName() == tag->getTagName()) {
@@ -205,7 +205,7 @@ void Item::addTag(Tag *tag)
   if the Tag has not registered the Item.
   \note This method ensure Tag and Item lists consistency.
  */
-void Item::removeTag(Tag *tag)
+void Item::removeTag(Tag<Item*> *tag)
 {
     bool updated = false;
     TagList::iterator it;
@@ -233,7 +233,7 @@ void Item::removeTag(Tag *tag)
 /*!
   \return the list of Tag associated to the Item.
  */
-TagList Item::getAllTags() const
+Item::TagList Item::getAllTags() const
 {
     return tagList_;
 }

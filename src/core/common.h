@@ -6,7 +6,6 @@
 class Item;
 class Folder;
 class Movie;
-class Tag;
 
 enum ItemType {
     ANY_TYPE,
@@ -17,6 +16,6 @@ enum ItemType {
 typedef std::vector<Item*> ItemList;
 typedef std::vector<Folder*> FolderList;
 typedef std::vector<Movie*> MovieList;
-typedef std::vector<Tag*> TagList;
+
 
 #endif // COMMON_H

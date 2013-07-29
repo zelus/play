@@ -8,6 +8,7 @@
 #define ITEM_H
 
 #include "common.h"
+#include "Tag.h"
 #include <string>
 
 using namespace std;
@@ -21,6 +22,7 @@ class Item
 {
 
 public:
+    typedef std::vector<Tag<Item*>*> TagList;
     Item(const string& itemName = "", ItemType itemType = ANY_TYPE, Item* parent = nullptr);
     Item(const Item& item) = delete;
     virtual ~Item();
@@ -37,8 +39,8 @@ public:
     virtual bool containsSubItem(const string& itemName) const;
     virtual ItemList getAllSubItems() const;
 
-    void addTag(Tag* tag);
-    void removeTag(Tag* tag);
+    void addTag(Tag<Item*>* tag);
+    void removeTag(Tag<Item*>* tag);
     TagList getAllTags() const;
 
 protected:

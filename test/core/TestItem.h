@@ -94,7 +94,7 @@ private:
   Folder* folder2;
   Item* item1;
   Item* item2;
-  Tag* tag1;
-  Tag* tag2;
+  Tag<Item*>* tag1;
+  Tag<Item*>* tag2;
 };
 #endif // TEST_ITEM_H

@@ -1,10 +1,10 @@
 #ifndef TAGMANAGER_H
 #define TAGMANAGER_H
 
-#include "common.h"
 #include <string>
+#include <vector>
 
-using namespace std;
+#include "Tag.h"
 
 /*!
   \brief High level interface ensuring Tag unicity. (see
@@ -13,6 +13,7 @@ using namespace std;
   Every client code has to use this interface to get existing
   Tags and / or create new Tags.
  */
+template<typename T>
 class TagManager
 {
 public:
@@ -20,11 +21,13 @@ public:
     TagManager(TagManager& tagManager);
     ~TagManager();
 
-    Tag* getTag(const string& tagName);
-    TagList getTagList() const;
+    Tag<T>* getTag(const std::string& tagName);
+
+    std::vector<Tag<T>*> getTags() const;
 
 private:
-    TagList tagList_;
+    std::vector<Tag<T>*> tags_;
 };
 
+#include "TagManager.tpp"
 #endif // TAGMANAGER_H

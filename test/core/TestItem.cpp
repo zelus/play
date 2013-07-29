@@ -10,8 +10,8 @@ void TestItem::setUp()
     folder2 = new Folder("folder2",nullptr);
     item1 = new Item("item1",ANY_TYPE,nullptr);
     item2 = new Item("item2",ANY_TYPE,nullptr);
-    tag1 = new Tag("tag1");
-    tag2 = new Tag("tag2");
+    tag1 = new Tag<Item*>("tag1");
+    tag2 = new Tag<Item*>("tag2");
 }
 
 void TestItem::tearDown()
@@ -227,7 +227,7 @@ void TestItem::test_getAllSubItems()
 void TestItem::test_addTag()
 {
     item1->addTag(tag1);
-    TagList tagList = item1->getAllTags();
+    Item::TagList tagList = item1->getAllTags();
     bool containsTag = false;
     for(size_t i = 0; i < tagList.size(); ++i) {
         if(tagList[i]->getTagName() == tag1->getTagName()) {
@@ -270,7 +270,7 @@ void TestItem::test_removeTag_existingtag()
 {
     item1->addTag(tag1);
     item1->removeTag(tag1);
-    TagList tagList = item1->getAllTags();
+    Item::TagList tagList = item1->getAllTags();
     bool containsTag = false;
     for(size_t i = 0; i < tagList.size(); ++i) {
         if(tagList[i]->getTagName() == tag1->getTagName()) {

@@ -21,3 +21,6 @@ Makefile
 
 # play specific folders
 build
+
+# text editor misc
+*~

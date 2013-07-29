@@ -1,10 +1,10 @@
-#include "TagManager.h"
-#include "Tag.h"
+using namespace std;
 
 /*!
   \brief Constructs a new TagManager.
  */
-TagManager::TagManager()
+template<typename T>
+TagManager<T>::TagManager()
 {
 
 }
@@ -13,9 +13,10 @@ TagManager::TagManager()
   \brief Constructs a TagManager from the given TagManager.
   \param tagManager the TagManager to construct from.
  */
-TagManager::TagManager(TagManager &tagManager)
+template<typename T>
+TagManager<T>::TagManager(TagManager &tagManager)
 {
-    tagList_ = tagManager.tagList_;
+    tags_ = tagManager.tags_;
 }
 
 /*!
@@ -24,10 +25,11 @@ TagManager::TagManager(TagManager &tagManager)
   \warning In case of Tag sharing between TagManagers, this deletion invalidates
   the other TagManagers referencing the Tags.
  */
-TagManager::~TagManager()
+template<typename T>
+TagManager<T>::~TagManager()
 {
-    TagList::iterator it;
-    for(it = tagList_.begin(); it != tagList_.end(); ++it) {
+    typename vector<Tag<T>*>::iterator it;
+    for(it = tags_.begin(); it != tags_.end(); ++it) {
         delete (*it);
     }
 }
@@ -41,24 +43,26 @@ TagManager::~TagManager()
   \param tagName the name of the wanted Tag.
   \return the Tag with the given name.
  */
-Tag* TagManager::getTag(const string &tagName)
+template<typename T>
+Tag<T>* TagManager<T>::getTag(const string &tagName)
 {
-    TagList::iterator it;
-    for(it = tagList_.begin(); it != tagList_.end(); ++it) {
+    typename vector<Tag<T>*>::iterator it;
+    for(it = tags_.begin(); it != tags_.end(); ++it) {
         if((*it)->getTagName() == tagName) {
             return *it;
         }
     }
     // The Tag doesn't exist and has to be created
-    Tag* newTag = new Tag(tagName);
-    tagList_.push_back(newTag);
+    Tag<T>* newTag = new Tag<T>(tagName);
+    tags_.push_back(newTag);
     return newTag;
 }
 
 /*!
   \return the list of all Tags managed by the TagManager.
  */
-TagList TagManager::getTagList() const
+template<typename T>
+vector<Tag<T>*> TagManager<T>::getTags() const
 {
-    return tagList_;
+    return tags_;
 }
