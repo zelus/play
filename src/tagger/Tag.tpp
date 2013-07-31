@@ -44,16 +44,18 @@ const std::string& Tag<T>::getName() const
   addition.
  */
 template<typename T>
-void Tag<T>::registerItem(T item)
+void Tag<T>::registerItem(T item, int priority)
 {
-    for(size_t i = 0; i < registeredItems_.size(); i++) {
-        if(registeredItems_[i]->getId() == item->getId()) {
+    std::vector<T>& priority_items = registeredItems_[priority];
+    for(size_t i = 0; i < priority_items.size(); i++) {
+        if(priority_items[i]->getId() == item->getId()) {
             std::stringstream ss;
             ss << "Cannot register the Item " << item->getId() << " to the Tag " << tagName_ << " : the Item is already registered to the Tag";
             throw TaggerException(ss.str(),__FILE__, __LINE__);
         }
     }
-    registeredItems_.push_back(item);
+    priority_items.push_back(item);
+    std::cout << priority_items.size() << std::endl;
 }
 
 /*!
@@ -65,13 +67,14 @@ void Tag<T>::registerItem(T item)
   removal.
  */
 template<typename T>
-void Tag<T>::unregisterItem(T item)
+void Tag<T>::unregisterItem(T item, int priority)
 {
-    typename RegisteredItems::iterator it;
+    std::vector<T> priority_items = registeredItems_[priority];
     bool updated = false;
-    for(it = registeredItems_.begin(); it != registeredItems_.end(); ++it) {
+    typename std::vector<T>::iterator it;
+    for(it = priority_items.begin(); it != priority_items.end(); ++it) {
         if((*it)->getId() == item->getId()) {
-            registeredItems_.erase(it);
+            priority_items.erase(it);
             updated = true;
             break;
         }
@@ -83,11 +86,17 @@ void Tag<T>::unregisterItem(T item)
     }
 }
 
+template<typename T>
+typename std::vector<T> Tag<T>::getRegisteredItemsWithPriority(int priority) const
+{
+    return registeredItems_[priority];
+}
+
 /*!
   \return the list of registered Items.
  */
 template<typename T>
-typename Tag<T>::RegisteredItems Tag<T>::getAllRegisteredItems() const
+typename Tag<T>::RegisteredItems Tag<T>::getRegisteredItems() const
 {
     return registeredItems_;
 }
