@@ -44,7 +44,7 @@ const std::string& Tag<T>::getName() const
   addition.
  */
 template<typename T>
-void Tag<T>::registerItem(T item, int priority)
+void Tag<T>::registerItem(T item, unsigned int priority)
 {
     if(item == nullptr) {
         throw TaggerException("The Item to register is null",__FILE__,__LINE__);
@@ -89,7 +89,7 @@ void Tag<T>::unregisterItem(T item, int priority)
 }
 
 template<typename T>
-typename std::vector<T> Tag<T>::getRegisteredItemsWithPriority(int priority) const
+typename std::vector<T> Tag<T>::getRegisteredItemsWithPriority(unsigned int priority) const
 {
     return registeredItems_[priority];
 }

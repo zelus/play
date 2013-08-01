@@ -22,7 +22,7 @@ template<typename T>
 class Tag
 {
 public:
-    typedef typename std::map<int, std::vector<T> > RegisteredItems;
+    typedef typename std::map<unsigned int, std::vector<T> > RegisteredItems;
     Tag(const std::string tagName);
     Tag(const Tag& tag) = delete;
     Tag<T>& operator=(const Tag<T>&) = delete;
@@ -30,10 +30,10 @@ public:
 
     const std::string& getName() const;
 
-    void registerItem(T item, int priority = 0);
+    void registerItem(T item, unsigned int priority = 0);
     void unregisterItem(T item, int priority = -1);
 
-    std::vector<T> getRegisteredItemsWithPriority(int priority) const;
+    std::vector<T> getRegisteredItemsWithPriority(unsigned int priority) const;
     RegisteredItems getRegisteredItems() const;
     size_t getRegisteredItemsNumber() const;
 
