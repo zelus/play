@@ -11,6 +11,9 @@
 template<typename T>
 Tag<T>::Tag(const std::string tagName)
 {
+    if(tagName.empty()) {
+        throw TaggerException("Cannot create a Tag with an empty name", __FILE__, __LINE__);
+    }
     tagName_ = tagName;
 }
 

@@ -14,6 +14,10 @@ class TestTag : public CppUnit::TestFixture
     CPPUNIT_TEST_SUITE(TestTag);
 
     CPPUNIT_TEST(test_constructor);
+    CPPUNIT_TEST_EXCEPTION(test_constructor_emptyName, TaggerException);
+
+    CPPUNIT_TEST(test_getName);
+
     CPPUNIT_TEST(test_registerItem);
     CPPUNIT_TEST_EXCEPTION(test_registerItem_nullptrItem, TaggerException);
     CPPUNIT_TEST_EXCEPTION(test_registerItem_nullItem, TaggerException);
@@ -49,6 +53,9 @@ public:
     void tearDown();
 
     void test_constructor();
+    void test_constructor_emptyName();
+
+    void test_getName();
 
     void test_registerItem();
     void test_registerItem_nullptrItem();

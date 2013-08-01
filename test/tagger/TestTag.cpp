@@ -20,12 +20,22 @@ void TestTag::tearDown()
 }
 
 /*
-  Constructor test with basic parameters.
+  Constructor test with valid name parameter.
  */
 void TestTag::test_constructor()
 {
     CPPUNIT_ASSERT_MESSAGE("Wrong Tag name",tag1_->getName() == "tag1");
     CPPUNIT_ASSERT_MESSAGE("Tag's registered Item map is not empty", tag1_->getRegisteredItems().size() == 0);
+}
+
+/*
+  Constructor test with empty name parameter.
+  A TaggerException is expected.
+*/
+void TestTag::test_constructor_emptyName()
+{
+    Tag<Item*>* tag = new Tag<Item*>("");
+    delete tag;
 }
 
 /*
@@ -40,6 +50,16 @@ void TestTag::test_registerItem()
     CPPUNIT_ASSERT_MESSAGE("Tag's registered Item map size hasn't be increased", tag1_->getRegisteredItemsNumber() == previous_tag_map_size+1);
     Item* registered_item = tag1_->getRegisteredItems()[2][0];
     CPPUNIT_ASSERT_MESSAGE("Item has not been registered",registered_item->getId() == item1_->getId());
+}
+
+/*
+  getName method test.
+*/
+void TestTag::test_getName()
+{
+    Tag<Item*>* tag = new Tag<Item*>("tag");
+    CPPUNIT_ASSERT_MESSAGE("Wrong name returned", tag->getName() == "tag");
+    delete tag;
 }
 
 /*
