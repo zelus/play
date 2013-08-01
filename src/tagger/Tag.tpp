@@ -89,7 +89,7 @@ void Tag<T>::unregisterItem(T item, int priority)
 }
 
 template<typename T>
-typename std::vector<T> Tag<T>::getRegisteredItemsWithPriority(unsigned int priority) const
+typename std::vector<T> Tag<T>::getRegisteredItemsWithPriority(unsigned int priority)
 {
     return registeredItems_[priority];
 }
@@ -117,6 +117,28 @@ size_t Tag<T>::getRegisteredItemsNumber() const
         number_of_items += it->second.size();
     }
     return number_of_items;
+}
+
+/*!
+  \brief Search in the registered Item map for the given Item.
+  \param item the Item to find.
+  \return true if at least one instance of the Item has been founded, false otherwise.
+*/
+template<typename T>
+bool Tag<T>::containsItem(T item) const
+{
+    if(item == nullptr) {
+        throw TaggerException("The Item to check is null",__FILE__, __LINE__);
+    }
+    typename RegisteredItems::const_iterator it;
+    for(it = registeredItems_.begin(); it != registeredItems_.end(); ++it) {
+        for(size_t i = 0; i < it->second.size(); ++i) {
+            if(it->second[i]->getId() == item->getId()) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 /*!

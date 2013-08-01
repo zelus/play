@@ -33,9 +33,10 @@ public:
     void registerItem(T item, unsigned int priority = 0);
     void unregisterItem(T item, int priority = -1);
 
-    std::vector<T> getRegisteredItemsWithPriority(unsigned int priority) const;
+    std::vector<T> getRegisteredItemsWithPriority(unsigned int priority);
     RegisteredItems getRegisteredItems() const;
     size_t getRegisteredItemsNumber() const;
+    bool containsItem(T item) const;
 
 private:
 

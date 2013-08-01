@@ -177,3 +177,126 @@ void TestTag::test_unregisterItem_doubleAddition_deleteAll()
     CPPUNIT_ASSERT_MESSAGE("First Item has not been deleted", tag1_->getRegisteredItems()[0].size() == 0);
     CPPUNIT_ASSERT_MESSAGE("Second Item has not been deleted", tag1_->getRegisteredItems()[1].size() == 0);
 }
+
+/*
+  getRegisteredItemsWithPriority test for a non empty priority vector.
+  A vector containing the Item with the priority is expected.
+*/
+void TestTag::test_getRegisteredItemsWithPriority()
+{
+    tag1_->registerItem(item1_,1);
+    tag1_->registerItem(item2_,2);
+    std::vector<Item*> registered_items = tag1_->getRegisteredItemsWithPriority(1);
+    CPPUNIT_ASSERT_MESSAGE("Returned vector is empty", !registered_items.empty());
+    CPPUNIT_ASSERT_MESSAGE("Wrong returned vector size", registered_items.size() == 1);
+    CPPUNIT_ASSERT_MESSAGE("Returned vector doesn't contain the right Item", registered_items[0]->getId() ==  item1_->getId());
+}
+
+/*
+  getRegisteredItemsWithPriority test for an empty registered Item map.
+  An empty vector<T> is expected.
+*/
+void TestTag::test_getRegisteredItemsWithPriority_noItem()
+{
+  std::vector<Item*> registered_items = tag1_->getRegisteredItemsWithPriority(1);
+  CPPUNIT_ASSERT_MESSAGE("Returned vector is not empty", registered_items.empty());
+}
+
+/*
+  getRegisteredItemsWithPriority test for an empty priority vector.
+  An empty vector<T> is expected.
+*/
+void TestTag::test_getRegisteredItemsWithPriority_emptyPriority()
+{
+    tag1_->registerItem(item1_,1);
+    std::vector<Item*> registered_items = tag1_->getRegisteredItemsWithPriority(0);
+    CPPUNIT_ASSERT_MESSAGE("Returned vector is not empty", registered_items.empty());
+}
+
+/*
+  getRegisteredItem test for a non empty registered Item map.
+  A map containing the appropriate Items is expected.
+*/
+void TestTag::test_getRegisteredItems()
+{
+    tag1_->registerItem(item1_,0);
+    tag1_->registerItem(item2_,1);
+    Tag<Item*>::RegisteredItems registered_items = tag1_->getRegisteredItems();
+    CPPUNIT_ASSERT_MESSAGE("Wrong map size", registered_items.size() == 2);
+    CPPUNIT_ASSERT_MESSAGE("Wrong Item number", tag1_->getRegisteredItemsNumber() == 2);
+    CPPUNIT_ASSERT_MESSAGE("Priority 0 vector is empty", !registered_items[0].empty());
+    CPPUNIT_ASSERT_MESSAGE("Priority 1 vector is empty", !registered_items[1].empty());
+    CPPUNIT_ASSERT_MESSAGE("Wrong priority 0 vector item", registered_items[0][0]->getId() == item1_->getId());
+    CPPUNIT_ASSERT_MESSAGE("Wrong priority 1 vector item", registered_items[1][0]->getId() == item2_->getId());
+}
+
+/*
+  getRegisteredItem test for an empty registered Item map.
+  An empty map is expected.
+*/
+void TestTag::test_getRegisteredItems_noItem()
+{
+    Tag<Item*>::RegisteredItems registered_items = tag1_->getRegisteredItems();
+    CPPUNIT_ASSERT_MESSAGE("Wrong map size", registered_items.size() == 0);
+    CPPUNIT_ASSERT_MESSAGE("Wrong Item number", tag1_->getRegisteredItemsNumber() == 0);
+}
+
+/*
+  getRegisteredItemNumber test for a non empty registered Item map.
+*/
+void TestTag::test_getRegisteredItemsNumber()
+{
+    tag1_->registerItem(item1_,0);
+    tag1_->registerItem(item1_,1);
+    tag1_->registerItem(item2_,2);
+    size_t registered_items_number = tag1_->getRegisteredItemsNumber();
+    CPPUNIT_ASSERT_MESSAGE("Wrong Item number", registered_items_number == 3);
+}
+
+/*
+  getRegisteredItemNumber test for an empty registered Item map.
+*/
+void TestTag::test_getRegisteredItemsNumber_noItem()
+{
+    size_t registered_items_number = tag1_->getRegisteredItemsNumber();
+    CPPUNIT_ASSERT_MESSAGE("Wrong Item number", registered_items_number == 0);
+}
+
+/*
+  containsItem test for an Item in the registered Item map.
+*/
+void TestTag::test_containsItem()
+{
+    tag1_->registerItem(item1_,0);
+    tag1_->registerItem(item2_,1);
+    CPPUNIT_ASSERT_MESSAGE("Registered Item map doesn't contain item1", tag1_->containsItem(item1_));
+    CPPUNIT_ASSERT_MESSAGE("Registered Item map doesn't contain item2", tag1_->containsItem(item2_));
+}
+
+/*
+  containsItem test with std::nullptr as Item.
+  A TaggerException is expected.
+*/
+void TestTag::test_containsItem_nullptrItem()
+{
+    tag1_->registerItem(item1_,1);
+    tag1_->containsItem(nullptr);
+}
+
+/*
+  containsItem test with NULL constant as Item.
+  A TaggerException is expected.
+*/
+void TestTag::test_containsItem_nullItem()
+{
+    tag1_->registerItem(item1_,1);
+    tag1_->containsItem(NULL);
+}
+
+/*
+  containsItem test for an empty registered Item map.
+*/
+void TestTag::test_containsItem_noItem()
+{
+    CPPUNIT_ASSERT_MESSAGE("Registered Item map contains an Item", !tag1_->containsItem(item1_));
+}
