@@ -7,6 +7,7 @@
 /*!
   \brief Constructs a Tag from the given parameters.
   \param tagName the name of the Tag.
+  \exception TaggerException if the given tagName is empty.
  */
 template<typename T>
 Tag<T>::Tag(const std::string tagName)
@@ -19,9 +20,9 @@ Tag<T>::Tag(const std::string tagName)
 
 /*!
   \brief Deletes the Tag.
-  \note No reference checking is done during the deletion,
-  if the tagged item maintain a Tag list this destructor has to be
-  wrapped into an other function wich ensure Tag list consistency.
+  \warning No reference checking is done during the deletion,
+  if the tagged Item maintains a Tag list this destructor has to be
+  wrapped into an other function wich ensure Item's Tag list consistency.
  */
 template<typename T>
 Tag<T>::~Tag()
@@ -41,10 +42,10 @@ const std::string& Tag<T>::getName() const
 /*!
   \brief Add an Item to the list of registered Items.
   \param item the Item to register.
-  \exception TaggerException if the Item is already registered to the Tag.
+  \exception TaggerException if the Item is already registered to the Tag or if the given Item is null.
   \warning This method doesn't ensure consistency between Item and Tag objects :
-  the Tag list of the Item is not updated. See Item::addTag for consistent Tag
-  addition.
+  if the Item maintains a Tag list this method has to be wrapped into an other
+  function wich ensure Item's Tag list consistency.
  */
 template<typename T>
 void Tag<T>::registerItem(T item, unsigned int priority)
@@ -66,10 +67,10 @@ void Tag<T>::registerItem(T item, unsigned int priority)
 /*!
   \brief Remove an Item to the list of registered Items.
   \param item the Item to remove.
-  \exception TaggerException if the Item is not registered to the Tag.
+  \exception TaggerException if the Item is not registered to the Tag or if the given Item is null.
   \warning This method doesn't ensure consistency between Item and Tag objects :
-  the Tag list of the Item is not updated. See Item::removeTag for consistent Tag
-  removal.
+  if the Item maintains a Tag list this method has to be wrapped into an other
+  function wich ensure Item's Tag list consistency.
  */
 template<typename T>
 void Tag<T>::unregisterItem(T item, int priority)
@@ -91,6 +92,9 @@ void Tag<T>::unregisterItem(T item, int priority)
     }
 }
 
+/*!
+  \return a vector containing the registered Items with the given property.
+*/
 template<typename T>
 typename std::vector<T> Tag<T>::getRegisteredItemsWithPriority(unsigned int priority)
 {
@@ -98,7 +102,7 @@ typename std::vector<T> Tag<T>::getRegisteredItemsWithPriority(unsigned int prio
 }
 
 /*!
-  \return the list of registered Items.
+  \return a map containing all the registered Items.
  */
 template<typename T>
 typename Tag<T>::RegisteredItems Tag<T>::getRegisteredItems() const
@@ -107,7 +111,7 @@ typename Tag<T>::RegisteredItems Tag<T>::getRegisteredItems() const
 }
 
 /*!
-  \return the number of registered Item for the Tag.
+  \return the number of registered Items for the Tag.
   \note The number returned is different to the size() method on getRegisteredItems() result
   because of the data structure.
 */
@@ -126,6 +130,7 @@ size_t Tag<T>::getRegisteredItemsNumber() const
   \brief Search in the registered Item map for the given Item.
   \param item the Item to find.
   \return true if at least one instance of the Item has been founded, false otherwise.
+  \exception TaggerException if the Item to check for is null.
 */
 template<typename T>
 bool Tag<T>::containsItem(T item) const
@@ -145,7 +150,7 @@ bool Tag<T>::containsItem(T item) const
 }
 
 /*!
-  \brief Removes all the instances of a given Item from the registered Item map.
+  \brief Remove all the instances of a given Item from the registered Item map.
   \param item the Item to remove.
   \return true if at least one instance has been removed, false otherwise.
 */

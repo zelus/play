@@ -13,7 +13,7 @@
 
   \note Tag class is a template class and need a special item interface to
   work properly : the tagged item must provide a public getId() method returning
-  a const string&. The return of this method should be a unique identifier of the
+  a const string&. The return of this method should be an unique identifier of the
   tagged object.
 
   \warning Tag class only works with pointers (Item* instead of Item).
