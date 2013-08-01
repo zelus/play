@@ -31,12 +31,17 @@ public:
     const std::string& getName() const;
 
     void registerItem(T item, int priority = 0);
-    void unregisterItem(T item, int priority = 0);
+    void unregisterItem(T item, int priority = -1);
 
     std::vector<T> getRegisteredItemsWithPriority(int priority) const;
     RegisteredItems getRegisteredItems() const;
+    size_t getRegisteredItemsNumber() const;
 
 private:
+
+    bool removeAllItemInstances(T item);
+    bool removeItemInstanceWithPriority(T item, unsigned int priority);
+
     std::string tagName_;
     RegisteredItems registeredItems_;
 };
