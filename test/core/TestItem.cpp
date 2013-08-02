@@ -85,8 +85,8 @@ void TestItem::test_destructor()
     item->addTag(tag1);
     item->addTag(tag2);
     delete item;
-    CPPUNIT_ASSERT_MESSAGE("Tag1 contains a reference to the Item", tag1->getAllRegisteredItems().size() == 0);
-    CPPUNIT_ASSERT_MESSAGE("Tag2 contains a reference to the Item", tag2->getAllRegisteredItems().size() == 0);
+    CPPUNIT_ASSERT_MESSAGE("Tag1 contains a reference to the Item", tag1->getRegisteredItemsNumber() == 0);
+    CPPUNIT_ASSERT_MESSAGE("Tag2 contains a reference to the Item", tag2->getRegisteredItemsNumber() == 0);
 }
 
 /*

@@ -31,8 +31,8 @@ void TestFolder::test_destructor()
     Folder* folder = new Folder("folder");
     bool item1Deleted = false;
     bool item2Deleted = false;
-    MockItem* mockItem1 = new MockItem("mockItem1",ANY_TYPE,folder,&item1Deleted);
-    MockItem* mockItem2 = new MockItem("mockItem2",ANY_TYPE,folder,&item2Deleted);
+    MockItem* mockItem1 = new MockItem("mockItem1",ANY_TYPE,folder,item1Deleted);
+    MockItem* mockItem2 = new MockItem("mockItem2",ANY_TYPE,folder,item2Deleted);
     delete folder;
     CPPUNIT_ASSERT_MESSAGE("item1 hasn't been deleted",item1Deleted);
     CPPUNIT_ASSERT_MESSAGE("item2 hasn't been deleted",item2Deleted);

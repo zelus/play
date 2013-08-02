@@ -15,10 +15,10 @@ using namespace std;
 class MockItem : public Item
 {
 public:
-    MockItem(const string& name, ItemType type, Item* parent, bool* isDeleted);
+    MockItem(const string& name, ItemType type, Item* parent, bool& isDeleted);
     ~MockItem();
 private:
-    bool* isDeleted_;
+    bool& isDeleted_;
 };
 
 #endif // MOCK_ITEM_H
