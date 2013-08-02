@@ -8,20 +8,7 @@ TagManager<T>::TagManager()
 }
 
 /*!
-  \brief Constructs a TagManager from the given TagManager.
-  \param tagManager the TagManager to construct from.
- */
-template<typename T>
-TagManager<T>::TagManager(TagManager &tagManager)
-{
-    tags_ = tagManager.tags_;
-}
-
-/*!
   \brief Deletes the TagManager and each Tag managed by it.
-
-  \warning In case of Tag sharing between TagManagers, this deletion invalidates
-  the other TagManagers referencing the Tags.
  */
 template<typename T>
 TagManager<T>::~TagManager()

@@ -6,8 +6,10 @@ include(../../common.pri)
 LIBS = -lcppunit -lqxcppunitd
 
 HEADERS += \
-    TestTag.h
+    TestTag.h \
+    TestTagManager.h
 
 SOURCES += \
     TestTag.cpp \
-    main.cpp
+    main.cpp \
+    TestTagManager.cpp

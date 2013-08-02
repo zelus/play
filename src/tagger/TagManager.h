@@ -18,7 +18,8 @@ class TagManager
 {
 public:
     TagManager();
-    TagManager(TagManager& tagManager);
+    TagManager(TagManager& tagManager) = delete;
+    TagManager<T>& operator=(const TagManager<T>&) = delete;
     ~TagManager();
 
     Tag<T>* getTag(const std::string& tagName);
