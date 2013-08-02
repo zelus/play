@@ -20,13 +20,13 @@ public:
     TagManager();
     TagManager(TagManager& tagManager) = delete;
     TagManager<T>& operator=(const TagManager<T>&) = delete;
-    ~TagManager();
+    virtual ~TagManager();
 
     Tag<T>* getTag(const std::string& tagName);
 
     std::vector<Tag<T>*> getTags() const;
 
-private:
+protected:
     std::vector<Tag<T>*> tags_;
 };
 

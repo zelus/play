@@ -26,7 +26,7 @@ public:
     Tag(const std::string tagName);
     Tag(const Tag& tag) = delete;
     Tag<T>& operator=(const Tag<T>&) = delete;
-    ~Tag();
+    virtual ~Tag();
 
     const std::string& getName() const;
 

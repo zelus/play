@@ -29,7 +29,7 @@ TagManager<T>::~TagManager()
   \return the Tag with the given name.
  */
 template<typename T>
-Tag<T>* TagManager<T>::getTag(const string &tagName)
+Tag<T>* TagManager<T>::getTag(const std::string &tagName)
 {
     typename std::vector<Tag<T>*>::iterator it;
     for(it = tags_.begin(); it != tags_.end(); ++it) {
@@ -47,7 +47,7 @@ Tag<T>* TagManager<T>::getTag(const string &tagName)
   \return the list of all Tags managed by the TagManager.
  */
 template<typename T>
-vector<Tag<T>*> TagManager<T>::getTags() const
+std::vector<Tag<T>*> TagManager<T>::getTags() const
 {
     return tags_;
 }

@@ -7,9 +7,13 @@ LIBS = -lcppunit -lqxcppunitd
 
 HEADERS += \
     TestTag.h \
-    TestTagManager.h
+    TestTagManager.h \
+    MockTag.h \
+    MockTagManager.h
 
 SOURCES += \
     TestTag.cpp \
     main.cpp \
-    TestTagManager.cpp
+    TestTagManager.cpp \
+    MockTag.cpp \
+    MockTagManager.cpp
