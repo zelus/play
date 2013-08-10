@@ -25,6 +25,8 @@ public:
     Tag<T>* getTag(const std::string& tagName);
 
     std::vector<Tag<T>*> getTags() const;
+    size_t getTagsNumber() const;
+    bool containsTag(const std::string& tagName) const;
 
 protected:
     std::vector<Tag<T>*> tags_;

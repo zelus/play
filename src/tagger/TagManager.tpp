@@ -51,3 +51,21 @@ std::vector<Tag<T>*> TagManager<T>::getTags() const
 {
     return tags_;
 }
+
+template<typename T>
+size_t TagManager<T>::getTagsNumber() const
+{
+    return tags_.size();
+}
+
+template<typename T>
+bool TagManager<T>::containsTag(const std::string& tagName) const
+{
+    typename std::vector<Tag<T>*>::const_iterator it;
+    for(it = tags_.begin(); it != tags_.end(); ++it) {
+        if((*it)->getName() == tagName) {
+            return true;
+        }
+    }
+    return false;
+}

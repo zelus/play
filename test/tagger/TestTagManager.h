@@ -18,6 +18,8 @@ class TestTagManager : public CppUnit::TestFixture
 
     CPPUNIT_TEST(test_destructor);
 
+
+
     CPPUNIT_TEST_SUITE_END();
 public:
     void setUp();
