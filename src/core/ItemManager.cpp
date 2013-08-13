@@ -126,6 +126,7 @@ Movie* ItemManager::createMovie(const string &movieName, Item* parentFolder, con
         else {
             return new Movie(movieName, movieSummary,movieNotation,parentFolder);
         }
+        ++itemNumber_;
     }catch(logic_error& e) {
         throw e;
     }
@@ -148,6 +149,7 @@ Folder* ItemManager::createFolder(const string &folderName, Item *parentFolder)
         else {
             return new Folder(folderName, parentFolder);
         }
+        ++itemNumber_;
     }catch(logic_error& e) {
         throw e;
     }
@@ -255,4 +257,9 @@ void ItemManager::recursiveFindItem(const string &itemName, ItemType itemType, I
         }
         recursiveFindItem(itemName,itemType,folderChilds[i],foundedItems);
     }
+}
+
+unsigned int ItemManager::getItemNumber() const
+{
+    return itemNumber_;
 }

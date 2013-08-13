@@ -42,11 +42,15 @@ public:
     MovieList itemListToMovieList(const ItemList& itemList) const;
     FolderList itemListToFolderList(const ItemList& itemList) const;
 
+    unsigned int getItemNumber() const;
+
 private:
 
     void recursiveFindItem(const string& itemName, ItemType itemType, Item* parentFolder, ItemList& foundedItems) const;
 
     Item* treeRoot_;
+
+    unsigned int itemNumber_;
 };
 
 #endif // ITEMMANAGER_H
