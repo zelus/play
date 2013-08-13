@@ -1,3 +1,8 @@
+#include <sstream>
+#include "TaggerException.h"
+// Debug
+#include <iostream>
+
 /*!
   \brief Constructs a new TagManager.
  */
@@ -19,17 +24,27 @@ TagManager<T>::~TagManager()
     }
 }
 
+template<typename T>
+std::vector<Tag<T>*> TagManager<T>::tagFromString(const std::string& toTag)
+{
+    std::vector<Tag<T>*> tags;
+    std::stringstream ss(toTag);
+    std::string tmp;
+    while(std::getline(ss,tmp,' ')) {
+        std::cout << tmp << std::endl;
+        tags.push_back(createSingletonTag(tmp));
+    }
+    return tags;
+}
+
 /*!
   \brief Return the tag corresponding to the given name.
-
-  This method ensure Tag unicity relatively to the TagManager : if a Tag
-  with the given name exists it is returned, otherwise a new Tag is created
-  with it.
   \param tagName the name of the wanted Tag.
   \return the Tag with the given name.
+  \exception TaggerException if the TagManager doesn't contain the Tag.
  */
 template<typename T>
-Tag<T>* TagManager<T>::getTag(const std::string &tagName)
+Tag<T>* TagManager<T>::getTag(const std::string &tagName) const
 {
     typename std::vector<Tag<T>*>::iterator it;
     for(it = tags_.begin(); it != tags_.end(); ++it) {
@@ -37,10 +52,9 @@ Tag<T>* TagManager<T>::getTag(const std::string &tagName)
             return *it;
         }
     }
-    // The Tag doesn't exist and has to be created
-    Tag<T>* newTag = new Tag<T>(tagName);
-    tags_.push_back(newTag);
-    return newTag;
+    std::stringstream ss;
+    ss << "The Tag " << tagName << " doesn't exists in the TagManager";
+    throw TaggerException(ss.str(),__FILE__,__LINE__);
 }
 
 /*!
@@ -68,4 +82,18 @@ bool TagManager<T>::containsTag(const std::string& tagName) const
         }
     }
     return false;
+}
+
+template<typename T>
+Tag<T>* TagManager<T>::createSingletonTag(const std::string& tagName)
+{
+    Tag<T>* tag = nullptr;
+    try {
+        tag = getTag(tagName);
+    }catch(TaggerException& e) {
+        tag = new Tag<T>(tagName);
+        tags_.push_back(tag);
+        return tag;
+    }
+    return tag;
 }
