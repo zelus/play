@@ -8,7 +8,10 @@
 #define ITEM_H
 
 #include "common.h"
+#include "TagManager.h"
 #include "Tag.h"
+#include <map>
+#include <vector>
 #include <string>
 
 using namespace std;
@@ -22,8 +25,11 @@ class Item
 {
 
 public:
-    typedef std::vector<Tag<Item*>*> TagList;
-    Item(const string& itemName = "", ItemType itemType = ANY_TYPE, Item* parent = nullptr);
+
+    static const int name_priority;
+
+    typedef std::map<unsigned int, std::vector<Tag<Item*>*> > Tags;
+    Item(const string& itemName, ItemType itemType = ANY_TYPE, Item* parent = nullptr, TagManager<Item*>* tagManager = nullptr);
     Item(const Item& item) = delete;
     virtual ~Item();
 
@@ -40,15 +46,19 @@ public:
     virtual bool containsSubItem(const string& itemName) const;
     virtual ItemList getAllSubItems() const;
 
-    void addTag(Tag<Item*>* tag);
-    void removeTag(Tag<Item*>* tag);
-    TagList getAllTags() const;
+    //void addTag(Tag<Item*>* tag);
+    //void removeTag(Tag<Item*>* tag);
+    Tags getAllTags() const;
 
 protected:
+
+    void updateTags(const std::string& oldValue, const std::string& newValue, unsigned int priority);
+
     string itemName_;
     Item* parent_;
     ItemType itemType_;
-    TagList tagList_;
+    Tags tagList_;
+    TagManager<Item*>* tagManager_;
 };
 
 #endif // ITEM_H

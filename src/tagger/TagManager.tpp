@@ -37,6 +37,39 @@ std::vector<Tag<T>*> TagManager<T>::tagFromString(const std::string& toTag)
     return tags;
 }
 
+template<typename T>
+std::vector<Tag<T>*> TagManager<T>::createTagsFromItem(const std::string& toTag, T item, unsigned int priority)
+{
+    const std::vector<Tag<T>*>& tags = tagFromString(toTag);
+    typename std::vector<Tag<T>*>::const_iterator it;
+    for(it = tags.begin(); it != tags.end(); ++it) {
+        try {
+            (*it)->registerItem(item,priority);
+        }catch(TaggerException& e) {
+            throw e;
+        }
+    }
+    return tags;
+}
+
+template<typename T>
+void TagManager<T>::deleteTagsFromItem(const std::string& toTag, T item, unsigned int priority)
+{
+    const std::vector<Tag<T>*>& tags = tagFromString(toTag);
+    typename std::vector<Tag<T>*>::const_iterator it;
+    for(it = tags.begin(); it != tags.end(); ++it) {
+        try {
+            (*it)->unregisterItem(item,priority);
+            if((*it)->getRegisteredItemsNumber() == 0) {
+                removeTag(*it);
+                delete *it;
+            }
+        }catch(TaggerException& e) {
+            throw e;
+        }
+    }
+}
+
 /*!
   \brief Return the tag corresponding to the given name.
   \param tagName the name of the wanted Tag.
@@ -46,9 +79,9 @@ std::vector<Tag<T>*> TagManager<T>::tagFromString(const std::string& toTag)
 template<typename T>
 Tag<T>* TagManager<T>::getTag(const std::string &tagName) const
 {
-    typename std::vector<Tag<T>*>::iterator it;
+    typename std::vector<Tag<T>*>::const_iterator it;
     for(it = tags_.begin(); it != tags_.end(); ++it) {
-        if((*it)->getTagName() == tagName) {
+        if((*it)->getName() == tagName) {
             return *it;
         }
     }
@@ -96,4 +129,16 @@ Tag<T>* TagManager<T>::createSingletonTag(const std::string& tagName)
         return tag;
     }
     return tag;
+}
+
+template<typename T>
+void TagManager<T>::removeTag(Tag<T>* tag)
+{
+    typename std::vector<Tag<T>*>::iterator it;
+    for(it = tags_.begin(); it != tags_.end(); ++it) {
+        if((*it)->getName() == tag->getName()) {
+            tags_.erase(it);
+            break;
+        }
+    }
 }

@@ -6,6 +6,8 @@
 // debug
 #include <iostream>
 
+const int Item::name_priority = 1;
+
 /*!
   \brief Constructs an Item from the given parameters.
   \note If a parent is given the constructed Item is added to its parent child list.
@@ -14,11 +16,12 @@
   \param parent The parent of the Item.
   \exception std::logic_error if the given parent cannot handle subItems.
  */
-Item::Item(const string& itemName, ItemType itemType, Item* parent)
+Item::Item(const string& itemName, ItemType itemType, Item* parent, TagManager<Item*>* tagManager)
 {
     itemName_ = itemName;
     parent_ = parent;
     itemType_ = itemType;
+    tagManager_ = tagManager;
     if(parent_ != nullptr) {
         try {
             parent_->addSubItem(this);
@@ -40,9 +43,9 @@ Item::Item(const string& itemName, ItemType itemType, Item* parent)
  */
 Item::~Item()
 {
-    for(size_t i = 0; i < tagList_.size(); ++i) {
+    /*for(size_t i = 0; i < tagList_.size(); ++i) {
         tagList_[i]->unregisterItem(this);
-    }
+    }*/
 }
 
 /*!
@@ -191,7 +194,7 @@ ItemList Item::getAllSubItems() const
   if the Tag has even registered the Item.
   \note This method ensure Tag and Item lists consistency.
  */
-void Item::addTag(Tag<Item*> *tag)
+/*void Item::addTag(Tag<Item*> *tag)
 {
     for(size_t i = 0; i < tagList_.size(); i++) {
         if(tagList_[i]->getName() == tag->getName()) {
@@ -206,7 +209,7 @@ void Item::addTag(Tag<Item*> *tag)
     }catch(logic_error& e) {
         throw e;
     }
-}
+}*/
 
 /*!
   \brief Removes a Tag from the Tag list.
@@ -216,7 +219,7 @@ void Item::addTag(Tag<Item*> *tag)
   if the Tag has not registered the Item.
   \note This method ensure Tag and Item lists consistency.
  */
-void Item::removeTag(Tag<Item*> *tag)
+/*void Item::removeTag(Tag<Item*> *tag)
 {
     bool updated = false;
     TagList::iterator it;
@@ -239,12 +242,30 @@ void Item::removeTag(Tag<Item*> *tag)
         ss << "Cannot erase the Tag " << tag->getName() << " from the Item " << itemName_ << " : the Item is not tagged with the Tag.";
         throw logic_error(ss.str());
     }
-}
+}*/
 
 /*!
   \return the list of Tag associated to the Item.
  */
-Item::TagList Item::getAllTags() const
+Item::Tags Item::getAllTags() const
 {
     return tagList_;
+}
+
+void Item::updateTags(const string &oldValue, const string &newValue, unsigned int priority)
+{
+    if(tagManager_ != nullptr) {
+        std::vector<Tag<Item*>*>& tags = tagList_[priority];
+        if(!oldValue.empty()) {
+            tagManager_->deleteTagsFromItem(oldValue,this,priority);
+            if(!tags.empty()) {
+                tags.clear();
+            }
+        }
+        const std::vector<Tag<Item*>*>& new_tags = tagManager_->createTagsFromItem(newValue,this,priority);
+        std::vector<Tag<Item*>*>::const_iterator it;
+        for(it = new_tags.begin(); it != new_tags.end(); ++it) {
+            tags.push_back(*it);
+        }
+    }
 }

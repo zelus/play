@@ -23,7 +23,9 @@ public:
     virtual ~TagManager();
 
     std::vector<Tag<T>*> tagFromString(const std::string& toTag);
-    // tag item from string ? sans support de la liste de tag dans l'item
+
+    std::vector<Tag<T>*> createTagsFromItem(const std::string& toTag, T item ,unsigned int priority);
+    void deleteTagsFromItem(const std::string& toTag, T item, unsigned int priority);
 
     Tag<T>* getTag(const std::string& tagName) const;
 
@@ -36,6 +38,7 @@ protected:
 
 private:
     Tag<T>* createSingletonTag(const std::string& tagName);
+    void removeTag(Tag<T>* tag);
 };
 
 #include "TagManager.tpp"

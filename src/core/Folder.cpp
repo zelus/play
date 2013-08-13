@@ -14,16 +14,7 @@
   \param folderName the name of the Folder.
   \param parent the parent of the Folder.
  */
-Folder::Folder(const string& folderName, Item* parent) : Item(folderName,FOLDER_TYPE,parent)
-{
-
-}
-
-/*!
-  \brief Constructs a Folder from the given Folder.
-  \param folder the Folder to construct from.
- */
-Folder::Folder(const Folder &folder) : Item(folder.itemName_,FOLDER_TYPE,folder.parent_)
+Folder::Folder(const string& folderName, Item* parent, TagManager<Item*>* tagManager) : Item(folderName,FOLDER_TYPE,parent,tagManager)
 {
 
 }

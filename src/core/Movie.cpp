@@ -11,7 +11,7 @@
   \param movieName the name of the Movie.
   \param parent the parent of the Movie
  */
-Movie::Movie(const string& movieName, Item* parent) : Item(movieName,MOVIE_TYPE,parent)
+Movie::Movie(const string& movieName, Item* parent, TagManager<Item*>* tagManager) : Item(movieName,MOVIE_TYPE,parent,tagManager)
 {
     notation_ = 0;
     summary_ = "";
@@ -28,7 +28,7 @@ Movie::Movie(const string& movieName, Item* parent) : Item(movieName,MOVIE_TYPE,
   \param movieNotation the notation of the Movie.
   \param parent the parent of the Movie.
  */
-Movie::Movie(const string &movieName, const string &movieSummary, const short movieNotation, Item *parent) : Item(movieName, MOVIE_TYPE,parent)
+Movie::Movie(const string &movieName, const string &movieSummary, const short movieNotation, Item *parent, TagManager<Item*>* tagManager) : Item(movieName, MOVIE_TYPE,parent,tagManager)
 {
     notation_ = movieNotation;
     summary_ = movieSummary;
