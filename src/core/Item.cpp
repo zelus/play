@@ -22,6 +22,7 @@ Item::Item(const string& itemName, ItemType itemType, Item* parent, TagManager<I
     parent_ = parent;
     itemType_ = itemType;
     tagManager_ = tagManager;
+    addTags(itemName,name_priority);
     if(parent_ != nullptr) {
         try {
             parent_->addSubItem(this);
@@ -34,18 +35,14 @@ Item::Item(const string& itemName, ItemType itemType, Item* parent, TagManager<I
 /*!
   \brief Deletes the Item and its references into its Tags.
 
-  The Item reference into the registered Item list of each Tag is
-  removed.
-  \warning This method doesn't ensure consistency of the
-  composite pattern : no deletion on eventual parent is done,
-  if you want to delete an Item wich has a parent you have to
-  use Item::deleteSubItem parent method instead.
+  The reference of the Item in each Tag it is registered to is
+  deleted.
+
+  \bug No composite pattern consistency checking.
  */
 Item::~Item()
 {
-    /*for(size_t i = 0; i < tagList_.size(); ++i) {
-        tagList_[i]->unregisterItem(this);
-    }*/
+    deleteTags(itemName_,name_priority);
 }
 
 /*!
@@ -86,7 +83,7 @@ ItemType Item::getType() const
 /*!
   \brief Set a new parent to the Item.
   \param parent the new parent.
-  \warning This method doesn't ensure consistency of the
+  \bug This method doesn't ensure consistency of the
   composite pattern : the Item is not removed from its eventual parent,
   if you want to remove an Item from its parent you have to use
   Item::removeSubItem parent method instead.
@@ -187,64 +184,6 @@ ItemList Item::getAllSubItems() const
 }
 
 /*!
-  \brief Adds a new Tag to the Tag list.
-
-  If the addition succeeds the Item is then registered to the Tag.
-  \exception std::logic_error if the Item is already tagged by the Tag or
-  if the Tag has even registered the Item.
-  \note This method ensure Tag and Item lists consistency.
- */
-/*void Item::addTag(Tag<Item*> *tag)
-{
-    for(size_t i = 0; i < tagList_.size(); i++) {
-        if(tagList_[i]->getName() == tag->getName()) {
-            stringstream ss;
-            ss << "Cannot add Tag " << tag->getName() << " to the Item " << itemName_ << " : Item is already tagged with this Tag.";
-            throw logic_error(ss.str());
-        }
-    }
-    tagList_.push_back(tag);
-    try {
-        tag->registerItem(this);
-    }catch(logic_error& e) {
-        throw e;
-    }
-}*/
-
-/*!
-  \brief Removes a Tag from the Tag list.
-
-  If the removal succeeds the Item is then unregistered to the Tag.
-  \exception std::logic_error if the Item is not tagged by the Tag or
-  if the Tag has not registered the Item.
-  \note This method ensure Tag and Item lists consistency.
- */
-/*void Item::removeTag(Tag<Item*> *tag)
-{
-    bool updated = false;
-    TagList::iterator it;
-    for(it = tagList_.begin(); it != tagList_.end(); ++it) {
-        if((*it)->getName() == tag->getName()) {
-            tagList_.erase(it);
-            updated = true;
-            break;
-        }
-    }
-    if(updated) {
-        try {
-            tag->unregisterItem(this);
-        }catch(logic_error& e) {
-            throw e;
-        }
-    }
-    else {
-        stringstream ss;
-        ss << "Cannot erase the Tag " << tag->getName() << " from the Item " << itemName_ << " : the Item is not tagged with the Tag.";
-        throw logic_error(ss.str());
-    }
-}*/
-
-/*!
   \return the list of Tag associated to the Item.
  */
 Item::Tags Item::getAllTags() const
@@ -252,20 +191,89 @@ Item::Tags Item::getAllTags() const
     return tagList_;
 }
 
-void Item::updateTags(const string &oldValue, const string &newValue, unsigned int priority)
+/*!
+  \brief Add Tags from the given value (with the given priority) of the Tag list.
+
+  The Tags are extracted from the given value by the TagManager associated to the
+  Tag. It ensures consistency between Tags in the Item's list and Tags registered in
+  the TagManager. (\see TagManager::createTagsFromItem).
+
+  \param value the value to tag.
+  \param priority the priority of the value (see static const values).
+
+  \exception CoreException if the Item is not associated to a TagManager.
+  \note If the given value is empty the Tag map is unchanged.
+  \note This method should be overriden by inherited classes that would change Tag processing
+  (for example delete some specific tokens from value before send it to the TagManager).
+ */
+void Item::addTags(const string& value, unsigned int priority)
 {
     if(tagManager_ != nullptr) {
         std::vector<Tag<Item*>*>& tags = tagList_[priority];
-        if(!oldValue.empty()) {
-            tagManager_->deleteTagsFromItem(oldValue,this,priority);
+        if(value.empty()) {
+            // No Tag to add to the Tag map.
+            return ;
+        }
+        else {
+            const std::vector<Tag<Item*>*>& new_tags = tagManager_->createTagsFromItem(value,this,priority);
+            std::vector<Tag<Item*>*>::const_iterator it;
+            for(it = new_tags.begin(); it != new_tags.end(); ++it) {
+                tags.push_back(*it);
+            }
+        }
+    }
+}
+
+/*!
+  \brief Delete Tags from the given value (with the given priority) of the Tag list.
+
+  The Tags are extracted from the priority level and send to the TagManager for a consistent
+  deletion. It ensures consistency between Tags in the Item's list and Tags registered in
+  the TagManager. (\see TagManager::deleteTagsFromItem).
+
+  \param value the value to tag.
+  \param priority the priority of the value (see static const values).
+
+  \exception CoreException if the Item is not associated to a TagManager.
+  \note If the given value is empty the Tag map is unchanged.
+  \note This implementation deletes all the Tag registered to the given priority,
+  including those which are not extracted from the value. If an other implementation
+  is needed in sub Items this method should be overriden.
+ */
+void Item::deleteTags(const string& value, unsigned int priority)
+{
+    if(tagManager_ != nullptr) {
+        std::vector<Tag<Item*>*>& tags = tagList_[priority];
+        if(value.empty()) {
+            // No Tag to delete from the Tag map.
+        }
+        else {
+            tagManager_->deleteTagsFromItem(value,this,priority);
             if(!tags.empty()) {
                 tags.clear();
             }
         }
-        const std::vector<Tag<Item*>*>& new_tags = tagManager_->createTagsFromItem(newValue,this,priority);
-        std::vector<Tag<Item*>*>::const_iterator it;
-        for(it = new_tags.begin(); it != new_tags.end(); ++it) {
-            tags.push_back(*it);
-        }
     }
+}
+
+/*!
+  \brief Update Tags from the given oldValue to the given newValue (with the given priority) of the Tag list.
+
+  Consistency between Tags in the Item's list and Tags registered in
+  the TagManager is ensured.
+
+  \param oldValue the value to delete Tags from.
+  \param newValue the value to create Tags from.
+  \param priority the priority of the values (see static const values).
+
+  \exception CoreException if the Item is not associated to a TagManager.
+  \note If the given values are empty the Tag map is unchanged.
+  \note This impementation is just a basic call to deleteTags(oldValue,priority)
+  followed by a call to addTags(newValue,priority). If an other implementation is
+  needed in sub Items this method should be overriden.
+ */
+void Item::updateTags(const string &oldValue, const string &newValue, unsigned int priority)
+{
+    deleteTags(oldValue,priority);
+    addTags(newValue,priority);
 }

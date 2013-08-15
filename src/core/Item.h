@@ -46,13 +46,13 @@ public:
     virtual bool containsSubItem(const string& itemName) const;
     virtual ItemList getAllSubItems() const;
 
-    //void addTag(Tag<Item*>* tag);
-    //void removeTag(Tag<Item*>* tag);
     Tags getAllTags() const;
 
 protected:
 
-    void updateTags(const std::string& oldValue, const std::string& newValue, unsigned int priority);
+    virtual void addTags(const std::string& value, unsigned int priority);
+    virtual void deleteTags(const std::string& value, unsigned int priority);
+    virtual void updateTags(const std::string& oldValue, const std::string& newValue, unsigned int priority);
 
     string itemName_;
     Item* parent_;
