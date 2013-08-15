@@ -94,6 +94,19 @@ void Item::setParent(Item *parent)
 }
 
 /*!
+  \brief Set a new name to the Item.
+
+  The Tag list is also updated with the new name.
+
+  \param name the new name of the Item.
+ */
+void Item::setName(const std::string& name)
+{
+    updateTags(itemName_,name,name_priority);
+    itemName_ = name;
+}
+
+/*!
   \brief Basic implementation of the addSubItem method.
   \param item the Item to add to the child list.
   \exception std::logic_error if the Item can not have children.

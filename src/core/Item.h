@@ -39,6 +39,7 @@ public:
     ItemType getType() const;
 
     void setParent(Item* parent);
+    void setName(const std::string& name);
     virtual void addSubItem(Item* item);
     virtual void removeSubItem(Item* item);
     virtual void deleteSubItem(Item* item);
