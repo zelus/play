@@ -261,7 +261,7 @@ void Item::deleteTags(const string& value, unsigned int priority)
             // No Tag to delete from the Tag map.
         }
         else {
-            tagManager_->deleteTagsFromItem(value,this,priority);
+            tagManager_->deleteTagsFromItem(tags,this,priority);
             if(!tags.empty()) {
                 tags.clear();
             }

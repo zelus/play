@@ -56,6 +56,16 @@ template<typename T>
 void TagManager<T>::deleteTagsFromItem(const std::string& toTag, T item, unsigned int priority)
 {
     const std::vector<Tag<T>*>& tags = tagFromString(toTag);
+    try {
+        deleteTagsFromItem(tags,item,priority);
+    }catch(TaggerException& e) {
+        throw e;
+    }
+}
+
+template<typename T>
+void TagManager<T>::deleteTagsFromItem(const std::vector<Tag<T>*>& tags, T item, unsigned int priority)
+{
     typename std::vector<Tag<T>*>::const_iterator it;
     for(it = tags.begin(); it != tags.end(); ++it) {
         try {

@@ -26,6 +26,7 @@ public:
 
     std::vector<Tag<T>*> createTagsFromItem(const std::string& toTag, T item ,unsigned int priority);
     void deleteTagsFromItem(const std::string& toTag, T item, unsigned int priority);
+    void deleteTagsFromItem(const std::vector<Tag<T>*>& tags, T item, unsigned int priority);
 
     Tag<T>* getTag(const std::string& tagName) const;
 
