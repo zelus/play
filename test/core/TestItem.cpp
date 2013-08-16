@@ -1,5 +1,6 @@
 #include "TestItem.h"
 
+#include <vector>
 #include <iostream>
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestItem);
@@ -12,6 +13,7 @@ void TestItem::setUp()
     item2 = new Item("item2",ANY_TYPE,nullptr);
     tag1 = new Tag<Item*>("tag1");
     tag2 = new Tag<Item*>("tag2");
+    tagManager = new TagManager<Item*>();
 }
 
 void TestItem::tearDown()
@@ -42,7 +44,8 @@ void TestItem::test_constructor_nullparent()
 
 /*
   Constructor test with an Item object as parent.
-  A std::logic_error is expected (Item cannot handle subItems)
+  A core::CoreException is expected (basic Item cannot
+  handle subItems)
  */
 void TestItem::test_constructor_itemparent()
 {
@@ -66,7 +69,8 @@ void TestItem::test_constructor_folderparent()
 
 /*
   Constructor test with a Movie object as parent.
-  A std::logic_error is expected (Movie cannot handle subItems)
+  A core::CoreException is expected (Movie cannot
+  handle subItems)
  */
 void TestItem::test_constructor_movieparent()
 {
@@ -75,19 +79,41 @@ void TestItem::test_constructor_movieparent()
 }
 
 /*
+  Constructor test with a TagManager associated to the Item.
+  Tag consistency is checked by the TagManager::constainsTag method
+  and the registered Item list returned by the Tag.
+ */
+void TestItem::test_constructor_tagManager()
+{
+    item1 = new Item("item1",ANY_TYPE,nullptr,tagManager);
+    CPPUNIT_ASSERT_MESSAGE("TagManager's Tag list is empty",tagManager->getTagsNumber() == 1);
+    CPPUNIT_ASSERT_MESSAGE("TagManager doesn't contain the Tag \"item1\"",tagManager->containsTag("item1"));
+    CPPUNIT_ASSERT_MESSAGE("Tag \"item1\" doesn't contain a reference to the Item", tagManager->getTag("item1")->getRegisteredItemsNumber() == 1 && tagManager->getTag("item1")->getRegisteredItems()[Item::name_priority][0]->getId() == item1->getId());
+}
+
+/*
   Dectructor test with a Tag list containing two Tags.
-  Item check is done by the registeredItems list size to
-  avoid core dump during the test.
+  Consistency relative to TagManager is checked by a double creation
+  of Items with similar Tags followed by the deletion of one.
+  The Tags corresponding to the Item deleted are retrieved from the
+  TagManager and comparison is done on registred Item number and id of
+  the Item remaining.
+
+  The double creation is necessary because the TagManager deletes Tags that
+  have no registered Items.
  */
 void TestItem::test_destructor()
 {
-    /*Item* item = new Item("item");
-    item->addTag(tag1);
-    item->addTag(tag2);
+    Item* item = new Item("item tag",ANY_TYPE,nullptr,tagManager);
+    Item* item1 = new Item("item tag test",ANY_TYPE,nullptr,tagManager);
     delete item;
-    CPPUNIT_ASSERT_MESSAGE("Tag1 contains a reference to the Item", tag1->getRegisteredItemsNumber() == 0);
-    CPPUNIT_ASSERT_MESSAGE("Tag2 contains a reference to the Item", tag2->getRegisteredItemsNumber() == 0);
-    */
+    Tag<Item*>* tag1 = tagManager->getTag("item");
+    Tag<Item*>* tag2 = tagManager->getTag("tag");
+    CPPUNIT_ASSERT_MESSAGE("Tag \"item\" has not the right number of Item references", tag1->getRegisteredItemsNumber() == 1);
+    CPPUNIT_ASSERT_MESSAGE("Tag \"tag\" has not the right number of Item references", tag2->getRegisteredItemsNumber() == 1);
+    CPPUNIT_ASSERT_MESSAGE("Tag \"item\" contains a reference to the Item", tag1->getRegisteredItems()[Item::name_priority][0]->getId() == item1->getId());
+    CPPUNIT_ASSERT_MESSAGE("Tag \"tag\" contains a reference to the Item", tag2->getRegisteredItems()[Item::name_priority][0]->getId() == item1->getId());
+    delete item1;
 }
 
 /*
@@ -107,6 +133,16 @@ void TestItem::test_getParent_nullptr()
 {
     item1 = new Item("item",ANY_TYPE,nullptr);
     CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent() == nullptr);
+}
+
+void TestItem::test_getId()
+{
+
+}
+
+void TestItem::test_getId_namechanged()
+{
+
 }
 
 /*
@@ -167,8 +203,23 @@ void TestItem::test_setParent_fromitemtoitem()
 }
 
 /*
+  setName test with a valid new name.
+  Tag consistency is checked through the TagManager::containsTag method
+  and the registered Item list returned by the Tag.
+ */
+void TestItem::test_setName()
+{
+    item1 = new Item("item",ANY_TYPE,nullptr,tagManager);
+    item1->setName("item2");
+    CPPUNIT_ASSERT_MESSAGE("Item name hasn't been updated", item1->getName() == "item2");
+    CPPUNIT_ASSERT_MESSAGE("Tag \"item\" hasn't been deleted", tagManager->containsTag("item") == false);
+    CPPUNIT_ASSERT_MESSAGE("Tag \"item2\" hasn't been created", tagManager->containsTag("item2"));
+    CPPUNIT_ASSERT_MESSAGE("Tag \"item2\" doesn't contain a reference to the Item", tagManager->getTag("item2")->getRegisteredItemsNumber() == 1 && tagManager->getTag("item2")->getRegisteredItems()[Item::name_priority][0]->getId() == item1->getId());
+}
+
+/*
   addSubItem test.
-  A std::logic_error is expected (Item cannot handle subItems).
+  A core::CoreException is expected (Item cannot handle subItems).
  */
 void TestItem::test_addSubItem()
 {
@@ -177,7 +228,7 @@ void TestItem::test_addSubItem()
 
 /*
   removeSubItem test.
-  A std::logic_error is expected (Item cannot handle subItems).
+  A core::CoreException is expected (Item cannot handle subItems).
  */
 void TestItem::test_removeSubItem()
 {
@@ -186,7 +237,7 @@ void TestItem::test_removeSubItem()
 
 /*
   deleteSubItem test.
-  A std::logic_error is expected (Item cannot handle subItems).
+  A core::CoreException is expected (Item cannot handle subItems).
  */
 void TestItem::test_deleteSubItem()
 {
@@ -195,7 +246,7 @@ void TestItem::test_deleteSubItem()
 
 /*
   getSubItem test.
-  A std::logic_error is expected (Item cannot handle subItems).
+  A core::CoreException is expected (Item cannot handle subItems).
  */
 void TestItem::test_getSubItem()
 {
@@ -204,7 +255,7 @@ void TestItem::test_getSubItem()
 
 /*
   containsSubItem test.
-  A std::logic_error is expected (Item cannot handle subItems).
+  A core::CoreException is expected (Item cannot handle subItems).
  */
 void TestItem::test_containsSubItem()
 {
@@ -213,94 +264,9 @@ void TestItem::test_containsSubItem()
 
 /*
   getAllSubItems test.
-  A std::logic_error is expected (Item cannot handle subItems).
+  A core::CoreException is expected (Item cannot handle subItems).
  */
 void TestItem::test_getAllSubItems()
 {
     item1->getAllSubItems();
-}
-
-/*
-  addTag test with a new Tag (not even in the Tag list).
-  Consistency of the related Tag registered Item list is
-  not checked (see TestTag for those tests).
- */
-void TestItem::test_addTag()
-{
-    /*item1->addTag(tag1);
-    Item::TagList tagList = item1->getAllTags();
-    bool containsTag = false;
-    for(size_t i = 0; i < tagList.size(); ++i) {
-        if(tagList[i]->getName() == tag1->getName()) {
-            containsTag = true;
-        }
-    }
-    CPPUNIT_ASSERT_MESSAGE("Item doesn't contain added Tag",containsTag);
-    */
-}
-
-/*
-  addTag test with addition of a Tag already in the Tag list.
-  A std::logic_error is expected (Item cannot have the same Tag
-  twice).
- */
-void TestItem::test_addTag_doubleaddition()
-{
-    /*item1->addTag(tag1);
-    item1->addTag(tag1);*/
-}
-
-/*
-  addTag test with addition of a Tag wich has the Item in its
-  registered Item list.
-  A std::logic_error is expected (The model is not consistent
-  in that case).
- */
-void TestItem::test_addTag_evenregistered()
-{
-    /*tag1->registerItem(item1);
-    item1->addTag(tag1);*/
-}
-
-/*
-  removeTag test with an existing Tag (previously added into
-  the Tag list).
-  Consistency of the related Tag registered Item list is
-  not checked (see TestTag for those tests).
- */
-void TestItem::test_removeTag_existingtag()
-{
-    /*item1->addTag(tag1);
-    item1->removeTag(tag1);
-    Item::TagList tagList = item1->getAllTags();
-    bool containsTag = false;
-    for(size_t i = 0; i < tagList.size(); ++i) {
-        if(tagList[i]->getName() == tag1->getName()) {
-            containsTag = true;
-        }
-    }
-    CPPUNIT_ASSERT_MESSAGE("Item still contain removed Tag",!containsTag);*/
-}
-
-/*
-  removeTag test with a non-existing Tag (not in the Tag List).
-  A std::logic_error is expected (Item cannot remove a Tag it
-  doesn't contain).
- */
-void TestItem::test_removeTag_nonexistingtag()
-{
-    //item1->removeTag(tag1);
-}
-
-/*
-  removeTag test with removal of a Tag wich doesn't have
-  the Item in its registered Item List.
-  A std::logic_error is expected (The model is not consistent
-  in that case).
- */
-void TestItem::test_removeTag_unregisteredtag()
-{
-    /*item1->addTag(tag1);
-    tag1->unregisterItem(item1);
-    item1->removeTag(tag1);*/
 }

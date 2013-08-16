@@ -119,7 +119,7 @@ Tag<T>* TagManager<T>::getTag(const std::string &tagName) const
   \return the list of all Tags managed by the TagManager.
  */
 template<typename T>
-std::vector<Tag<T>*> TagManager<T>::getTags() const
+const std::vector<Tag<T>*>& TagManager<T>::getTags() const
 {
     return tags_;
 }

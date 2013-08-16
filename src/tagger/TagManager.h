@@ -30,7 +30,7 @@ public:
 
     Tag<T>* getTag(const std::string& tagName) const;
 
-    std::vector<Tag<T>*> getTags() const;
+    const std::vector<Tag<T>*>& getTags() const;
     size_t getTagsNumber() const;
     bool containsTag(const std::string& tagName) const;
 
