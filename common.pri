@@ -12,11 +12,13 @@ SOURCES      += \
         $$PWD/src/core/Item.cpp \
         $$PWD/src/core/Folder.cpp \
         $$PWD/src/core/Movie.cpp \
-        $$PWD/src/core/ItemManager.cpp
+        $$PWD/src/core/ItemManager.cpp \
+    ../../src/core/CoreException.cpp
 	
 HEADERS      += \
         $$PWD/src/core/Item.h \
         $$PWD/src/core/Folder.h \
         $$PWD/src/core/Movie.h \
         $$PWD/src/core/ItemManager.h \
-        $$PWD/src/core/common.h
+        $$PWD/src/core/common.h \
+    ../../src/core/CoreException.h

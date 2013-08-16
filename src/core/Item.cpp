@@ -1,6 +1,7 @@
 #include "Item.h"
 #include "Folder.h"
 #include "Tag.h"
+#include "CoreException.h"
 #include <stdexcept>
 #include <sstream>
 // debug
@@ -118,7 +119,7 @@ void Item::addSubItem(Item *item)
 {
     stringstream ss;
     ss << "The Item " << itemName_ << " is not a container.";
-    throw logic_error(ss.str());
+    throw CoreException(ss.str(),__FILE__,__LINE__);
 }
 
 /*!
@@ -133,7 +134,7 @@ void Item::removeSubItem(Item *item)
 {
     stringstream ss;
     ss << "The Item " << itemName_ << " is not a container.";
-    throw logic_error(ss.str());
+    throw CoreException(ss.str(),__FILE__,__LINE__);
 }
 
 /*!
@@ -148,7 +149,7 @@ void Item::deleteSubItem(Item *item)
 {
     stringstream ss;
     ss << "The Item " << itemName_ << " is not a container.";
-    throw logic_error(ss.str());
+    throw CoreException(ss.str(),__FILE__,__LINE__);
 }
 
 /*!
@@ -163,7 +164,7 @@ Item* Item::getSubItem(const string &itemName) const
 {
     stringstream ss;
     ss << "The Item " << itemName_ << " is not a container.";
-    throw logic_error(ss.str());
+    throw CoreException(ss.str(),__FILE__,__LINE__);
 }
 
 /*!
@@ -178,7 +179,7 @@ bool Item::containsSubItem(const string &itemName) const
 {
     stringstream ss;
     ss << "The Item " << itemName_ << " is not a container.";
-    throw logic_error(ss.str());
+    throw CoreException(ss.str(),__FILE__,__LINE__);
 }
 
 /*!
@@ -193,7 +194,7 @@ ItemList Item::getAllSubItems() const
 {
     stringstream ss;
     ss << "The Item " << itemName_ << " is not a container.";
-    throw logic_error(ss.str());
+    throw CoreException(ss.str(),__FILE__,__LINE__);
 }
 
 /*!
@@ -221,7 +222,12 @@ Item::Tags Item::getAllTags() const
  */
 void Item::addTags(const string& value, unsigned int priority)
 {
-    if(tagManager_ != nullptr) {
+    if(tagManager_ == nullptr) {
+        stringstream ss;
+        ss << "No TagManager associated to the Item " << itemName_ << ".";
+        throw CoreException(ss.str(),__FILE__,__LINE__);
+    }
+    else {
         std::vector<Tag<Item*>*>& tags = tagList_[priority];
         if(value.empty()) {
             // No Tag to add to the Tag map.
@@ -255,7 +261,12 @@ void Item::addTags(const string& value, unsigned int priority)
  */
 void Item::deleteTags(const string& value, unsigned int priority)
 {
-    if(tagManager_ != nullptr) {
+    if(tagManager_ == nullptr) {
+        stringstream ss;
+        ss << "No TagManager associated to the Item " << itemName_ << ".";
+        throw CoreException(ss.str(),__FILE__,__LINE__);
+    }
+    else {
         std::vector<Tag<Item*>*>& tags = tagList_[priority];
         if(value.empty()) {
             // No Tag to delete from the Tag map.
@@ -287,6 +298,10 @@ void Item::deleteTags(const string& value, unsigned int priority)
  */
 void Item::updateTags(const string &oldValue, const string &newValue, unsigned int priority)
 {
-    deleteTags(oldValue,priority);
-    addTags(newValue,priority);
+    try {
+        deleteTags(oldValue,priority);
+        addTags(newValue,priority);
+    }catch(CoreException& e) {
+        throw e;
+    }
 }
