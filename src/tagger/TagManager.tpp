@@ -46,7 +46,12 @@ std::vector<Tag<T>*> TagManager<T>::createTagsFromItem(const std::string& toTag,
         try {
             (*it)->registerItem(item,priority);
         }catch(TaggerException& e) {
-            throw e;
+            /* Don't handle TaggerException, it would cause more damage than
+               solve anything : if the registration process is interrupted the
+               Item would be part tagged. Moreover, the TaggerException corresponds
+               to a double registration in a Tag, which may be resulting of a consistency
+               error, but the result is still valid.
+             */
         }
     }
     return tags;
@@ -59,7 +64,12 @@ void TagManager<T>::deleteTagsFromItem(const std::string& toTag, T item, unsigne
     try {
         deleteTagsFromItem(tags,item,priority);
     }catch(TaggerException& e) {
-        throw e;
+        /* Don't handle TaggerException, it would cause more damage than
+           solve anything : if the unregistration process is interrupted the
+           Item would be part tagged. Moreover, the TaggerException corresponds
+           to an invalid unregistration in a Tag, which may be resulting of a consistency
+           error, but the result is still valid.
+         */
     }
 }
 
@@ -75,7 +85,12 @@ void TagManager<T>::deleteTagsFromItem(const std::vector<Tag<T>*>& tags, T item,
                 delete *it;
             }
         }catch(TaggerException& e) {
-            throw e;
+            /* Don't handle TaggerException, it would cause more damage than
+               solve anything : if the unregistration process is interrupted the
+               Item would be part tagged. Moreover, the TaggerException corresponds
+               to an invalid unregistration in a Tag, which may be resulting of a consistency
+               error, but the result is still valid.
+             */
         }
     }
 }

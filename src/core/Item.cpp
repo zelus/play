@@ -28,10 +28,6 @@ Item::Item(const string& itemName, ItemType itemType, Item* parent, TagManager<I
     }catch(CoreException) {
         // Cannot create the Tags (no TagManager associated to the Item)
         // Continue the construction of the object and don't update the Tag map.
-    }catch(TaggerException& e) {
-        // Ignore TaggerException : the Item is already registered to the Tag, it may
-        // be a consistency error but would not break global consistency (in the worst
-        // case we can suppose that there is some Tags registering the wrong Item)
     }
     if(parent_ != nullptr) {
         try {
@@ -118,10 +114,6 @@ void Item::setName(const std::string& name)
         // CoreException corresponds to an internal Item error, it would not cause damage to
         // the global consistency of the application (it occurs before any call to TagManager
         // methods). The Tag map is not updated.
-    }catch(TaggerException& e) {
-        // Ignore TaggerException : it may be a consistency error but would
-        // not break global consistency (in the worst case we can suppose that
-        // there is some Tags registering the wrong Item)
     }
     itemName_ = name;
 }
@@ -239,7 +231,6 @@ Item::Tags Item::getAllTags() const
 
   \exception CoreException if there is no TagManager associated to the Item. (There is no internal
   way to create Tags).
-  \exception TaggerException if an internal error occured during the Tag creation.
   \note If the given value is empty the Tag map is unchanged.
   \note This method should be overriden by inherited classes that would change Tag processing
   (for example delete some specific tokens from value before send it to the TagManager).
@@ -257,16 +248,10 @@ void Item::addTags(const string& value, unsigned int priority)
         throw CoreException(ss.str(),__FILE__,__LINE__);
     }
     else {
-        try {
-            const std::vector<Tag<Item*>*>& new_tags = tagManager_->createTagsFromItem(value,this,priority);
-            std::vector<Tag<Item*>*>::const_iterator it;
-            for(it = new_tags.begin(); it != new_tags.end(); ++it) {
-                tags.push_back(*it);
-            }
-        }catch(TaggerException& e) {
-            stringstream ss;
-            ss << "Error during Item " << itemName_ << " Tag creation : " << e.what();
-            throw TaggerException(ss.str(),__FILE__,__LINE__);
+        const std::vector<Tag<Item*>*>& new_tags = tagManager_->createTagsFromItem(value,this,priority);
+        std::vector<Tag<Item*>*>::const_iterator it;
+        for(it = new_tags.begin(); it != new_tags.end(); ++it) {
+            tags.push_back(*it);
         }
     }
 }
@@ -284,7 +269,6 @@ void Item::addTags(const string& value, unsigned int priority)
   \param value the value to tag.
   \param priority the priority of the value (see static const values).
 
-  \exception TaggerException if an internal error occured during the Tag deletion.
   \note If the given value is empty the Tag map is unchanged.
   \note This implementation deletes all the Tag registered to the given priority,
   including those which are not extracted from the value. If an other implementation
@@ -301,14 +285,8 @@ void Item::deleteTags(const string& value, unsigned int priority)
         tags.clear();
     }
     else {
-        try {
-            tagManager_->deleteTagsFromItem(tags,this,priority);
-            tags.clear();
-        }catch(TaggerException& e) {
-            stringstream ss;
-            ss << "Error during Item " << itemName_ << " Tag deletion : " << e.what();
-            throw TaggerException(ss.str(),__FILE__,__LINE__);
-        }
+        tagManager_->deleteTagsFromItem(tags,this,priority);
+        tags.clear();
     }
 }
 
@@ -323,7 +301,6 @@ void Item::deleteTags(const string& value, unsigned int priority)
   \param priority the priority of the values (see static const values).
 
   \exception CoreException if the Item is not associated to a TagManager.
-  \exception TaggerException if an internal error occured during the Tag processing.
   \note If the given values are empty the Tag map is unchanged.
   \note This impementation is just a basic call to deleteTags(oldValue,priority)
   followed by a call to addTags(newValue,priority). If an other implementation is
@@ -334,7 +311,7 @@ void Item::updateTags(const string &oldValue, const string &newValue, unsigned i
     try {
         deleteTags(oldValue,priority);
         addTags(newValue,priority);
-    }catch(exception& e) {
+    }catch(CoreException& e) {
         throw e;
     }
 }
