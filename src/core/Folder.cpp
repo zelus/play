@@ -11,10 +11,13 @@
 
   The given name and parent are delegated to the Item constructor, and
   the ItemType is statically defined to FOLDER_TYPE .
+  \param id a unique ID associated to the Folder.
   \param folderName the name of the Folder.
   \param parent the parent of the Folder.
+  \note There is no consistency checking done on the ID unicity. To create Folders with consistent
+  unique ID see \see ItemManager::createFolder method.
  */
-Folder::Folder(const string& folderName, Item* parent, TagManager<Item*>* tagManager) : Item(folderName,FOLDER_TYPE,parent,tagManager)
+Folder::Folder(const string& id, const string& folderName, Item* parent, TagManager<Item*>* tagManager) : Item(id,folderName,FOLDER_TYPE,parent,tagManager)
 {
 
 }

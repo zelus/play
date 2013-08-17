@@ -12,13 +12,17 @@ const int Item::name_priority = 1;
 /*!
   \brief Constructs an Item from the given parameters.
   \note If a parent is given the constructed Item is added to its parent child list.
+  \param id A unique ID associated to the Item.
   \param itemName The name of the Item.
   \param itemType The type of the Item.
   \param parent The parent of the Item.
   \exception std::logic_error if the given parent cannot handle subItems.
+  \note There is no consistency checking done on the ID unicity. To create Items with consistent
+  unique ID see \see ItemManager::createItem and its derivated methods.
  */
-Item::Item(const string& itemName, ItemType itemType, Item* parent, TagManager<Item*>* tagManager)
+Item::Item(const string& id, const string& itemName, ItemType itemType, Item* parent, TagManager<Item*>* tagManager)
 {
+    id_ = id;
     itemName_ = itemName;
     parent_ = parent;
     itemType_ = itemType;

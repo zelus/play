@@ -8,10 +8,13 @@
   The given name and parent are delegated to the Item constructor, and
   the ItemType is statically defined as MOVIE_TYPE. The notation and the
   summary are setted to default values (respectively 0 and "").
+  \param id a unique ID associated to the Movie.
   \param movieName the name of the Movie.
   \param parent the parent of the Movie
+  \note There is no consistency checking done on the ID unicity. To create Folders with consistent
+  unique ID see \see ItemManager::createMovie method.
  */
-Movie::Movie(const string& movieName, Item* parent, TagManager<Item*>* tagManager) : Item(movieName,MOVIE_TYPE,parent,tagManager)
+Movie::Movie(const string& id, const string& movieName, Item* parent, TagManager<Item*>* tagManager) : Item(id,movieName,MOVIE_TYPE,parent,tagManager)
 {
     notation_ = 0;
     summary_ = "";
@@ -23,12 +26,15 @@ Movie::Movie(const string& movieName, Item* parent, TagManager<Item*>* tagManage
   The given name and parent are delegated to the Item constructo, and
   the ItemType is statically defined as MOVIE_TYPE. Notation and summary
   are setted with the given values.
+  \param id a unique ID associated to the Movie.
   \param movieName the name of the Movie.
   \param movieSummary the summary of the Movie.
   \param movieNotation the notation of the Movie.
   \param parent the parent of the Movie.
+  \note There is no consistency checking done on the ID unicity. To create Folders with consistent
+  unique ID see \see ItemManager::createMovie method.
  */
-Movie::Movie(const string &movieName, const string &movieSummary, const short movieNotation, Item *parent, TagManager<Item*>* tagManager) : Item(movieName, MOVIE_TYPE,parent,tagManager)
+Movie::Movie(const string& id, const string &movieName, const string &movieSummary, const short movieNotation, Item *parent, TagManager<Item*>* tagManager) : Item(id,movieName, MOVIE_TYPE,parent,tagManager)
 {
     notation_ = movieNotation;
     summary_ = movieSummary;

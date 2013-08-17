@@ -24,7 +24,7 @@ using namespace std;
 class Folder : public Item
 {
 public:
-    Folder(const string& folderName, Item* parent = nullptr, TagManager<Item*>* tagManager = nullptr);
+    Folder(const string& id, const string& folderName, Item* parent = nullptr, TagManager<Item*>* tagManager = nullptr);
     Folder(const Folder& folder) = delete;
     ~Folder();
 

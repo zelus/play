@@ -15,7 +15,7 @@
  */
 ItemManager::ItemManager()
 {
-    treeRoot_ = new Folder("_root_");
+    treeRoot_ = new Folder("0", "_root_");
 }
 
 /*!
@@ -121,10 +121,10 @@ Movie* ItemManager::createMovie(const string &movieName, Item* parentFolder, con
 {
     try {
         if(parentFolder == nullptr) {
-            return new Movie(movieName,movieSummary,movieNotation,treeRoot_);
+            return new Movie("0",movieName,movieSummary,movieNotation,treeRoot_);
         }
         else {
-            return new Movie(movieName, movieSummary,movieNotation,parentFolder);
+            return new Movie("0",movieName, movieSummary,movieNotation,parentFolder);
         }
         ++itemNumber_;
     }catch(logic_error& e) {
@@ -144,10 +144,10 @@ Folder* ItemManager::createFolder(const string &folderName, Item *parentFolder)
 {
     try {
         if(parentFolder == nullptr) {
-            return new Folder(folderName, treeRoot_);
+            return new Folder("0",folderName, treeRoot_);
         }
         else {
-            return new Folder(folderName, parentFolder);
+            return new Folder("0",folderName, parentFolder);
         }
         ++itemNumber_;
     }catch(logic_error& e) {

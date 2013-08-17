@@ -15,7 +15,7 @@ using namespace std;
 class MockItem : public Item
 {
 public:
-    MockItem(const string& name, ItemType type, Item* parent, bool& isDeleted);
+    MockItem(const string& id, const string& name, ItemType type, Item* parent, bool& isDeleted);
     ~MockItem();
 private:
     bool& isDeleted_;

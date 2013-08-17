@@ -6,7 +6,7 @@
   to know if the MockItem destructor has been
   called.
  */
-MockItem::MockItem(const string &name, ItemType type, Item *parent, bool& isDeleted) : Item(name,type,parent), isDeleted_(isDeleted)
+MockItem::MockItem(const string& id, const string &name, ItemType type, Item *parent, bool& isDeleted) : Item(id,name,type,parent), isDeleted_(isDeleted)
 {
 
 }

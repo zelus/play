@@ -4,7 +4,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestMovie);
 
 void TestMovie::setUp()
 {
-    movie1 = new Movie("movie1","summary",5,nullptr);
+    movie1 = new Movie("0","movie1","summary",5,nullptr);
 }
 
 void TestMovie::tearDown()
@@ -19,7 +19,7 @@ void TestMovie::tearDown()
  */
 void TestMovie::test_constructor()
 {
-    movie1 = new Movie("movie1","summary_movie1", 2, nullptr);
+    movie1 = new Movie("0","movie1","summary_movie1", 2, nullptr);
     CPPUNIT_ASSERT_MESSAGE("Wrong summary", movie1->getSummary() == "summary_movie1");
     CPPUNIT_ASSERT_MESSAGE("Wrong notation", movie1->getNotation() == 2);
 }
@@ -29,7 +29,7 @@ void TestMovie::test_constructor()
  */
 void TestMovie::test_getSummary()
 {
-    movie1 = new Movie("movie1","summary_movie1",2);
+    movie1 = new Movie("0","movie1","summary_movie1",2);
     CPPUNIT_ASSERT_MESSAGE("Wrong summary", movie1->getSummary() == "summary_movie1");
 }
 
@@ -38,7 +38,7 @@ void TestMovie::test_getSummary()
  */
 void TestMovie::test_getNotation()
 {
-    movie1 = new Movie("movie1","summary_movie1",2);
+    movie1 = new Movie("0","movie1","summary_movie1",2);
     CPPUNIT_ASSERT_MESSAGE("Wrong notation", movie1->getNotation() == 2);
 }
 

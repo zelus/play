@@ -29,7 +29,7 @@ public:
     static const int name_priority;
 
     typedef std::map<unsigned int, std::vector<Tag<Item*>*> > Tags;
-    Item(const string& itemName, ItemType itemType = ANY_TYPE, Item* parent = nullptr, TagManager<Item*>* tagManager = nullptr);
+    Item(const string& id, const string& itemName, ItemType itemType = ANY_TYPE, Item* parent = nullptr, TagManager<Item*>* tagManager = nullptr);
     Item(const Item& item) = delete;
     virtual ~Item();
 
@@ -55,6 +55,7 @@ protected:
     virtual void deleteTags(const std::string& value, unsigned int priority);
     virtual void updateTags(const std::string& oldValue, const std::string& newValue, unsigned int priority);
 
+    string id_;
     string itemName_;
     Item* parent_;
     ItemType itemType_;

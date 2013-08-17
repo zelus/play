@@ -30,7 +30,8 @@ class TestItem : public CppUnit::TestFixture
   CPPUNIT_TEST(test_getParent_nullptr);
 
   CPPUNIT_TEST(test_getId);
-  CPPUNIT_TEST(test_getId_namechanged)
+  CPPUNIT_TEST(test_getId_namechanged);
+  CPPUNIT_TEST(test_getId_parentchanged);
 
   CPPUNIT_TEST(test_getName);
 
@@ -68,6 +69,7 @@ public:
 
   void test_getId();
   void test_getId_namechanged();
+  void test_getId_parentchanged();
 
   void test_getName();
 
