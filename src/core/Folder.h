@@ -8,10 +8,8 @@
 #define FOLDER_H
 
 #include "Item.h"
-#include "common.h"
+#include <vector>
 #include <string>
-
-using namespace std;
 
 /*!
   \brief Represents a concrete Item with folder properties.
@@ -24,19 +22,19 @@ using namespace std;
 class Folder : public Item
 {
 public:
-    Folder(const string& id, const string& folderName, Item* parent = nullptr, TagManager<Item*>* tagManager = nullptr);
+    Folder(const std::string& id, const std::string& folderName, Item* parent = nullptr);
     Folder(const Folder& folder) = delete;
     ~Folder();
 
     void addSubItem(Item* item);
     void removeSubItem(Item *item);
     void deleteSubItem(Item *item);
-    Item* getSubItem(const string& itemName) const;
-    bool containsSubItem(const string& itemName) const;
-    ItemList getAllSubItems() const;
+    Item* getSubItem(const std::string& itemName) const;
+    bool containsSubItem(const std::string& itemName) const;
+    const std::vector<Item*>& getAllSubItems() const;
 
 private:
-    ItemList items_;
+    std::vector<Item*> items_;
 
 };
 

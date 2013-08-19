@@ -14,7 +14,7 @@
   \note There is no consistency checking done on the ID unicity. To create Folders with consistent
   unique ID see \see ItemManager::createMovie method.
  */
-Movie::Movie(const string& id, const string& movieName, Item* parent, TagManager<Item*>* tagManager) : Item(id,movieName,MOVIE_TYPE,parent,tagManager)
+Movie::Movie(const string& id, const string& movieName, Item* parent) : Item(id,movieName,ItemType::MOVIE_TYPE,parent)
 {
     notation_ = 0;
     summary_ = "";
@@ -34,7 +34,7 @@ Movie::Movie(const string& id, const string& movieName, Item* parent, TagManager
   \note There is no consistency checking done on the ID unicity. To create Folders with consistent
   unique ID see \see ItemManager::createMovie method.
  */
-Movie::Movie(const string& id, const string &movieName, const string &movieSummary, const short movieNotation, Item *parent, TagManager<Item*>* tagManager) : Item(id,movieName, MOVIE_TYPE,parent,tagManager)
+Movie::Movie(const string& id, const string &movieName, const string &movieSummary, const short movieNotation, Item *parent) : Item(id,movieName, ItemType::MOVIE_TYPE,parent)
 {
     notation_ = movieNotation;
     summary_ = movieSummary;

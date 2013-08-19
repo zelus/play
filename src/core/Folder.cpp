@@ -1,7 +1,6 @@
 #include "Folder.h"
-#include "Item.h"
+#include "CoreException.h"
 
-#include <stdexcept>
 #include <sstream>
 // debug
 #include <iostream>
@@ -17,7 +16,7 @@
   \note There is no consistency checking done on the ID unicity. To create Folders with consistent
   unique ID see \see ItemManager::createFolder method.
  */
-Folder::Folder(const string& id, const string& folderName, Item* parent, TagManager<Item*>* tagManager) : Item(id,folderName,FOLDER_TYPE,parent,tagManager)
+Folder::Folder(const string& id, const string& folderName, Item* parent) : Item(id,folderName,ItemType::FOLDER_TYPE,parent)
 {
 
 }
@@ -45,7 +44,7 @@ void Folder::addSubItem(Item *item)
     if(containsSubItem(item->getName())) {
         stringstream ss;
         ss << "The Folder " << itemName_ << " already contains an Item with the name " << item->getName();
-        throw logic_error(ss.str());
+        throw CoreException(ss.str(),__FILE__,__LINE__);
     }
     Item* itemParent = item->getParent();
     if(itemParent != this && itemParent != nullptr) {
@@ -65,7 +64,7 @@ void Folder::addSubItem(Item *item)
   */
 void Folder::removeSubItem(Item *item)
 {
-    ItemList::iterator it;
+    vector<Item*>::iterator it;
     for(it = items_.begin(); it != items_.end(); ++it) {
         if((*it)->getName() == item->getName()) {
             (*it)->setParent(nullptr);
@@ -75,7 +74,7 @@ void Folder::removeSubItem(Item *item)
     }
     stringstream ss;
     ss << "The Folder " << itemName_ << " doesn't contain the Item " << item->getName();
-    throw logic_error(ss.str());
+    throw CoreException(ss.str(),__FILE__,__LINE__);
 }
 
 /*!
@@ -87,7 +86,7 @@ void Folder::removeSubItem(Item *item)
  */
 void Folder::deleteSubItem(Item *item)
 {
-    ItemList::iterator it;
+    vector<Item*>::iterator it;
     for(it = items_.begin(); it != items_.end(); ++it) {
         if((*it)->getName() == item->getName()) {
             delete (*it);
@@ -97,7 +96,7 @@ void Folder::deleteSubItem(Item *item)
     }
     stringstream ss;
     ss << "The Folder " << itemName_ << " doesn't contain the Item " << item->getName();
-    throw logic_error(ss.str());
+    throw CoreException(ss.str(),__FILE__,__LINE__);
 }
 
 /*!
@@ -108,7 +107,7 @@ void Folder::deleteSubItem(Item *item)
  */
 Item* Folder::getSubItem(const string &itemName) const
 {
-    ItemList::const_iterator it;
+    vector<Item*>::const_iterator it;
     for(it = items_.begin(); it != items_.end(); ++it) {
         if((*it)->getName() == itemName) {
             return *it;
@@ -125,7 +124,7 @@ Item* Folder::getSubItem(const string &itemName) const
  */
 bool Folder::containsSubItem(const string &itemName) const
 {
-    ItemList::const_iterator it;
+    vector<Item*>::const_iterator it;
     for(it = items_.begin(); it != items_.end(); ++it) {
         if((*it)->getName() == itemName) {
             return true;
@@ -138,7 +137,7 @@ bool Folder::containsSubItem(const string &itemName) const
   \brief Overrides the basic getAllSubItems method defined in the Item class.
   \return the direct subItems list of the Folder.
  */
-ItemList Folder::getAllSubItems() const
+const vector<Item*>& Folder::getAllSubItems() const
 {
     return items_;
 }

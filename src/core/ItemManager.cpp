@@ -62,9 +62,9 @@ ItemManager::~ItemManager()
   \note If ANY_TYPE is given as itemType all the items corresponding to the other
   parameters are returned.
  */
-ItemList ItemManager::findItem(const string &itemName, ItemType itemType, Item *parentFolder) const
+vector<Item*> ItemManager::findItem(const string &itemName, Item::ItemType itemType, Item *parentFolder) const
 {
-    ItemList foundedItems;
+    vector<Item*> foundedItems;
     Item* searchStart = parentFolder;
     if(parentFolder == nullptr) {
         searchStart = treeRoot_;
@@ -85,9 +85,9 @@ ItemList ItemManager::findItem(const string &itemName, ItemType itemType, Item *
   corresponds the returned list is empty.
   \exception std::runtime_error if at least one type conversion can't be done.
  */
-MovieList ItemManager::findMovie(const string &movieName, Item *parentFolder) const
+vector<Movie*> ItemManager::findMovie(const string &movieName, Item *parentFolder) const
 {
-    return itemListToMovieList(findItem(movieName,MOVIE_TYPE,parentFolder));
+    return itemListToMovieList(findItem(movieName,Item::ItemType::MOVIE_TYPE,parentFolder));
 }
 
 /*!
@@ -102,9 +102,9 @@ MovieList ItemManager::findMovie(const string &movieName, Item *parentFolder) co
   corresponds the returned list is empty.
   \exception std::runtime_error if at least one type conversion can't be done.
  */
-FolderList ItemManager::findFolder(const string &folderName, Item *parentFolder) const
+vector<Folder*> ItemManager::findFolder(const string &folderName, Item *parentFolder) const
 {
-    return itemListToFolderList(findItem(folderName,FOLDER_TYPE,parentFolder));
+    return itemListToFolderList(findItem(folderName,Item::ItemType::FOLDER_TYPE,parentFolder));
 }
 
 /*!
@@ -196,9 +196,9 @@ Folder* ItemManager::itemToFolder(Item *item) const
   \return a MovieList containing the casted Movies.
   \exception std::runtime_error if at least one type conversion can't be done.
 */
-MovieList ItemManager::itemListToMovieList(const ItemList &itemList) const
+vector<Movie*> ItemManager::itemListToMovieList(const vector<Item*>& itemList) const
 {
-    MovieList movieList;
+    vector<Movie*> movieList;
     for(size_t i = 0; i < itemList.size(); ++i) {
         try {
             movieList.push_back(itemToMovie(itemList[i]));
@@ -216,9 +216,9 @@ MovieList ItemManager::itemListToMovieList(const ItemList &itemList) const
   \return a FolderList containing the casted Folders.
   \exception std::runtime_error if at least one type conversion can't be done.
 */
-FolderList ItemManager::itemListToFolderList(const ItemList &itemList) const
+vector<Folder*> ItemManager::itemListToFolderList(const vector<Item*>& itemList) const
 {
-    FolderList folderList;
+    vector<Folder*> folderList;
     for(size_t i = 0; i < itemList.size(); ++i) {
         try {
             folderList.push_back(itemToFolder(itemList[i]));
@@ -243,16 +243,16 @@ FolderList ItemManager::itemListToFolderList(const ItemList &itemList) const
   (and not the return value of the method) because of the recursive aspect of the search
   process.
 */
-void ItemManager::recursiveFindItem(const string &itemName, ItemType itemType, Item *parentFolder, ItemList &foundedItems) const
+void ItemManager::recursiveFindItem(const string &itemName, Item::ItemType itemType, Item *parentFolder, vector<Item*> &foundedItems) const
 {
-    ItemList folderChilds;
+    vector<Item*> folderChilds;
     try {
         folderChilds = parentFolder->getAllSubItems();
     }catch(logic_error& e) {
         return;
     }
     for(size_t i = 0; i < folderChilds.size(); ++i) {
-        if(folderChilds[i]->getName() == itemName && (folderChilds[i]->getType() == itemType || itemType == ANY_TYPE)) {
+        if(folderChilds[i]->getName() == itemName && (folderChilds[i]->getType() == itemType || itemType == Item::ItemType::ItemTypeANY_TYPE)) {
             foundedItems.push_back(folderChilds[i]);
         }
         recursiveFindItem(itemName,itemType,folderChilds[i],foundedItems);

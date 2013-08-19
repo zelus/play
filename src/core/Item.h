@@ -7,16 +7,11 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-#include "common.h"
-#include "TagManager.h"
-#include "Tag.h"
 #include <map>
 #include <vector>
 #include <string>
 
 using namespace std;
-
-class Folder;
 
 /*!
   \brief Represents an abstract Item.
@@ -26,10 +21,9 @@ class Item
 
 public:
 
-    static const int name_priority;
+    enum class ItemType { ANY_TYPE, FOLDER_TYPE, MOVIE_TYPE };
 
-    typedef std::map<unsigned int, std::vector<Tag<Item*>*> > Tags;
-    Item(const string& id, const string& itemName, ItemType itemType = ANY_TYPE, Item* parent = nullptr, TagManager<Item*>* tagManager = nullptr);
+    Item(const string& id, const string& itemName, ItemType itemType = ItemType::ANY_TYPE, Item* parent = nullptr);
     Item(const Item& item) = delete;
     virtual ~Item();
 
@@ -45,22 +39,14 @@ public:
     virtual void deleteSubItem(Item* item);
     virtual Item* getSubItem(const string& itemName) const;
     virtual bool containsSubItem(const string& itemName) const;
-    virtual ItemList getAllSubItems() const;
-
-    Tags getAllTags() const;
+    virtual const vector<Item*>& getAllSubItems() const;
 
 protected:
-
-    virtual void addTags(const std::string& value, unsigned int priority);
-    virtual void deleteTags(const std::string& value, unsigned int priority);
-    virtual void updateTags(const std::string& oldValue, const std::string& newValue, unsigned int priority);
 
     string id_;
     string itemName_;
     Item* parent_;
     ItemType itemType_;
-    Tags tagList_;
-    TagManager<Item*>* tagManager_;
 };
 
 #endif // ITEM_H

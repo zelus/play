@@ -7,7 +7,6 @@
 #ifndef MOVIE_H
 #define MOVIE_H
 
-#include "common.h"
 #include "Item.h"
 
 /*!
@@ -22,8 +21,8 @@
 class Movie : public Item
 {
 public:
-    Movie(const string& id, const string& movieName, Item* parent = nullptr, TagManager<Item*>* tagManager = nullptr);
-    Movie(const string& id, const string& movieName, const string& movieSummary, const short movieNotation, Item* parent = nullptr, TagManager<Item*>* tagManager = nullptr);
+    Movie(const string& id, const string& movieName, Item* parent = nullptr);
+    Movie(const string& id, const string& movieName, const string& movieSummary, const short movieNotation, Item* parent = nullptr);
     Movie(const Movie& movie) = delete;
     ~Movie();
 

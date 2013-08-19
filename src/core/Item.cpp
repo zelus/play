@@ -1,13 +1,8 @@
 #include "Item.h"
-#include "Folder.h"
-#include "Tag.h"
 #include "CoreException.h"
-#include "TaggerException.h"
 #include <sstream>
 // debug
 #include <iostream>
-
-const int Item::name_priority = 1;
 
 /*!
   \brief Constructs an Item from the given parameters.
@@ -20,19 +15,12 @@ const int Item::name_priority = 1;
   \note There is no consistency checking done on the ID unicity. To create Items with consistent
   unique ID see \see ItemManager::createItem and its derivated methods.
  */
-Item::Item(const string& id, const string& itemName, ItemType itemType, Item* parent, TagManager<Item*>* tagManager)
+Item::Item(const string& id, const string& itemName, ItemType itemType, Item* parent)
 {
     id_ = id;
     itemName_ = itemName;
     parent_ = parent;
     itemType_ = itemType;
-    tagManager_ = tagManager;
-    try {
-        addTags(itemName,name_priority);
-    }catch(CoreException) {
-        // Cannot create the Tags (no TagManager associated to the Item)
-        // Continue the construction of the object and don't update the Tag map.
-    }
     if(parent_ != nullptr) {
         try {
             parent_->addSubItem(this);
@@ -52,7 +40,7 @@ Item::Item(const string& id, const string& itemName, ItemType itemType, Item* pa
  */
 Item::~Item()
 {
-    deleteTags(itemName_,name_priority);
+
 }
 
 /*!
@@ -85,7 +73,7 @@ const string& Item::getName() const
 /*!
   \return the ItemType of the Item.
  */
-ItemType Item::getType() const
+Item::ItemType Item::getType() const
 {
     return itemType_;
 }
@@ -112,13 +100,6 @@ void Item::setParent(Item *parent)
  */
 void Item::setName(const std::string& name)
 {
-    try {
-        updateTags(itemName_,name,name_priority);
-    }catch(CoreException& e) {
-        // CoreException corresponds to an internal Item error, it would not cause damage to
-        // the global consistency of the application (it occurs before any call to TagManager
-        // methods). The Tag map is not updated.
-    }
     itemName_ = name;
 }
 
@@ -205,117 +186,9 @@ bool Item::containsSubItem(const string &itemName) const
   See design pattern \em composite for further imformations about global interfaces.
   \note This method should be overriden by inherited classes that can handle children.
  */
-ItemList Item::getAllSubItems() const
+const vector<Item*>& Item::getAllSubItems() const
 {
     stringstream ss;
     ss << "The Item " << itemName_ << " is not a container.";
     throw CoreException(ss.str(),__FILE__,__LINE__);
-}
-
-/*!
-  \return the list of Tag associated to the Item.
- */
-Item::Tags Item::getAllTags() const
-{
-    return tagList_;
-}
-
-/*!
-  \brief Add Tags from the given value (with the given priority) of the Tag list.
-
-  The Tags are extracted from the given value by the TagManager associated to the
-  Tag. It ensures consistency between Tags in the Item's list and Tags registered in
-  the TagManager. (\see TagManager::createTagsFromItem).
-
-  If there is no TagManager associated to the Item only the internal Item's Tag map is
-  updated.
-
-  \param value the value to tag.
-  \param priority the priority of the value (see static const values).
-
-  \exception CoreException if there is no TagManager associated to the Item. (There is no internal
-  way to create Tags).
-  \note If the given value is empty the Tag map is unchanged.
-  \note This method should be overriden by inherited classes that would change Tag processing
-  (for example delete some specific tokens from value before send it to the TagManager).
- */
-void Item::addTags(const string& value, unsigned int priority)
-{
-    std::vector<Tag<Item*>*>& tags = tagList_[priority];
-    if(value.empty()) {
-        // No Tag to add to the Tag map.
-        return ;
-    }
-    if(tagManager_ == nullptr) {
-        stringstream ss;
-        ss << "Cannot create Tag from std::string : no TagManager associated to the Item " << itemName_ <<".";
-        throw CoreException(ss.str(),__FILE__,__LINE__);
-    }
-    else {
-        const std::vector<Tag<Item*>*>& new_tags = tagManager_->createTagsFromItem(value,this,priority);
-        std::vector<Tag<Item*>*>::const_iterator it;
-        for(it = new_tags.begin(); it != new_tags.end(); ++it) {
-            tags.push_back(*it);
-        }
-    }
-}
-
-/*!
-  \brief Delete Tags from the given value (with the given priority) of the Tag list.
-
-  The Tags are extracted from the priority level and send to the TagManager for a consistent
-  deletion. It ensures consistency between Tags in the Item's list and Tags registered in
-  the TagManager. (\see TagManager::deleteTagsFromItem).
-
-  If there is no TagManager associated to the Item only the internal Item's Tag map is
-  updated.
-
-  \param value the value to tag.
-  \param priority the priority of the value (see static const values).
-
-  \note If the given value is empty the Tag map is unchanged.
-  \note This implementation deletes all the Tag registered to the given priority,
-  including those which are not extracted from the value. If an other implementation
-  is needed in sub Items this method should be overriden.
- */
-void Item::deleteTags(const string& value, unsigned int priority)
-{
-    std::vector<Tag<Item*>*>& tags = tagList_[priority];
-    if(value.empty() || tags.empty()) {
-        // No Tag to delete from the Tag map.
-        return;
-    }
-    if(tagManager_ == nullptr) {
-        tags.clear();
-    }
-    else {
-        tagManager_->deleteTagsFromItem(tags,this,priority);
-        tags.clear();
-    }
-}
-
-/*!
-  \brief Update Tags from the given oldValue to the given newValue (with the given priority) of the Tag list.
-
-  Consistency between Tags in the Item's list and Tags registered in
-  the TagManager is ensured.
-
-  \param oldValue the value to delete Tags from.
-  \param newValue the value to create Tags from.
-  \param priority the priority of the values (see static const values).
-
-  \exception CoreException if the Item is not associated to a TagManager.
-  \note If the given values are empty the Tag map is unchanged.
-  \note This impementation is just a basic call to deleteTags(oldValue,priority)
-  followed by a call to addTags(newValue,priority). If an other implementation is
-  needed in sub Items this method should be overriden.
- */
-void Item::updateTags(const string &oldValue, const string &newValue, unsigned int priority)
-{
-    try {
-        deleteTags(oldValue,priority);
-        addTags(newValue,priority);
-    }catch(CoreException& e) {
-        throw e;
-    }
 }

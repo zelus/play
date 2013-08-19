@@ -10,7 +10,6 @@
 #include "Item.h"
 #include "Folder.h"
 #include "Movie.h"
-#include "common.h"
 #include <string>
 
 /*!
@@ -29,9 +28,9 @@ public:
     ItemManager(const ItemManager& itemManager);
     ~ItemManager();
 
-    ItemList findItem(const string& itemName, ItemType itemType = ANY_TYPE, Item* parentFolder = nullptr) const;
-    MovieList findMovie(const string& movieName, Item* parentFolder = nullptr) const;
-    FolderList findFolder(const string& folderName, Item* parentFolder = nullptr) const;
+    vector<Item*> findItem(const string& itemName, Item::ItemType itemType = Item::ItemType::ANY_TYPE, Item* parentFolder = nullptr) const;
+    vector<Movie*> findMovie(const string& movieName, Item* parentFolder = nullptr) const;
+    vector<Folder*> findFolder(const string& folderName, Item* parentFolder = nullptr) const;
 
     Movie* createMovie(const string& movieName, Item* parentFolder = nullptr, const string& movieSummary = "", const short movieNotation = 0);
     Folder* createFolder(const string& folderName, Item* parentFolder = nullptr);
@@ -39,14 +38,14 @@ public:
     Movie* itemToMovie(Item* item) const;
     Folder* itemToFolder(Item* item) const;
 
-    MovieList itemListToMovieList(const ItemList& itemList) const;
-    FolderList itemListToFolderList(const ItemList& itemList) const;
+    vector<Movie*> itemListToMovieList(const vector<Item*>& itemList) const;
+    vector<Folder*> itemListToFolderList(const vector<Item*>& itemList) const;
 
     unsigned int getItemNumber() const;
 
 private:
 
-    void recursiveFindItem(const string& itemName, ItemType itemType, Item* parentFolder, ItemList& foundedItems) const;
+    void recursiveFindItem(const string& itemName, Item::ItemType itemType, Item* parentFolder, vector<Item*>& foundedItems) const;
 
     Item* treeRoot_;
 
