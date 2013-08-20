@@ -2,7 +2,7 @@ TEMPLATE = app
 CONFIG += console
 CONFIG -= qt
 
-include(core.pri)
+include(../../include/core.pri)
 
 SOURCES += \
 	main.cpp \

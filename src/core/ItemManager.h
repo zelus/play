@@ -8,8 +8,6 @@
 #define ITEMMANAGER_H
 
 #include "Item.h"
-#include "Folder.h"
-#include "Movie.h"
 #include <string>
 
 /*!
@@ -25,21 +23,11 @@ class ItemManager
 {
 public:
     ItemManager();
-    ItemManager(const ItemManager& itemManager);
+    ItemManager(const ItemManager& itemManager) = delete;
+    ItemManager& operator=(const ItemManager&) = delete;
     ~ItemManager();
 
-    vector<Item*> findItem(const string& itemName, Item::ItemType itemType = Item::ItemType::ANY_TYPE, Item* parentFolder = nullptr) const;
-    vector<Movie*> findMovie(const string& movieName, Item* parentFolder = nullptr) const;
-    vector<Folder*> findFolder(const string& folderName, Item* parentFolder = nullptr) const;
-
-    Movie* createMovie(const string& movieName, Item* parentFolder = nullptr, const string& movieSummary = "", const short movieNotation = 0);
-    Folder* createFolder(const string& folderName, Item* parentFolder = nullptr);
-
-    Movie* itemToMovie(Item* item) const;
-    Folder* itemToFolder(Item* item) const;
-
-    vector<Movie*> itemListToMovieList(const vector<Item*>& itemList) const;
-    vector<Folder*> itemListToFolderList(const vector<Item*>& itemList) const;
+    vector<Item*> searchItem(const string& itemName, Item::ItemType itemType = Item::ItemType::ANY_TYPE, Item* parentFolder = nullptr) const;
 
     unsigned int getItemNumber() const;
 

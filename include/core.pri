@@ -1,9 +1,9 @@
-include(../../common.pri)
+include(common.pri)
 
 SOURCES += \
         
 	
 HEADERS += \
     Item.h \
- 	ItemManager.h \
+    ItemManager.h \
     CoreException.h
