@@ -21,7 +21,8 @@ Makefile
 
 # play specific folders
 build
-
+bin
+lib
 # text editor misc
 *~
 *.swp

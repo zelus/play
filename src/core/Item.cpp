@@ -15,12 +15,12 @@
   \note There is no consistency checking done on the ID unicity. To create Items with consistent
   unique ID see \see ItemManager::createItem and its derivated methods.
  */
-Item::Item(const string& id, const string& itemName, ItemType itemType, Item* parent)
+Item::Item(const string& id, const string& name, ItemType type, Item* parent)
 {
     id_ = id;
-    itemName_ = itemName;
+    name_ = name;
     parent_ = parent;
-    itemType_ = itemType;
+    type_ = type;
     if(parent_ != nullptr) {
         try {
             parent_->addSubItem(this);
@@ -59,7 +59,7 @@ Item* Item::getParent() const
  */
 const string& Item::getId() const
 {
-    return itemName_;
+    return id_;
 }
 
 /*!
@@ -67,15 +67,15 @@ const string& Item::getId() const
  */
 const string& Item::getName() const
 {
-    return itemName_;
+    return name_;
 }
 
 /*!
   \return the ItemType of the Item.
  */
-Item::ItemType Item::getType() const
+ItemType Item::getType() const
 {
-    return itemType_;
+    return type_;
 }
 
 /*!
@@ -100,7 +100,7 @@ void Item::setParent(Item *parent)
  */
 void Item::setName(const std::string& name)
 {
-    itemName_ = name;
+    name_ = name;
 }
 
 /*!
@@ -114,7 +114,7 @@ void Item::setName(const std::string& name)
 void Item::addSubItem(Item *item)
 {
     stringstream ss;
-    ss << "The Item " << itemName_ << " is not a container.";
+    ss << "The Item " << name_ << " is not a container.";
     throw CoreException(ss.str(),__FILE__,__LINE__);
 }
 
@@ -129,7 +129,7 @@ void Item::addSubItem(Item *item)
 void Item::removeSubItem(Item *item)
 {
     stringstream ss;
-    ss << "The Item " << itemName_ << " is not a container.";
+    ss << "The Item " << name_ << " is not a container.";
     throw CoreException(ss.str(),__FILE__,__LINE__);
 }
 
@@ -144,7 +144,7 @@ void Item::removeSubItem(Item *item)
 void Item::deleteSubItem(Item *item)
 {
     stringstream ss;
-    ss << "The Item " << itemName_ << " is not a container.";
+    ss << "The Item " << name_ << " is not a container.";
     throw CoreException(ss.str(),__FILE__,__LINE__);
 }
 
@@ -159,7 +159,7 @@ void Item::deleteSubItem(Item *item)
 Item* Item::getSubItem(const string &itemName) const
 {
     stringstream ss;
-    ss << "The Item " << itemName_ << " is not a container.";
+    ss << "The Item " << name_ << " is not a container.";
     throw CoreException(ss.str(),__FILE__,__LINE__);
 }
 
@@ -174,7 +174,7 @@ Item* Item::getSubItem(const string &itemName) const
 bool Item::containsSubItem(const string &itemName) const
 {
     stringstream ss;
-    ss << "The Item " << itemName_ << " is not a container.";
+    ss << "The Item " << name_ << " is not a container.";
     throw CoreException(ss.str(),__FILE__,__LINE__);
 }
 
@@ -189,6 +189,6 @@ bool Item::containsSubItem(const string &itemName) const
 const vector<Item*>& Item::getAllSubItems() const
 {
     stringstream ss;
-    ss << "The Item " << itemName_ << " is not a container.";
+    ss << "The Item " << name_ << " is not a container.";
     throw CoreException(ss.str(),__FILE__,__LINE__);
 }

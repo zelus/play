@@ -4,10 +4,6 @@
 #include <cppunit/extensions/HelperMacros.h>
 
 #include "Item.h"
-#include "Folder.h"
-#include "Movie.h"
-#include "TagManager.h"
-#include "Tag.h"
 #include "CoreException.h"
 
 #include <stdexcept>
@@ -22,7 +18,6 @@ class TestItem : public CppUnit::TestFixture
   CPPUNIT_TEST_EXCEPTION(test_constructor_itemparent,CoreException);
   CPPUNIT_TEST(test_constructor_folderparent);
   CPPUNIT_TEST_EXCEPTION(test_constructor_movieparent,CoreException);
-  CPPUNIT_TEST(test_constructor_tagManager);
 
   CPPUNIT_TEST(test_destructor);
 
@@ -60,7 +55,6 @@ public:
   void test_constructor_itemparent();
   void test_constructor_folderparent();
   void test_constructor_movieparent();
-  void test_constructor_tagManager();
 
   void test_destructor();
 
@@ -90,12 +84,9 @@ public:
   void test_getAllSubItems();
 
 private:
-  Folder* folder1;
-  Folder* folder2;
+  Item* folder1;
+  Item* folder2;
   Item* item1;
   Item* item2;
-  Tag<Item*>* tag1;
-  Tag<Item*>* tag2;
-  TagManager<Item*>* tagManager;
 };
 #endif // TEST_ITEM_H

@@ -50,7 +50,7 @@ ItemManager::~ItemManager()
   \note If ANY_TYPE is given as itemType all the items corresponding to the other
   parameters are returned.
  */
-vector<Item*> ItemManager::searchItem(const string &itemName, Item::ItemType itemType, Item *parentFolder) const
+vector<Item*> ItemManager::searchItem(const string &itemName, ItemType itemType, Item *parentFolder) const
 {
     vector<Item*> foundedItems;
     Item* searchStart = parentFolder;
@@ -81,7 +81,7 @@ unsigned int ItemManager::getItemNumber() const
   (and not the return value of the method) because of the recursive aspect of the search
   process.
 */
-void ItemManager::recursiveFindItem(const string &itemName, Item::ItemType itemType, Item *parentFolder, vector<Item*> &foundedItems) const
+void ItemManager::recursiveFindItem(const string &itemName, ItemType itemType, Item *parentFolder, vector<Item*> &foundedItems) const
 {
     vector<Item*> folderChilds;
     try {
@@ -90,7 +90,7 @@ void ItemManager::recursiveFindItem(const string &itemName, Item::ItemType itemT
         return;
     }
     for(size_t i = 0; i < folderChilds.size(); ++i) {
-        if(folderChilds[i]->getName() == itemName && (folderChilds[i]->getType() == itemType || itemType == Item::ItemType::ANY_TYPE)) {
+        if(folderChilds[i]->getName() == itemName && (folderChilds[i]->getType() == itemType || itemType == ItemType::ANY_TYPE)) {
             foundedItems.push_back(folderChilds[i]);
         }
         recursiveFindItem(itemName,itemType,folderChilds[i],foundedItems);

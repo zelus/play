@@ -27,13 +27,13 @@ public:
     ItemManager& operator=(const ItemManager&) = delete;
     ~ItemManager();
 
-    vector<Item*> searchItem(const string& itemName, Item::ItemType itemType = Item::ItemType::ANY_TYPE, Item* parentFolder = nullptr) const;
+    vector<Item*> searchItem(const string& itemName, ItemType itemType = ItemType::ANY_TYPE, Item* parentFolder = nullptr) const;
 
     unsigned int getItemNumber() const;
 
 private:
 
-    void recursiveFindItem(const string& itemName, Item::ItemType itemType, Item* parentFolder, vector<Item*>& foundedItems) const;
+    void recursiveFindItem(const string& itemName, ItemType itemType, Item* parentFolder, vector<Item*>& foundedItems) const;
 
     Item* treeRoot_;
 

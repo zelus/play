@@ -30,7 +30,7 @@ public:
     void removeSubItem(Item *item);
     void deleteSubItem(Item *item);
     Item* getSubItem(const std::string& itemName) const;
-    bool containsSubItem(const std::string& itemName) const;
+    bool containsSubItem(const std::string& id) const;
     const std::vector<Item*>& getAllSubItems() const;
 
 private:

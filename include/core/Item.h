@@ -13,6 +13,8 @@
 
 using namespace std;
 
+enum class ItemType { ANY_TYPE, FOLDER_TYPE, MOVIE_TYPE };
+
 /*!
   \brief Represents an abstract Item.
  */
@@ -20,8 +22,6 @@ class Item
 {
 
 public:
-
-    enum class ItemType { ANY_TYPE, FOLDER_TYPE, MOVIE_TYPE };
 
     Item(const string& id, const string& itemName, ItemType itemType = ItemType::ANY_TYPE, Item* parent = nullptr);
     Item(const Item& item) = delete;
@@ -44,9 +44,9 @@ public:
 protected:
 
     string id_;
-    string itemName_;
+    string name_;
     Item* parent_;
-    ItemType itemType_;
+    ItemType type_;
 };
 
 #endif // ITEM_H

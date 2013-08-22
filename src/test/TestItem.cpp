@@ -1,5 +1,6 @@
 #include "TestItem.h"
 
+#include "Folder.h"
 #include <vector>
 #include <iostream>
 
@@ -9,25 +10,20 @@ void TestItem::setUp()
 {
     folder1 = new Folder("0","folder1",nullptr);
     folder2 = new Folder("1","folder2",nullptr);
-    item1 = new Item("2","item1",ANY_TYPE,nullptr);
-    item2 = new Item("3","item2",ANY_TYPE,nullptr);
-    tag1 = new Tag<Item*>("tag1");
-    tag2 = new Tag<Item*>("tag2");
-    tagManager = new TagManager<Item*>();
+    item1 = new Item("2","item1",ItemType::ANY_TYPE,nullptr);
+    item2 = new Item("3","item2",ItemType::ANY_TYPE,nullptr);
 }
 
 void TestItem::tearDown()
 {
-    if(!folder1->containsSubItem(item1->getName()) && !folder2->containsSubItem(item1->getName())) {
+    if(!folder1->containsSubItem(item1->getId()) && !folder2->containsSubItem(item1->getId())) {
         delete item1;
     }
-    if(!folder1->containsSubItem(item2->getName()) && !folder2->containsSubItem(item2->getName())) {
+    if(!folder1->containsSubItem(item2->getId()) && !folder2->containsSubItem(item2->getId())) {
         delete item2;
     }
     delete folder1;
     delete folder2;
-    delete tag1;
-    delete tag2;
 }
 
 /*
@@ -36,9 +32,9 @@ void TestItem::tearDown()
  */
 void TestItem::test_constructor_nullparent()
 {
-    item1 = new Item("2","item",ANY_TYPE,nullptr);
-    CPPUNIT_ASSERT_MESSAGE("Wrong Item name", item1->getName() == "item");
-    CPPUNIT_ASSERT_MESSAGE("Wrong Item type", item1->getType() == ANY_TYPE);
+    item1 = new Item("2","item",ItemType::ANY_TYPE,nullptr);
+    CPPUNIT_ASSERT_MESSAGE("Wrong Item name", item1->getId() == "2");
+    CPPUNIT_ASSERT_MESSAGE("Wrong Item type", item1->getType() == ItemType::ANY_TYPE);
     CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent() == nullptr);
 }
 
@@ -50,7 +46,7 @@ void TestItem::test_constructor_nullparent()
 void TestItem::test_constructor_itemparent()
 {
     item1 = new Item("2","parent");
-    item2 = new Item("3","item",ANY_TYPE,item1);
+    item2 = new Item("3","item",ItemType::ANY_TYPE,item1);
 }
 
 /*
@@ -62,9 +58,9 @@ void TestItem::test_constructor_itemparent()
  */
 void TestItem::test_constructor_folderparent()
 {
-    item1 = new Item("2","item",ANY_TYPE,folder1);
+    item1 = new Item("2","item",ItemType::ANY_TYPE,folder1);
     CPPUNIT_ASSERT_MESSAGE("Parent not set", item1->getParent() != nullptr);
-    CPPUNIT_ASSERT_MESSAGE("Wrong parent", item1->getParent()->getName() == folder1->getName());
+    CPPUNIT_ASSERT_MESSAGE("Wrong parent", item1->getParent()->getId() == folder1->getId());
 }
 
 /*
@@ -74,21 +70,8 @@ void TestItem::test_constructor_folderparent()
  */
 void TestItem::test_constructor_movieparent()
 {
-    Movie parent("5","parent");
-    item1 = new Item("2","item1",ANY_TYPE,&parent);
-}
-
-/*
-  Constructor test with a TagManager associated to the Item.
-  Tag consistency is checked by the TagManager::constainsTag method
-  and the registered Item list returned by the Tag.
- */
-void TestItem::test_constructor_tagManager()
-{
-    item1 = new Item("2","item1",ANY_TYPE,nullptr,tagManager);
-    CPPUNIT_ASSERT_MESSAGE("TagManager's Tag list is empty",tagManager->getTagsNumber() == 1);
-    CPPUNIT_ASSERT_MESSAGE("TagManager doesn't contain the Tag \"item1\"",tagManager->containsTag("item1"));
-    CPPUNIT_ASSERT_MESSAGE("Tag \"item1\" doesn't contain a reference to the Item", tagManager->getTag("item1")->getRegisteredItemsNumber() == 1 && tagManager->getTag("item1")->getRegisteredItems()[Item::name_priority][0]->getId() == item1->getId());
+    Item parent("5","parent");
+    item1 = new Item("2","item1",ItemType::ANY_TYPE,&parent);
 }
 
 /*
@@ -104,15 +87,9 @@ void TestItem::test_constructor_tagManager()
  */
 void TestItem::test_destructor()
 {
-    Item* item = new Item("5","item tag",ANY_TYPE,nullptr,tagManager);
-    Item* item1 = new Item("6","item tag test",ANY_TYPE,nullptr,tagManager);
+    Item* item = new Item("5","item tag",ItemType::ANY_TYPE,nullptr);
+    Item* item1 = new Item("6","item tag test",ItemType::ANY_TYPE,nullptr);
     delete item;
-    Tag<Item*>* tag1 = tagManager->getTag("item");
-    Tag<Item*>* tag2 = tagManager->getTag("tag");
-    CPPUNIT_ASSERT_MESSAGE("Tag \"item\" has not the right number of Item references", tag1->getRegisteredItemsNumber() == 1);
-    CPPUNIT_ASSERT_MESSAGE("Tag \"tag\" has not the right number of Item references", tag2->getRegisteredItemsNumber() == 1);
-    CPPUNIT_ASSERT_MESSAGE("Tag \"item\" contains a reference to the Item", tag1->getRegisteredItems()[Item::name_priority][0]->getId() == item1->getId());
-    CPPUNIT_ASSERT_MESSAGE("Tag \"tag\" contains a reference to the Item", tag2->getRegisteredItems()[Item::name_priority][0]->getId() == item1->getId());
     delete item1;
 }
 
@@ -122,8 +99,8 @@ void TestItem::test_destructor()
  */
 void TestItem::test_getParent()
 {
-    item1 = new Item("2","item",ANY_TYPE,folder1);
-    CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent()->getName() == folder1->getName());
+    item1 = new Item("2","item",ItemType::ANY_TYPE,folder1);
+    CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent()->getId() == folder1->getId());
 }
 
 /*
@@ -131,7 +108,7 @@ void TestItem::test_getParent()
  */
 void TestItem::test_getParent_nullptr()
 {
-    item1 = new Item("2","item",ANY_TYPE,nullptr);
+    item1 = new Item("2","item",ItemType::ANY_TYPE,nullptr);
     CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent() == nullptr);
 }
 
@@ -140,7 +117,7 @@ void TestItem::test_getParent_nullptr()
  */
 void TestItem::test_getId()
 {
-    item1 = new Item("2","item",ANY_TYPE,nullptr);
+    item1 = new Item("2","item",ItemType::ANY_TYPE,nullptr);
     CPPUNIT_ASSERT_MESSAGE("Wrong Item Id", item1->getId() == "2");
 }
 
@@ -153,7 +130,7 @@ void TestItem::test_getId()
  */
 void TestItem::test_getId_namechanged()
 {
-    item1 = new Item("2","item",ANY_TYPE,nullptr);
+    item1 = new Item("2","item",ItemType::ANY_TYPE,nullptr);
     item1->setName("item2");
     CPPUNIT_ASSERT_MESSAGE("Item Id has been updated (that should be impossible)", item1->getId() == "2");
 }
@@ -167,7 +144,7 @@ void TestItem::test_getId_namechanged()
  */
 void TestItem::test_getId_parentchanged()
 {
-    item1 = new Item("2","item",ANY_TYPE,nullptr);
+    item1 = new Item("2","item",ItemType::ANY_TYPE,nullptr);
     item1->setParent(folder1);
     CPPUNIT_ASSERT_MESSAGE("Item Id has been updated (that should be impossible)", item1->getId() == "2");
 }
@@ -186,8 +163,8 @@ void TestItem::test_getName()
  */
 void TestItem::test_getType()
 {
-    item1 = new Item("2","item",FOLDER_TYPE,nullptr);
-    CPPUNIT_ASSERT_MESSAGE("Wrong Item type", item1->getType() == FOLDER_TYPE);
+    item1 = new Item("2","item",ItemType::FOLDER_TYPE,nullptr);
+    CPPUNIT_ASSERT_MESSAGE("Wrong Item type", item1->getType() == ItemType::FOLDER_TYPE);
 }
 
 /*
@@ -200,7 +177,7 @@ void TestItem::test_getType()
 void TestItem::test_setParent()
 {
     item1->setParent(folder1);
-    CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent()->getName() == folder1->getName());
+    CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent()->getId() == folder1->getId());
 }
 
 /*
@@ -211,7 +188,7 @@ void TestItem::test_setParent()
  */
 void TestItem::test_setParent_nullptr()
 {
-    item1 = new Item("2","item",ANY_TYPE,folder1);
+    item1 = new Item("2","item",ItemType::ANY_TYPE,folder1);
     item1->setParent(nullptr);
     CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent() == nullptr);
 }
@@ -224,9 +201,9 @@ void TestItem::test_setParent_nullptr()
  */
 void TestItem::test_setParent_fromitemtoitem()
 {
-    item1 = new Item("2","item",ANY_TYPE,folder1);
+    item1 = new Item("2","item",ItemType::ANY_TYPE,folder1);
     item1->setParent(folder2);
-    CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent()->getName() == folder2->getName());
+    CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent()->getId() == folder2->getId());
 }
 
 /*
@@ -236,12 +213,8 @@ void TestItem::test_setParent_fromitemtoitem()
  */
 void TestItem::test_setName()
 {
-    item1 = new Item("2","item",ANY_TYPE,nullptr,tagManager);
+    item1 = new Item("2","item",ItemType::ANY_TYPE,nullptr);
     item1->setName("item2");
-    CPPUNIT_ASSERT_MESSAGE("Item name hasn't been updated", item1->getName() == "item2");
-    CPPUNIT_ASSERT_MESSAGE("Tag \"item\" hasn't been deleted", tagManager->containsTag("item") == false);
-    CPPUNIT_ASSERT_MESSAGE("Tag \"item2\" hasn't been created", tagManager->containsTag("item2"));
-    CPPUNIT_ASSERT_MESSAGE("Tag \"item2\" doesn't contain a reference to the Item", tagManager->getTag("item2")->getRegisteredItemsNumber() == 1 && tagManager->getTag("item2")->getRegisteredItems()[Item::name_priority][0]->getId() == item1->getId());
 }
 
 /*

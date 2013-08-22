@@ -2,7 +2,6 @@
 #define MOCK_ITEM_H
 
 #include "Item.h"
-#include "common.h"
 #include <string>
 
 using namespace std;

@@ -41,9 +41,9 @@ Folder::~Folder()
  */
 void Folder::addSubItem(Item *item)
 {
-    if(containsSubItem(item->getName())) {
+    if(containsSubItem(item->getId())) {
         stringstream ss;
-        ss << "The Folder " << itemName_ << " already contains an Item with the name " << item->getName();
+        ss << "The Folder " << name_ << " already contains an Item with the name " << item->getName();
         throw CoreException(ss.str(),__FILE__,__LINE__);
     }
     Item* itemParent = item->getParent();
@@ -73,7 +73,7 @@ void Folder::removeSubItem(Item *item)
         }
     }
     stringstream ss;
-    ss << "The Folder " << itemName_ << " doesn't contain the Item " << item->getName();
+    ss << "The Folder " << name_ << " doesn't contain the Item " << item->getName();
     throw CoreException(ss.str(),__FILE__,__LINE__);
 }
 
@@ -95,7 +95,7 @@ void Folder::deleteSubItem(Item *item)
         }
     }
     stringstream ss;
-    ss << "The Folder " << itemName_ << " doesn't contain the Item " << item->getName();
+    ss << "The Folder " << name_ << " doesn't contain the Item " << item->getName();
     throw CoreException(ss.str(),__FILE__,__LINE__);
 }
 
@@ -122,11 +122,11 @@ Item* Folder::getSubItem(const string &itemName) const
   \return true if the wanted Item is in the child list, false
   otherwise.
  */
-bool Folder::containsSubItem(const string &itemName) const
+bool Folder::containsSubItem(const string &id) const
 {
     vector<Item*>::const_iterator it;
     for(it = items_.begin(); it != items_.end(); ++it) {
-        if((*it)->getName() == itemName) {
+        if((*it)->getId() == id) {
             return true;
         }
     }

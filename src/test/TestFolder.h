@@ -2,21 +2,17 @@
 #define TEST_FOLDER_H
 
 #include <cppunit/extensions/HelperMacros.h>
-
-#include <stdexcept>
-
-#include "Folder.h"
 #include "Item.h"
+#include "CoreException.h"
 #include "MockItem.h"
-
-using namespace std;
+#include <stdexcept>
 
 class TestFolder : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestFolder);
     CPPUNIT_TEST(test_destructor);
     CPPUNIT_TEST(test_addSubItem);
-    CPPUNIT_TEST_EXCEPTION(test_addSubItem_doubleaddition,logic_error);
+    CPPUNIT_TEST_EXCEPTION(test_addSubItem_doubleaddition,CoreException);
     CPPUNIT_TEST_SUITE_END();
 public:
     void setUp();
@@ -29,7 +25,7 @@ public:
 private:
     Item* item1;
     Item* item2;
-    Folder* folder1;
+    Item* folder1;
 };
 
 #endif // TEST_FOLDER_H
