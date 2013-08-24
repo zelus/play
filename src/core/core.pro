@@ -18,7 +18,8 @@ SOURCES += \
 	Movie.cpp \
 	Item.cpp \
 	ItemManager.cpp \
-	CoreException.cpp
+	CoreException.cpp \
+    ItemVisitor.cpp
 	
 
 
@@ -27,5 +28,6 @@ HEADERS += \
     Movie.h \
     Item.h \
     ItemManager.h \
-    CoreException.h
+    CoreException.h \
+    ItemVisitor.h
     
