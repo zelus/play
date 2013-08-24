@@ -27,12 +27,19 @@ public:
     ItemManager& operator=(const ItemManager&) = delete;
     ~ItemManager();
 
+    Item* createFolder(const std::string& name, Item* parent = nullptr);
+    Item* createMovie(const std::string& name, Item* parent = nullptr, const std::string& summary = "", const short notation = 0);
+
+    void deleteItem(Item* item);
+
+    Item* searchItemWithId(const string& id, Item* parent = nullptr) const;
     vector<Item*> searchItem(const string& itemName, ItemType itemType = ItemType::ANY_TYPE, Item* parentFolder = nullptr) const;
 
     unsigned int getItemNumber() const;
 
 private:
 
+    Item* recursiveFindItemWithId(const string& id, Item* from) const;
     void recursiveFindItem(const string& itemName, ItemType itemType, Item* parentFolder, vector<Item*>& foundedItems) const;
 
     Item* treeRoot_;

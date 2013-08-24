@@ -1,7 +1,9 @@
 #include "ItemManager.h"
 #include "Movie.h"
 #include "Folder.h"
+#include "CoreException.h"
 #include <stdexcept>
+#include <sstream>
 
 // debug
 #include <iostream>
@@ -18,6 +20,7 @@
 ItemManager::ItemManager()
 {
     treeRoot_ = new Folder("0", "_root_");
+    itemNumber_ = 0;
 }
 
 /*!
@@ -31,6 +34,53 @@ ItemManager::ItemManager()
 ItemManager::~ItemManager()
 {
     delete treeRoot_;
+}
+
+Item* ItemManager::createFolder(const string &name, Item *parent)
+{
+    Item* local_parent = treeRoot_;
+    if(parent != nullptr) {
+        local_parent = parent;
+    }
+    ostringstream oss;
+    oss << ++itemNumber_;
+    try {
+        return new Folder(oss.str(),name,local_parent);
+    }catch(CoreException& e) {
+        --itemNumber_;
+        throw;
+    }
+}
+
+Item* ItemManager::createMovie(const string &name, Item *parent, const string &summary, const short notation)
+{
+    Item* local_parent = treeRoot_;
+    if(parent != nullptr) {
+        local_parent = parent;
+    }
+    ostringstream oss;
+    oss << ++itemNumber_;
+    try {
+        return new Movie(oss.str(),name,summary,notation,local_parent);
+    }catch(CoreException& e) {
+        --itemNumber_;
+        throw;
+    }
+}
+
+void ItemManager::deleteItem(Item* item)
+{
+    delete item;
+    --itemNumber_;
+}
+
+Item* ItemManager::searchItemWithId(const string& id, Item* parent) const
+{
+    Item* search_start = parent;
+    if(parent == nullptr) {
+        search_start = treeRoot_;
+    }
+    return recursiveFindItemWithId(id,search_start);
 }
 
 /*!
@@ -66,6 +116,40 @@ unsigned int ItemManager::getItemNumber() const
     return itemNumber_;
 }
 
+/*!
+  \brief Private findItemWithId method.
+
+  Searches the Item with the given ID recursively in all the descendants of
+  the from Item.
+
+  \param id the ID of the wanted item.
+  \param from the Item to start the research from.
+
+  \return the founded Item if it exists, nullptr otherwise.
+  \note If the tree is not consistent (manual Item addition with double ID), the returned
+  Item is the first found.
+ */
+Item* ItemManager::recursiveFindItemWithId(const string& id, Item* from) const {
+    vector<Item*> from_children;
+    try {
+        from_children = from->getAllSubItems();
+    }catch(CoreException& e) {
+        return nullptr;
+    }
+    vector<Item*>::iterator it;
+    for(it = from_children.begin(); it != from_children.end(); ++it) {
+        if((*it)->getId() == id) {
+            return *it;
+        }
+        else {
+            Item* local_founded =  recursiveFindItemWithId(id,(*it));
+            if(local_founded != nullptr) {
+                return local_founded;
+            }
+        }
+    }
+    return nullptr;
+}
 
 /*!
   \brief Private findItem method.
