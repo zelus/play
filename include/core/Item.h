@@ -7,11 +7,10 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-#include <map>
 #include <vector>
 #include <string>
 
-using namespace std;
+class ItemVisitor;
 
 enum class ItemType { ANY_TYPE, FOLDER_TYPE, MOVIE_TYPE };
 
@@ -23,28 +22,30 @@ class Item
 
 public:
 
-    Item(const string& id, const string& itemName, ItemType itemType = ItemType::ANY_TYPE, Item* parent = nullptr);
+    Item(const std::string& id, const std::string& name, ItemType itemType = ItemType::ANY_TYPE, Item* parent = nullptr);
     Item(const Item& item) = delete;
-    virtual ~Item();
+    virtual ~Item() = 0;
 
     Item* getParent() const;
-    const string& getId() const;
-    const string& getName() const;
+    const std::string& getId() const;
+    const std::string& getName() const;
     ItemType getType() const;
 
-    void setParent(Item* parent);
+    void setParent(Item* newParent);
     void setName(const std::string& name);
     virtual void addSubItem(Item* item);
     virtual void removeSubItem(Item* item);
     virtual void deleteSubItem(Item* item);
-    virtual Item* getSubItem(const string& itemName) const;
-    virtual bool containsSubItem(const string& itemName) const;
-    virtual const vector<Item*>& getAllSubItems() const;
+    virtual Item* getSubItem(const std::string& itemId) const;
+    virtual bool containsSubItem(const std::string& itemId) const;
+    virtual const std::vector<Item*>& getAllSubItems() const;
+
+    virtual void accept(ItemVisitor* visitor) = 0;
 
 protected:
 
-    string id_;
-    string name_;
+    std::string id_;
+    std::string name_;
     Item* parent_;
     ItemType type_;
 };

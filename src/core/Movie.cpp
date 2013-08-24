@@ -1,6 +1,9 @@
 #include "Movie.h"
+#include "ItemVisitor.h"
 // debug
 #include <iostream>
+
+using namespace std;
 
 /*!
   \brief Constructs a Movie from the given parameters.
@@ -14,7 +17,7 @@
   \note There is no consistency checking done on the ID unicity. To create Folders with consistent
   unique ID see \see ItemManager::createMovie method.
  */
-Movie::Movie(const string& id, const string& movieName, Item* parent) : Item(id,movieName,ItemType::MOVIE_TYPE,parent)
+Movie::Movie(const string& id, const string& name, Item* parent) : Item(id,name,ItemType::MOVIE_TYPE,parent)
 {
     notation_ = 0;
     summary_ = "";
@@ -34,10 +37,10 @@ Movie::Movie(const string& id, const string& movieName, Item* parent) : Item(id,
   \note There is no consistency checking done on the ID unicity. To create Folders with consistent
   unique ID see \see ItemManager::createMovie method.
  */
-Movie::Movie(const string& id, const string &movieName, const string &movieSummary, const short movieNotation, Item *parent) : Item(id,movieName, ItemType::MOVIE_TYPE,parent)
+Movie::Movie(const string& id, const string& name, const string& summary, const short notation, Item *parent) : Item(id,name, ItemType::MOVIE_TYPE,parent)
 {
-    notation_ = movieNotation;
-    summary_ = movieSummary;
+    notation_ = notation;
+    summary_ = summary;
 }
 
 /*!
@@ -46,7 +49,7 @@ Movie::Movie(const string& id, const string &movieName, const string &movieSumma
  */
 Movie::~Movie()
 {
-
+    cout << "delete movie" << endl;
 }
 
 /*!
@@ -81,4 +84,9 @@ void Movie::setSummary(const string &summary)
 void Movie::setNotation(const short notation)
 {
     notation_ = notation;
+}
+
+void Movie::accept(ItemVisitor* visitor)
+{
+    visitor->visitMovie(this);
 }

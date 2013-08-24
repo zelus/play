@@ -8,6 +8,7 @@
 #define MOVIE_H
 
 #include "Item.h"
+#include <string>
 
 /*!
   \brief Represents a concrete Item with movies informations
@@ -21,19 +22,21 @@
 class Movie : public Item
 {
 public:
-    Movie(const string& id, const string& movieName, Item* parent = nullptr);
-    Movie(const string& id, const string& movieName, const string& movieSummary, const short movieNotation, Item* parent = nullptr);
+    Movie(const std::string& id, const std::string& name, Item* parent = nullptr);
+    Movie(const std::string& id, const std::string& name, const std::string& summary, const short notation, Item* parent = nullptr);
     Movie(const Movie& movie) = delete;
     ~Movie();
 
-    const string& getSummary() const;
+    const std::string& getSummary() const;
     short getNotation() const;
 
-    void setSummary(const string& summary);
+    void setSummary(const std::string& summary);
     void setNotation(const short notation);
 
+    void accept(ItemVisitor* visitor);
+
 private:
-    string summary_;
+    std::string summary_;
     short notation_;
 };
 

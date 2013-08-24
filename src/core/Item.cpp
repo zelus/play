@@ -1,8 +1,11 @@
 #include "Item.h"
 #include "CoreException.h"
+#include "ItemVisitor.h"
 #include <sstream>
 // debug
 #include <iostream>
+
+using namespace std;
 
 /*!
   \brief Constructs an Item from the given parameters.
@@ -11,7 +14,7 @@
   \param itemName The name of the Item.
   \param itemType The type of the Item.
   \param parent The parent of the Item.
-  \exception std::logic_error if the given parent cannot handle subItems.
+  \exception CoreException if the given parent cannot handle subItems.
   \note There is no consistency checking done on the ID unicity. To create Items with consistent
   unique ID see \see ItemManager::createItem and its derivated methods.
  */
@@ -31,16 +34,15 @@ Item::Item(const string& id, const string& name, ItemType type, Item* parent)
 }
 
 /*!
-  \brief Deletes the Item and its references into its Tags.
+  \brief Deletes the Item.
 
-  The reference of the Item in each Tag it is registered to is
-  deleted.
-
-  \bug No composite pattern consistency checking.
+  If the Item has a parent the reference contained in the parent is removed.
  */
 Item::~Item()
 {
-
+    if(parent_ != nullptr && parent_->containsSubItem(id_)) {
+        parent_->removeSubItem(this);
+    }
 }
 
 /*!
@@ -80,15 +82,30 @@ ItemType Item::getType() const
 
 /*!
   \brief Set a new parent to the Item.
+
+  If the new parent is not nullptr then try to add the Item to
+  the new parent.
+
   \param parent the new parent.
-  \bug This method doesn't ensure consistency of the
-  composite pattern : the Item is not removed from its eventual parent,
-  if you want to remove an Item from its parent you have to use
-  Item::removeSubItem parent method instead.
+
+  \exception CoreException if the new parent cannot handle subItems.
  */
-void Item::setParent(Item *parent)
+void Item::setParent(Item* newParent)
 {
-    parent_ = parent;
+    if(parent_ != newParent) {
+        Item* old_parent = parent_;
+        parent_ = newParent;
+        if(old_parent != nullptr && old_parent->containsSubItem(id_)) {
+            old_parent->removeSubItem(this);
+        }
+        if(parent_ != nullptr && !parent_->containsSubItem(id_)) {
+            try {
+                parent_->addSubItem(this);
+            }catch(CoreException& e) {
+                throw;
+            }
+        }
+    }
 }
 
 /*!
@@ -150,13 +167,13 @@ void Item::deleteSubItem(Item *item)
 
 /*!
   \brief Basic implementation of the getSubItem method.
-  \param itemName the name of the wanted Item.
+  \param itemId the ID of the wanted Item.
   \exception std::logic_error if the Item can not have children.
   \warning This method fails default because basic Items are not allowed to have children.
   See design pattern \em composite for further informations about global interfaces.
   \note This method should be overriden by inherited classes that can handle children.
  */
-Item* Item::getSubItem(const string &itemName) const
+Item* Item::getSubItem(const string &itemId) const
 {
     stringstream ss;
     ss << "The Item " << name_ << " is not a container.";
@@ -165,13 +182,13 @@ Item* Item::getSubItem(const string &itemName) const
 
 /*!
   \brief Basic implementation of the containsSubItem method.
-  \param itemName the name of the wanted Item.
+  \param itemId the ID of the wanted Item.
   \exception std::logic_error if the Item can not have children.
   \warning This method fails default because basic Items are not allowed to have children.
   See design pattern \em composite for further informations about global interfaces.
   \note This method should be overriden by inherited classes that can handle children.
  */
-bool Item::containsSubItem(const string &itemName) const
+bool Item::containsSubItem(const string& itemId) const
 {
     stringstream ss;
     ss << "The Item " << name_ << " is not a container.";

@@ -1,4 +1,5 @@
 #include "MockItem.h"
+#include "ItemVisitor.h"
 #include <iostream>
 /*
   MockItem constructor with basic Item constructor
@@ -17,5 +18,11 @@ MockItem::MockItem(const string& id, const string &name, ItemType type, Item *pa
  */
 MockItem::~MockItem()
 {
+    cout << "mock item delete" << endl;
     isDeleted_ = true;
+}
+
+void MockItem::accept(ItemVisitor* visitor)
+{
+
 }

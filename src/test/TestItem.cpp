@@ -1,6 +1,7 @@
 #include "TestItem.h"
 
 #include "Folder.h"
+#include "Movie.h"
 #include <vector>
 #include <iostream>
 
@@ -10,8 +11,8 @@ void TestItem::setUp()
 {
     folder1 = new Folder("0","folder1",nullptr);
     folder2 = new Folder("1","folder2",nullptr);
-    item1 = new Item("2","item1",ItemType::ANY_TYPE,nullptr);
-    item2 = new Item("3","item2",ItemType::ANY_TYPE,nullptr);
+    item1 = new Movie("2","item1",nullptr);
+    item2 = new Movie("3","item2",nullptr);
 }
 
 void TestItem::tearDown()
@@ -32,9 +33,9 @@ void TestItem::tearDown()
  */
 void TestItem::test_constructor_nullparent()
 {
-    item1 = new Item("2","item",ItemType::ANY_TYPE,nullptr);
+    item1 = new Movie("2","item",nullptr);
     CPPUNIT_ASSERT_MESSAGE("Wrong Item name", item1->getId() == "2");
-    CPPUNIT_ASSERT_MESSAGE("Wrong Item type", item1->getType() == ItemType::ANY_TYPE);
+    CPPUNIT_ASSERT_MESSAGE("Wrong Item type", item1->getType() == ItemType::MOVIE_TYPE);
     CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent() == nullptr);
 }
 
@@ -45,8 +46,8 @@ void TestItem::test_constructor_nullparent()
  */
 void TestItem::test_constructor_itemparent()
 {
-    item1 = new Item("2","parent");
-    item2 = new Item("3","item",ItemType::ANY_TYPE,item1);
+    item1 = new Movie("2","parent");
+    item2 = new Movie("3","item",item1);
 }
 
 /*
@@ -58,39 +59,26 @@ void TestItem::test_constructor_itemparent()
  */
 void TestItem::test_constructor_folderparent()
 {
-    item1 = new Item("2","item",ItemType::ANY_TYPE,folder1);
+    item1 = new Movie("2","item",folder1);
     CPPUNIT_ASSERT_MESSAGE("Parent not set", item1->getParent() != nullptr);
     CPPUNIT_ASSERT_MESSAGE("Wrong parent", item1->getParent()->getId() == folder1->getId());
 }
 
 /*
-  Constructor test with a Movie object as parent.
-  A core::CoreException is expected (Movie cannot
-  handle subItems)
- */
-void TestItem::test_constructor_movieparent()
-{
-    Item parent("5","parent");
-    item1 = new Item("2","item1",ItemType::ANY_TYPE,&parent);
-}
+  Dectructor test with Items registered to a parent.
 
-/*
-  Dectructor test with a Tag list containing two Tags.
-  Consistency relative to TagManager is checked by a double creation
-  of Items with similar Tags followed by the deletion of one.
-  The Tags corresponding to the Item deleted are retrieved from the
-  TagManager and comparison is done on registred Item number and id of
-  the Item remaining.
-
-  The double creation is necessary because the TagManager deletes Tags that
-  have no registered Items.
+  Composite consistency is checked by the parent children list.
  */
-void TestItem::test_destructor()
+void TestItem::test_destructor_folderparent()
 {
-    Item* item = new Item("5","item tag",ItemType::ANY_TYPE,nullptr);
-    Item* item1 = new Item("6","item tag test",ItemType::ANY_TYPE,nullptr);
-    delete item;
+    Item* folder = new Folder("folder","folder",nullptr);
+    Item* item1 = new Movie("item1","item1",folder);
+    Item* item2 = new Movie("item2","item2",folder);
     delete item1;
+    CPPUNIT_ASSERT_MESSAGE("item1 hasn't been removed from its parent", !folder->containsSubItem("item1"));
+    delete item2;
+    CPPUNIT_ASSERT_MESSAGE("item2 hasn't been removed from its parent", !folder->containsSubItem("item2"));
+    CPPUNIT_ASSERT_MESSAGE("folder is not empty", folder->getAllSubItems().size() == 0);
 }
 
 /*
@@ -99,7 +87,7 @@ void TestItem::test_destructor()
  */
 void TestItem::test_getParent()
 {
-    item1 = new Item("2","item",ItemType::ANY_TYPE,folder1);
+    item1 = new Movie("2","item",folder1);
     CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent()->getId() == folder1->getId());
 }
 
@@ -108,7 +96,7 @@ void TestItem::test_getParent()
  */
 void TestItem::test_getParent_nullptr()
 {
-    item1 = new Item("2","item",ItemType::ANY_TYPE,nullptr);
+    item1 = new Movie("2","item",nullptr);
     CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent() == nullptr);
 }
 
@@ -117,7 +105,7 @@ void TestItem::test_getParent_nullptr()
  */
 void TestItem::test_getId()
 {
-    item1 = new Item("2","item",ItemType::ANY_TYPE,nullptr);
+    item1 = new Movie("2","item",nullptr);
     CPPUNIT_ASSERT_MESSAGE("Wrong Item Id", item1->getId() == "2");
 }
 
@@ -130,7 +118,7 @@ void TestItem::test_getId()
  */
 void TestItem::test_getId_namechanged()
 {
-    item1 = new Item("2","item",ItemType::ANY_TYPE,nullptr);
+    item1 = new Movie("2","item",nullptr);
     item1->setName("item2");
     CPPUNIT_ASSERT_MESSAGE("Item Id has been updated (that should be impossible)", item1->getId() == "2");
 }
@@ -144,7 +132,7 @@ void TestItem::test_getId_namechanged()
  */
 void TestItem::test_getId_parentchanged()
 {
-    item1 = new Item("2","item",ItemType::ANY_TYPE,nullptr);
+    item1 = new Movie("2","item",nullptr);
     item1->setParent(folder1);
     CPPUNIT_ASSERT_MESSAGE("Item Id has been updated (that should be impossible)", item1->getId() == "2");
 }
@@ -154,7 +142,7 @@ void TestItem::test_getId_parentchanged()
  */
 void TestItem::test_getName()
 {
-    item1 = new Item("2","item");
+    item1 = new Movie("2","item");
     CPPUNIT_ASSERT_MESSAGE("Wrong Item name", item1->getName() == "item");
 }
 
@@ -163,8 +151,8 @@ void TestItem::test_getName()
  */
 void TestItem::test_getType()
 {
-    item1 = new Item("2","item",ItemType::FOLDER_TYPE,nullptr);
-    CPPUNIT_ASSERT_MESSAGE("Wrong Item type", item1->getType() == ItemType::FOLDER_TYPE);
+    item1 = new Movie("2","item",nullptr);
+    CPPUNIT_ASSERT_MESSAGE("Wrong Item type", item1->getType() == ItemType::MOVIE_TYPE);
 }
 
 /*
@@ -188,7 +176,7 @@ void TestItem::test_setParent()
  */
 void TestItem::test_setParent_nullptr()
 {
-    item1 = new Item("2","item",ItemType::ANY_TYPE,folder1);
+    item1 = new Movie("2","item",folder1);
     item1->setParent(nullptr);
     CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent() == nullptr);
 }
@@ -201,7 +189,7 @@ void TestItem::test_setParent_nullptr()
  */
 void TestItem::test_setParent_fromitemtoitem()
 {
-    item1 = new Item("2","item",ItemType::ANY_TYPE,folder1);
+    item1 = new Movie("2","item",folder1);
     item1->setParent(folder2);
     CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent()->getId() == folder2->getId());
 }
@@ -213,8 +201,9 @@ void TestItem::test_setParent_fromitemtoitem()
  */
 void TestItem::test_setName()
 {
-    item1 = new Item("2","item",ItemType::ANY_TYPE,nullptr);
+    item1 = new Movie("2","item",nullptr);
     item1->setName("item2");
+    CPPUNIT_ASSERT_MESSAGE("Item name hasn't been updated",item1->getName() == "item2");
 }
 
 /*

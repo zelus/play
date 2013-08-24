@@ -19,11 +19,13 @@ SOURCES += main.cpp \
     TestFolder.cpp \
     TestItem.cpp \
     TestItemManager.cpp \
-    TestMovie.cpp
+    TestMovie.cpp \
+    TestIdItemSearcher.cpp
 
 HEADERS += \
     TestFolder.h \
     MockItem.h \
     TestItem.h \
     TestItemManager.h \
-    TestMovie.h
+    TestMovie.h \
+    TestIdItemSearcher.h

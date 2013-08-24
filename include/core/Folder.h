@@ -22,16 +22,18 @@
 class Folder : public Item
 {
 public:
-    Folder(const std::string& id, const std::string& folderName, Item* parent = nullptr);
+    Folder(const std::string& id, const std::string& name, Item* parent = nullptr);
     Folder(const Folder& folder) = delete;
     ~Folder();
 
     void addSubItem(Item* item);
     void removeSubItem(Item *item);
     void deleteSubItem(Item *item);
-    Item* getSubItem(const std::string& itemName) const;
+    Item* getSubItem(const std::string& itemId) const;
     bool containsSubItem(const std::string& id) const;
     const std::vector<Item*>& getAllSubItems() const;
+
+    void accept(ItemVisitor* visitor);
 
 private:
     std::vector<Item*> items_;

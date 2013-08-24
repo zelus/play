@@ -8,6 +8,7 @@
 #define ITEMMANAGER_H
 
 #include "Item.h"
+#include "ItemSearcher.h"
 #include <string>
 
 /*!
@@ -32,15 +33,9 @@ public:
 
     void deleteItem(Item* item);
 
-    Item* searchItemWithId(const string& id, Item* parent = nullptr) const;
-    vector<Item*> searchItem(const string& itemName, ItemType itemType = ItemType::ANY_TYPE, Item* parentFolder = nullptr) const;
-
     unsigned int getItemNumber() const;
 
 private:
-
-    Item* recursiveFindItemWithId(const string& id, Item* from) const;
-    void recursiveFindItem(const string& itemName, ItemType itemType, Item* parentFolder, vector<Item*>& foundedItems) const;
 
     Item* treeRoot_;
 

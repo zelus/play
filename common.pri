@@ -1,6 +1,6 @@
 INCLUDEPATH += . ..
 WARNINGS += -Wall
-QMAKE_CXXFLAGS += -std=c++0x
+QMAKE_CXXFLAGS += -std=c++0x -pedantic
 
 APP_ROOT = $$PWD
 BIN_DIR = $$APP_ROOT/bin

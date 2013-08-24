@@ -10,9 +10,8 @@ class ItemVisitor
 public:
     ItemVisitor();
 
-    virtual void visitItem(Item* item);
-    virtual void visitFolder(Folder* folder);
-    virtual void visitMovie(Movie* movie);
+    virtual void visitFolder(Folder* folder) = 0;
+    virtual void visitMovie(Movie* movie) = 0;
 };
 
 #endif // ITEMVISITOR_H

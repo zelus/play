@@ -1,24 +1,25 @@
 #include "TestFolder.h"
 #include "Folder.h"
+#include "Movie.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(TestFolder);
 
 void TestFolder::setUp()
 {
     folder1 = new Folder("0","folder1",nullptr);
-    item1 = new Item("1","item1",ItemType::ANY_TYPE,nullptr);
-    item2 = new Item("2","item2",ItemType::ANY_TYPE,nullptr);
+    item1 = new Movie("1","item1",nullptr);
+    item2 = new Movie("2","item2",nullptr);
 }
 
 void TestFolder::tearDown()
 {
-    if(!folder1->containsSubItem(item1->getId())) {
+    /*if(!folder1->containsSubItem(item1->getId())) {
         delete item1;
     }
     if(!folder1->containsSubItem(item2->getId())) {
         delete item2;
     }
-    delete folder1;
+    delete folder1;*/
 }
 
 /*
@@ -32,8 +33,8 @@ void TestFolder::test_destructor()
     Item* folder = new Folder("3", "folder");
     bool item1Deleted = false;
     bool item2Deleted = false;
-    MockItem* mockItem1 = new MockItem("4", "mockItem1",ItemType::ANY_TYPE,folder,item1Deleted);
-    MockItem* mockItem2 = new MockItem("5", "mockItem2",ItemType::ANY_TYPE,folder,item2Deleted);
+    Item* mockItem1 = new MockItem("4", "mockItem1",ItemType::ANY_TYPE,folder,item1Deleted);
+    Item* mockItem2 = new MockItem("5", "mockItem2",ItemType::ANY_TYPE,folder,item2Deleted);
     delete folder;
     CPPUNIT_ASSERT_MESSAGE("item1 hasn't been deleted",item1Deleted);
     CPPUNIT_ASSERT_MESSAGE("item2 hasn't been deleted",item2Deleted);

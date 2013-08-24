@@ -16,6 +16,7 @@ class MockItem : public Item
 public:
     MockItem(const string& id, const string& name, ItemType type, Item* parent, bool& isDeleted);
     ~MockItem();
+    void accept(ItemVisitor* visitor);
 private:
     bool& isDeleted_;
 };

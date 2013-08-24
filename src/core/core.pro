@@ -19,7 +19,9 @@ SOURCES += \
 	Item.cpp \
 	ItemManager.cpp \
 	CoreException.cpp \
-    ItemVisitor.cpp
+    ItemVisitor.cpp \
+    ItemSearcher.cpp \
+    IdItemSearcher.cpp
 	
 
 
@@ -29,5 +31,7 @@ HEADERS += \
     Item.h \
     ItemManager.h \
     CoreException.h \
-    ItemVisitor.h
+    ItemVisitor.h \
+    ItemSearcher.h \
+    IdItemSearcher.h
     

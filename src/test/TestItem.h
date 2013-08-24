@@ -17,9 +17,8 @@ class TestItem : public CppUnit::TestFixture
   CPPUNIT_TEST(test_constructor_nullparent);
   CPPUNIT_TEST_EXCEPTION(test_constructor_itemparent,CoreException);
   CPPUNIT_TEST(test_constructor_folderparent);
-  CPPUNIT_TEST_EXCEPTION(test_constructor_movieparent,CoreException);
 
-  CPPUNIT_TEST(test_destructor);
+  CPPUNIT_TEST(test_destructor_folderparent);
 
   CPPUNIT_TEST(test_getParent);
   CPPUNIT_TEST(test_getParent_nullptr);
@@ -54,9 +53,8 @@ public:
   void test_constructor_nullparent();
   void test_constructor_itemparent();
   void test_constructor_folderparent();
-  void test_constructor_movieparent();
 
-  void test_destructor();
+  void test_destructor_folderparent();
 
   void test_getParent();
   void test_getParent_nullptr();
