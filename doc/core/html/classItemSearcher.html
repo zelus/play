@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>play.core: Member List</title>
+<title>play.core: ItemSearcher Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
@@ -59,20 +59,48 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a>  </div>
   <div class="headertitle">
-<div class="title">ItemManager Member List</div>  </div>
+<div class="title">ItemSearcher Class Reference</div>  </div>
 </div>
 <div class="contents">
-This is the complete list of members for <a class="el" href="classItemManager.html">ItemManager</a>, including all inherited members.<table>
-  <tr bgcolor="#f0f0f0"><td><b>createFolder</b>(const std::string &amp;name, Item *parent=nullptr) (defined in <a class="el" href="classItemManager.html">ItemManager</a>)</td><td><a class="el" href="classItemManager.html">ItemManager</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>createMovie</b>(const std::string &amp;name, Item *parent=nullptr, const std::string &amp;summary=&quot;&quot;, const short notation=0) (defined in <a class="el" href="classItemManager.html">ItemManager</a>)</td><td><a class="el" href="classItemManager.html">ItemManager</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>deleteItem</b>(Item *item) (defined in <a class="el" href="classItemManager.html">ItemManager</a>)</td><td><a class="el" href="classItemManager.html">ItemManager</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>getItemNumber</b>() const  (defined in <a class="el" href="classItemManager.html">ItemManager</a>)</td><td><a class="el" href="classItemManager.html">ItemManager</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classItemManager.html#a1eab68c1b49e695ba96330da469b23cc">ItemManager</a>()</td><td><a class="el" href="classItemManager.html">ItemManager</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>ItemManager</b>(const ItemManager &amp;itemManager) (defined in <a class="el" href="classItemManager.html">ItemManager</a>)</td><td><a class="el" href="classItemManager.html">ItemManager</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>operator=</b>(const ItemManager &amp;) (defined in <a class="el" href="classItemManager.html">ItemManager</a>)</td><td><a class="el" href="classItemManager.html">ItemManager</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classItemManager.html#aa1f280c99f977a355f1143b11694bade">~ItemManager</a>()</td><td><a class="el" href="classItemManager.html">ItemManager</a></td><td></td></tr>
-</table></div>
+<!-- doxytag: class="ItemSearcher" --><!-- doxytag: inherits="ItemVisitor" --><div class="dynheader">
+Inheritance diagram for ItemSearcher:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classItemSearcher.png" usemap="#ItemSearcher_map" alt=""/>
+  <map id="ItemSearcher_map" name="ItemSearcher_map">
+<area href="classItemVisitor.html" alt="ItemVisitor" shape="rect" coords="0,0,97,24"/>
+<area href="classIdItemSearcher.html" alt="IdItemSearcher" shape="rect" coords="0,112,97,136"/>
+</map>
+ </div></div>
+
+<p><a href="classItemSearcher-members.html">List of all members.</a></p>
+<table class="memberdecls">
+<tr><td colspan="2"><h2><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab73b7dcc974084a26e5cef7f15b9c875"></a><!-- doxytag: member="ItemSearcher::visitFolder" ref="ab73b7dcc974084a26e5cef7f15b9c875" args="(Folder *folder)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>visitFolder</b> (<a class="el" href="classFolder.html">Folder</a> *folder)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a99dedc218a4ba627a75e2118a0ef8703"></a><!-- doxytag: member="ItemSearcher::visitMovie" ref="a99dedc218a4ba627a75e2118a0ef8703" args="(Movie *movie)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>visitMovie</b> (<a class="el" href="classMovie.html">Movie</a> *movie)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a164363fbb2d882bc601a84c2110cc3e2"></a><!-- doxytag: member="ItemSearcher::getFoundItems" ref="a164363fbb2d882bc601a84c2110cc3e2" args="() const " -->
+virtual const std::vector&lt; <a class="el" href="classItem.html">Item</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getFoundItems</b> () const </td></tr>
+<tr><td colspan="2"><h2><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af9d7a9820b9e6b6f2472c7a3f06fbe6f"></a><!-- doxytag: member="ItemSearcher::rankFolder" ref="af9d7a9820b9e6b6f2472c7a3f06fbe6f" args="(Folder *folder) const " -->
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>rankFolder</b> (<a class="el" href="classFolder.html">Folder</a> *folder) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0ad61294852669bfa53750d3496841d0"></a><!-- doxytag: member="ItemSearcher::rankMovie" ref="a0ad61294852669bfa53750d3496841d0" args="(Movie *movie) const " -->
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>rankMovie</b> (<a class="el" href="classMovie.html">Movie</a> *movie) const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aac0b92e5db9b04179afdc4bb7da3541b"></a><!-- doxytag: member="ItemSearcher::sortItem" ref="aac0b92e5db9b04179afdc4bb7da3541b" args="(const int rank, Item *item)" -->
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>sortItem</b> (const int rank, <a class="el" href="classItem.html">Item</a> *item)</td></tr>
+</table>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/gwendal/Projects/play/include/core/<a class="el" href="ItemSearcher_8h_source.html">ItemSearcher.h</a></li>
+<li>ItemSearcher.cpp</li>
+</ul>
+</div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"

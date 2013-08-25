@@ -28,6 +28,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
@@ -68,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>High level interface providing <em>CRUD</em> operations on concrete Items.  
  <a href="classItemManager.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="itemmanager_8h_source.html">itemmanager.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="ItemManager_8h_source.html">ItemManager.h</a>&gt;</code></p>
 
 <p><a href="classItemManager-members.html">List of all members.</a></p>
 <table class="memberdecls">
@@ -76,28 +77,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItemManager.html#a1eab68c1b49e695ba96330da469b23cc">ItemManager</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new <a class="el" href="classItemManager.html" title="High level interface providing CRUD operations on concrete Items.">ItemManager</a>.  <a href="#a1eab68c1b49e695ba96330da469b23cc"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItemManager.html#abc2e815b960e26eb3a35237386a54620">ItemManager</a> (const <a class="el" href="classItemManager.html">ItemManager</a> &amp;itemManager)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an <a class="el" href="classItemManager.html" title="High level interface providing CRUD operations on concrete Items.">ItemManager</a> from the given <a class="el" href="classItemManager.html" title="High level interface providing CRUD operations on concrete Items.">ItemManager</a>.  <a href="#abc2e815b960e26eb3a35237386a54620"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abc2e815b960e26eb3a35237386a54620"></a><!-- doxytag: member="ItemManager::ItemManager" ref="abc2e815b960e26eb3a35237386a54620" args="(const ItemManager &amp;itemManager)" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>ItemManager</b> (const <a class="el" href="classItemManager.html">ItemManager</a> &amp;itemManager)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2853a99b582fdedab9d70a4295f7d0d3"></a><!-- doxytag: member="ItemManager::operator=" ref="a2853a99b582fdedab9d70a4295f7d0d3" args="(const ItemManager &amp;)" -->
+<a class="el" href="classItemManager.html">ItemManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classItemManager.html">ItemManager</a> &amp;)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItemManager.html#aa1f280c99f977a355f1143b11694bade">~ItemManager</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the <a class="el" href="classItemManager.html" title="High level interface providing CRUD operations on concrete Items.">ItemManager</a> and the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> representing the herarchy tree.  <a href="#aa1f280c99f977a355f1143b11694bade"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">ItemList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItemManager.html#a8e1f47a289aaee7bb4a5840c69918a91">findItem</a> (const string &amp;itemName, ItemType itemType=ANY_TYPE, <a class="el" href="classItem.html">Item</a> *parentFolder=nullptr) const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic find <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> method.  <a href="#a8e1f47a289aaee7bb4a5840c69918a91"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">MovieList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItemManager.html#a8d6d090e0ad2c286f0c50e9d95db67f5">findMovie</a> (const string &amp;movieName, <a class="el" href="classItem.html">Item</a> *parentFolder=nullptr) const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Find <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> method.  <a href="#a8d6d090e0ad2c286f0c50e9d95db67f5"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">FolderList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItemManager.html#ad7f21ccd22a7c407965cc5f75d518b81">findFolder</a> (const string &amp;folderName, <a class="el" href="classItem.html">Item</a> *parentFolder=nullptr) const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Find <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> method.  <a href="#ad7f21ccd22a7c407965cc5f75d518b81"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMovie.html">Movie</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItemManager.html#ab4f21be50386600c192658fffa28aa37">createMovie</a> (const string &amp;movieName, <a class="el" href="classItem.html">Item</a> *parentFolder=nullptr, const string &amp;movieSummary=&quot;&quot;, const short movieNotation=0)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> from the given parameters.  <a href="#ab4f21be50386600c192658fffa28aa37"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classFolder.html">Folder</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItemManager.html#a1e380acdc32334804f317d91bae67887">createFolder</a> (const string &amp;folderName, <a class="el" href="classItem.html">Item</a> *parentFolder=nullptr)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> from the given parameters.  <a href="#a1e380acdc32334804f317d91bae67887"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classMovie.html">Movie</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItemManager.html#a8f38d87fd2854d4dc3918586bd79ab69">itemToMovie</a> (<a class="el" href="classItem.html">Item</a> *item) const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> pointer into a <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> pointer.  <a href="#a8f38d87fd2854d4dc3918586bd79ab69"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classFolder.html">Folder</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItemManager.html#ae837254468dd823d6e5fe375ec290412">itemToFolder</a> (<a class="el" href="classItem.html">Item</a> *item) const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> pointer into a <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> pointer.  <a href="#ae837254468dd823d6e5fe375ec290412"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">MovieList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItemManager.html#a42690ab1bae6ed7af5044a1c7f09abb1">itemListToMovieList</a> (const ItemList &amp;itemList) const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an ItemList into a MovieList.  <a href="#a42690ab1bae6ed7af5044a1c7f09abb1"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">FolderList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classItemManager.html#ac2cd0f72a03a35ed218cf1426cc8c7d5">itemListToFolderList</a> (const ItemList &amp;itemList) const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an ItemList into a FolderList.  <a href="#ac2cd0f72a03a35ed218cf1426cc8c7d5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1d2b9e28ba96f32aee7e200fde1f9be0"></a><!-- doxytag: member="ItemManager::createFolder" ref="a1d2b9e28ba96f32aee7e200fde1f9be0" args="(const std::string &amp;name, Item *parent=nullptr)" -->
+<a class="el" href="classItem.html">Item</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>createFolder</b> (const std::string &amp;name, <a class="el" href="classItem.html">Item</a> *parent=nullptr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac89f2468430284cb22c8b79e9b4a2d6e"></a><!-- doxytag: member="ItemManager::createMovie" ref="ac89f2468430284cb22c8b79e9b4a2d6e" args="(const std::string &amp;name, Item *parent=nullptr, const std::string &amp;summary=&quot;&quot;, const short notation=0)" -->
+<a class="el" href="classItem.html">Item</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>createMovie</b> (const std::string &amp;name, <a class="el" href="classItem.html">Item</a> *parent=nullptr, const std::string &amp;summary=&quot;&quot;, const short notation=0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a800aef438ac7c4c672f7341a649b9e82"></a><!-- doxytag: member="ItemManager::deleteItem" ref="a800aef438ac7c4c672f7341a649b9e82" args="(Item *item)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteItem</b> (<a class="el" href="classItem.html">Item</a> *item)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a21c511acae87b08fd57c2e7591dd1977"></a><!-- doxytag: member="ItemManager::getItemNumber" ref="a21c511acae87b08fd57c2e7591dd1977" args="() const " -->
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>getItemNumber</b> () const </td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>High level interface providing <em>CRUD</em> operations on concrete Items. </p>
@@ -124,27 +117,6 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="abc2e815b960e26eb3a35237386a54620"></a><!-- doxytag: member="ItemManager::ItemManager" ref="abc2e815b960e26eb3a35237386a54620" args="(const ItemManager &amp;itemManager)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ItemManager::ItemManager </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classItemManager.html">ItemManager</a> &amp;&#160;</td>
-          <td class="paramname"><em>itemManager</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Constructs an <a class="el" href="classItemManager.html" title="High level interface providing CRUD operations on concrete Items.">ItemManager</a> from the given <a class="el" href="classItemManager.html" title="High level interface providing CRUD operations on concrete Items.">ItemManager</a>. </p>
-<p>The Item's tree root pointer is setted as the root of the constructed <a class="el" href="classItemManager.html" title="High level interface providing CRUD operations on concrete Items.">ItemManager</a>. </p>
-<dl class="warning"><dt><b>Warning:</b></dt><dd>The root of the constructed <a class="el" href="classItemManager.html" title="High level interface providing CRUD operations on concrete Items.">ItemManager</a> is not a copy of the given one. The two <a class="el" href="classItemManager.html" title="High level interface providing CRUD operations on concrete Items.">ItemManager</a> share and manage the same hierarchy. </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="aa1f280c99f977a355f1143b11694bade"></a><!-- doxytag: member="ItemManager::~ItemManager" ref="aa1f280c99f977a355f1143b11694bade" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -165,374 +137,9 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a1e380acdc32334804f317d91bae67887"></a><!-- doxytag: member="ItemManager::createFolder" ref="a1e380acdc32334804f317d91bae67887" args="(const string &amp;folderName, Item *parentFolder=nullptr)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classFolder.html">Folder</a> * ItemManager::createFolder </td>
-          <td>(</td>
-          <td class="paramtype">const string &amp;&#160;</td>
-          <td class="paramname"><em>folderName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classItem.html">Item</a> *&#160;</td>
-          <td class="paramname"><em>parentFolder</em> = <code>nullptr</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Creates a new <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> from the given parameters. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">folderName</td><td>the name of the <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> to create. </td></tr>
-    <tr><td class="paramname">parentFolder</td><td>the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> containing the <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> to create. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>a pointer to the created <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a>. </dd></dl>
-<dl><dt><b>Exceptions:</b></dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::logic_error</td><td>if parent management fails during the creation. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="ab4f21be50386600c192658fffa28aa37"></a><!-- doxytag: member="ItemManager::createMovie" ref="ab4f21be50386600c192658fffa28aa37" args="(const string &amp;movieName, Item *parentFolder=nullptr, const string &amp;movieSummary=&quot;&quot;, const short movieNotation=0)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classMovie.html">Movie</a> * ItemManager::createMovie </td>
-          <td>(</td>
-          <td class="paramtype">const string &amp;&#160;</td>
-          <td class="paramname"><em>movieName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classItem.html">Item</a> *&#160;</td>
-          <td class="paramname"><em>parentFolder</em> = <code>nullptr</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const string &amp;&#160;</td>
-          <td class="paramname"><em>movieSummary</em> = <code>&quot;&quot;</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const short&#160;</td>
-          <td class="paramname"><em>movieNotation</em> = <code>0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Creates a new <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> from the given parameters. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">movieName</td><td>the name of the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> to create. </td></tr>
-    <tr><td class="paramname">parentFolder</td><td>the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> containing the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> to create. </td></tr>
-    <tr><td class="paramname">movieSummary</td><td>the summary of the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> to create. </td></tr>
-    <tr><td class="paramname">movieNotation</td><td>the notation of the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> to create. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>a pointer to the created <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a>. </dd></dl>
-<dl><dt><b>Exceptions:</b></dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::logic_error</td><td>if parent management fails during the creation. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="ad7f21ccd22a7c407965cc5f75d518b81"></a><!-- doxytag: member="ItemManager::findFolder" ref="ad7f21ccd22a7c407965cc5f75d518b81" args="(const string &amp;folderName, Item *parentFolder=nullptr) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FolderList ItemManager::findFolder </td>
-          <td>(</td>
-          <td class="paramtype">const string &amp;&#160;</td>
-          <td class="paramname"><em>folderName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classItem.html">Item</a> *&#160;</td>
-          <td class="paramname"><em>parentFolder</em> = <code>nullptr</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Find <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> method. </p>
-<p>This method is a shortcut for findItem call with FOLDER_TYPE property. It hides the ItemType enumeration to client. The returned list is then casted into a FolderList. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">folderName</td><td>the name of the wanted <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a>. </td></tr>
-    <tr><td class="paramname">parentFolder</td><td>the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> to start the research from. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>the list of all the <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> corresponding to the given parameters. If no <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> corresponds the returned list is empty. </dd></dl>
-<dl><dt><b>Exceptions:</b></dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>if at least one type conversion can't be done. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a8e1f47a289aaee7bb4a5840c69918a91"></a><!-- doxytag: member="ItemManager::findItem" ref="a8e1f47a289aaee7bb4a5840c69918a91" args="(const string &amp;itemName, ItemType itemType=ANY_TYPE, Item *parentFolder=nullptr) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ItemList ItemManager::findItem </td>
-          <td>(</td>
-          <td class="paramtype">const string &amp;&#160;</td>
-          <td class="paramname"><em>itemName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ItemType&#160;</td>
-          <td class="paramname"><em>itemType</em> = <code>ANY_TYPE</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classItem.html">Item</a> *&#160;</td>
-          <td class="paramname"><em>parentFolder</em> = <code>nullptr</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Generic find <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> method. </p>
-<p>Searches Items with given name and type in all or part of the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> tree. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">itemName</td><td>the name of the wanted <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>. </td></tr>
-    <tr><td class="paramname">itemType</td><td>the type of the wanted <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>. </td></tr>
-    <tr><td class="paramname">parentFolder</td><td>the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> to start the research from. It allow research in subtrees, wich is faster than a complete research. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>the list of all the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> corresponding to the given parameters. If no <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> corresponds the returned list is empty. </dd></dl>
-<dl class="note"><dt><b>Note:</b></dt><dd>The <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> is returned through the global interface <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>, to get concrete <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> types object use the appropriated find method. You can also use this method with the appropriated cast method. </dd>
-<dd>
-If ANY_TYPE is given as itemType all the items corresponding to the other parameters are returned. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a8d6d090e0ad2c286f0c50e9d95db67f5"></a><!-- doxytag: member="ItemManager::findMovie" ref="a8d6d090e0ad2c286f0c50e9d95db67f5" args="(const string &amp;movieName, Item *parentFolder=nullptr) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">MovieList ItemManager::findMovie </td>
-          <td>(</td>
-          <td class="paramtype">const string &amp;&#160;</td>
-          <td class="paramname"><em>movieName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classItem.html">Item</a> *&#160;</td>
-          <td class="paramname"><em>parentFolder</em> = <code>nullptr</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Find <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> method. </p>
-<p>This method is a shortcut for findItem call with MOVIE_TYPE property. It hides the ItemType enumeration to client. The returned list is then casted into a MovieList. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">movieName</td><td>the name of the wanted <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a>. </td></tr>
-    <tr><td class="paramname">parentFolder</td><td>the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> to start the research from. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>the list of all the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> corresponding to the given parameters. If no <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> corresponds the returned list is empty. </dd></dl>
-<dl><dt><b>Exceptions:</b></dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>if at least one type conversion can't be done. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="ac2cd0f72a03a35ed218cf1426cc8c7d5"></a><!-- doxytag: member="ItemManager::itemListToFolderList" ref="ac2cd0f72a03a35ed218cf1426cc8c7d5" args="(const ItemList &amp;itemList) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FolderList ItemManager::itemListToFolderList </td>
-          <td>(</td>
-          <td class="paramtype">const ItemList &amp;&#160;</td>
-          <td class="paramname"><em>itemList</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Converts an ItemList into a FolderList. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">itemList</td><td>the ItemList to convert. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>a FolderList containing the casted Folders. </dd></dl>
-<dl><dt><b>Exceptions:</b></dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>if at least one type conversion can't be done. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a42690ab1bae6ed7af5044a1c7f09abb1"></a><!-- doxytag: member="ItemManager::itemListToMovieList" ref="a42690ab1bae6ed7af5044a1c7f09abb1" args="(const ItemList &amp;itemList) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">MovieList ItemManager::itemListToMovieList </td>
-          <td>(</td>
-          <td class="paramtype">const ItemList &amp;&#160;</td>
-          <td class="paramname"><em>itemList</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Converts an ItemList into a MovieList. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">itemList</td><td>the ItemList to convert. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>a MovieList containing the casted Movies. </dd></dl>
-<dl><dt><b>Exceptions:</b></dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>if at least one type conversion can't be done. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="ae837254468dd823d6e5fe375ec290412"></a><!-- doxytag: member="ItemManager::itemToFolder" ref="ae837254468dd823d6e5fe375ec290412" args="(Item *item) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classFolder.html">Folder</a> * ItemManager::itemToFolder </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classItem.html">Item</a> *&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Converts an <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> pointer into a <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> pointer. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">item</td><td>the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> to convert. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>the casted <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a>. </dd></dl>
-<dl><dt><b>Exceptions:</b></dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>if the cast cannot be done (nullptr as given <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> or not possible dynamic conversion). </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a8f38d87fd2854d4dc3918586bd79ab69"></a><!-- doxytag: member="ItemManager::itemToMovie" ref="a8f38d87fd2854d4dc3918586bd79ab69" args="(Item *item) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classMovie.html">Movie</a> * ItemManager::itemToMovie </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classItem.html">Item</a> *&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Converts an <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> pointer into a <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> pointer. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">item</td><td>the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> to convert. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>the casted <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> if the conversion is successful, nullptr otherwhise. </dd></dl>
-<dl><dt><b>Exceptions:</b></dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>if the cast cannot be done (nullptr as given <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> or not possible dynamic conversion). </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="itemmanager_8h_source.html">itemmanager.h</a></li>
-<li>itemmanager.cpp</li>
+<li>/home/gwendal/Projects/play/include/core/<a class="el" href="ItemManager_8h_source.html">ItemManager.h</a></li>
+<li>ItemManager.cpp</li>
 </ul>
 </div>
 <!-- window showing the filter options -->
@@ -540,7 +147,7 @@ If ANY_TYPE is given as itemType all the items corresponding to the other parame
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -549,7 +156,7 @@ If ANY_TYPE is given as itemType all the items corresponding to the other parame
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Wed Jun 5 2013 19:03:13 for play.core by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Aug 25 2013 01:52:52 for play.core by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

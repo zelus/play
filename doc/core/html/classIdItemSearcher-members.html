@@ -60,18 +60,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="header">
   <div class="headertitle">
-<div class="title">ItemManager Member List</div>  </div>
+<div class="title">IdItemSearcher Member List</div>  </div>
 </div>
 <div class="contents">
-This is the complete list of members for <a class="el" href="classItemManager.html">ItemManager</a>, including all inherited members.<table>
-  <tr bgcolor="#f0f0f0"><td><b>createFolder</b>(const std::string &amp;name, Item *parent=nullptr) (defined in <a class="el" href="classItemManager.html">ItemManager</a>)</td><td><a class="el" href="classItemManager.html">ItemManager</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>createMovie</b>(const std::string &amp;name, Item *parent=nullptr, const std::string &amp;summary=&quot;&quot;, const short notation=0) (defined in <a class="el" href="classItemManager.html">ItemManager</a>)</td><td><a class="el" href="classItemManager.html">ItemManager</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>deleteItem</b>(Item *item) (defined in <a class="el" href="classItemManager.html">ItemManager</a>)</td><td><a class="el" href="classItemManager.html">ItemManager</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>getItemNumber</b>() const  (defined in <a class="el" href="classItemManager.html">ItemManager</a>)</td><td><a class="el" href="classItemManager.html">ItemManager</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classItemManager.html#a1eab68c1b49e695ba96330da469b23cc">ItemManager</a>()</td><td><a class="el" href="classItemManager.html">ItemManager</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>ItemManager</b>(const ItemManager &amp;itemManager) (defined in <a class="el" href="classItemManager.html">ItemManager</a>)</td><td><a class="el" href="classItemManager.html">ItemManager</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>operator=</b>(const ItemManager &amp;) (defined in <a class="el" href="classItemManager.html">ItemManager</a>)</td><td><a class="el" href="classItemManager.html">ItemManager</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classItemManager.html#aa1f280c99f977a355f1143b11694bade">~ItemManager</a>()</td><td><a class="el" href="classItemManager.html">ItemManager</a></td><td></td></tr>
+This is the complete list of members for <a class="el" href="classIdItemSearcher.html">IdItemSearcher</a>, including all inherited members.<table>
+  <tr bgcolor="#f0f0f0"><td><b>getFoundItem</b>() const  (defined in <a class="el" href="classIdItemSearcher.html">IdItemSearcher</a>)</td><td><a class="el" href="classIdItemSearcher.html">IdItemSearcher</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>getFoundItems</b>() const  (defined in <a class="el" href="classIdItemSearcher.html">IdItemSearcher</a>)</td><td><a class="el" href="classIdItemSearcher.html">IdItemSearcher</a></td><td><code> [virtual]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>getSearchedId</b>() const  (defined in <a class="el" href="classIdItemSearcher.html">IdItemSearcher</a>)</td><td><a class="el" href="classIdItemSearcher.html">IdItemSearcher</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>IdItemSearcher</b>(const std::string &amp;searchedId) (defined in <a class="el" href="classIdItemSearcher.html">IdItemSearcher</a>)</td><td><a class="el" href="classIdItemSearcher.html">IdItemSearcher</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>ItemSearcher</b>() (defined in <a class="el" href="classItemSearcher.html">ItemSearcher</a>)</td><td><a class="el" href="classItemSearcher.html">ItemSearcher</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>ItemVisitor</b>() (defined in <a class="el" href="classItemVisitor.html">ItemVisitor</a>)</td><td><a class="el" href="classItemVisitor.html">ItemVisitor</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>rankFolder</b>(Folder *folder) const  (defined in <a class="el" href="classIdItemSearcher.html">IdItemSearcher</a>)</td><td><a class="el" href="classIdItemSearcher.html">IdItemSearcher</a></td><td><code> [protected, virtual]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>rankItem</b>(Item *item) const  (defined in <a class="el" href="classIdItemSearcher.html">IdItemSearcher</a>)</td><td><a class="el" href="classIdItemSearcher.html">IdItemSearcher</a></td><td><code> [protected]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>rankMovie</b>(Movie *movie) const  (defined in <a class="el" href="classIdItemSearcher.html">IdItemSearcher</a>)</td><td><a class="el" href="classIdItemSearcher.html">IdItemSearcher</a></td><td><code> [protected, virtual]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>setSearchedId</b>(const std::string &amp;id) (defined in <a class="el" href="classIdItemSearcher.html">IdItemSearcher</a>)</td><td><a class="el" href="classIdItemSearcher.html">IdItemSearcher</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>sortItem</b>(const int rank, Item *item) (defined in <a class="el" href="classIdItemSearcher.html">IdItemSearcher</a>)</td><td><a class="el" href="classIdItemSearcher.html">IdItemSearcher</a></td><td><code> [protected, virtual]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>visitFolder</b>(Folder *folder) (defined in <a class="el" href="classItemSearcher.html">ItemSearcher</a>)</td><td><a class="el" href="classItemSearcher.html">ItemSearcher</a></td><td><code> [virtual]</code></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>visitMovie</b>(Movie *movie) (defined in <a class="el" href="classItemSearcher.html">ItemSearcher</a>)</td><td><a class="el" href="classItemSearcher.html">ItemSearcher</a></td><td><code> [virtual]</code></td></tr>
 </table></div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"

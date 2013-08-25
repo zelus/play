@@ -1,9 +1,3 @@
-/*!
-  \file item.h
-  \author Gwendal Daniel
-  \date 2013-05-01
- */
-
 #ifndef ITEMMANAGER_H
 #define ITEMMANAGER_H
 

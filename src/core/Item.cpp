@@ -9,16 +9,17 @@ using namespace std;
 
 /*!
   \brief Constructs an Item from the given parameters.
+
   \note If a parent is given the constructed Item is added to its parent child list.
   \param id A unique ID associated to the Item.
-  \param itemName The name of the Item.
-  \param itemType The type of the Item.
+  \param name The name of the Item.
+  \param type The type of the Item.
   \param parent The parent of the Item.
   \exception CoreException if the given parent cannot handle subItems.
   \note There is no consistency checking done on the ID unicity. To create Items with consistent
   unique ID see \see ItemManager::createItem and its derivated methods.
  */
-Item::Item(const string& id, const string& name, ItemType type, Item* parent)
+Item::Item(const std::string& id, const std::string& name, ItemType type, Item* parent)
 {
     id_ = id;
     name_ = name;
@@ -40,6 +41,14 @@ Item::Item(const string& id, const string& name, ItemType type, Item* parent)
  */
 Item::~Item()
 {
+    /*
+        Check if the parent contains the subItem to avoid infinite
+        call loop (if the delete method is called from the parent
+        it has even remove the Item from it subItem list, and the
+        removeSubItem method doesn't need to be called. Doing this
+        might cause a call loop between setParent and removeSubItem
+        methods).
+    */
     if(parent_ != nullptr && parent_->containsSubItem(id_)) {
         parent_->removeSubItem(this);
     }
@@ -115,7 +124,7 @@ void Item::setParent(Item* newParent)
 
   \param name the new name of the Item.
  */
-void Item::setName(const std::string& name)
+void Item::setName(const string& name)
 {
     name_ = name;
 }

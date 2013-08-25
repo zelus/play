@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>play.core: Member List</title>
+<title>play.core: ItemVisitor Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
@@ -28,6 +28,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
@@ -58,25 +59,43 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Tag Member List</div>  </div>
+<div class="title">ItemVisitor Class Reference</div>  </div>
 </div>
 <div class="contents">
-This is the complete list of members for <a class="el" href="classTag.html">Tag</a>, including all inherited members.<table>
-  <tr class="memlist"><td><a class="el" href="classTag.html#a048688bcdae3d7b1be3081dcf9713b33">getAllRegisteredItems</a>() const </td><td><a class="el" href="classTag.html">Tag</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classTag.html#ad37a54e1a7f0cf3ca17f8989c5425841">getTagName</a>() const </td><td><a class="el" href="classTag.html">Tag</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classTag.html#afa16a16ff8bb34b95cbaf40c7cbbfb3e">registerItem</a>(Item *item)</td><td><a class="el" href="classTag.html">Tag</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classTag.html#a08d12f2c8a167549ba1940dc60f88414">Tag</a>(const string tagName=&quot;&quot;)</td><td><a class="el" href="classTag.html">Tag</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classTag.html#a1597ffc3ac91939ad5f48d304ef14b0b">Tag</a>(const Tag &amp;tag)</td><td><a class="el" href="classTag.html">Tag</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classTag.html#a95424a3e6766fc00da20c27a8ffb9109">unregisterItem</a>(Item *item)</td><td><a class="el" href="classTag.html">Tag</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classTag.html#aa582ff83996a96e1c7e0fabe9350e166">~Tag</a>()</td><td><a class="el" href="classTag.html">Tag</a></td><td></td></tr>
-</table></div>
+<!-- doxytag: class="ItemVisitor" --><div class="dynheader">
+Inheritance diagram for ItemVisitor:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classItemVisitor.png" usemap="#ItemVisitor_map" alt=""/>
+  <map id="ItemVisitor_map" name="ItemVisitor_map">
+<area href="classItemSearcher.html" alt="ItemSearcher" shape="rect" coords="0,56,97,80"/>
+<area href="classIdItemSearcher.html" alt="IdItemSearcher" shape="rect" coords="0,112,97,136"/>
+</map>
+ </div></div>
+
+<p><a href="classItemVisitor-members.html">List of all members.</a></p>
+<table class="memberdecls">
+<tr><td colspan="2"><h2><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae2f60f52531e747c33f4a2a75753143a"></a><!-- doxytag: member="ItemVisitor::visitFolder" ref="ae2f60f52531e747c33f4a2a75753143a" args="(Folder *folder)=0" -->
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>visitFolder</b> (<a class="el" href="classFolder.html">Folder</a> *folder)=0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8afea3844873a57793b9b62b20cdf138"></a><!-- doxytag: member="ItemVisitor::visitMovie" ref="a8afea3844873a57793b9b62b20cdf138" args="(Movie *movie)=0" -->
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>visitMovie</b> (<a class="el" href="classMovie.html">Movie</a> *movie)=0</td></tr>
+</table>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/gwendal/Projects/play/include/core/<a class="el" href="ItemVisitor_8h_source.html">ItemVisitor.h</a></li>
+<li>ItemVisitor.cpp</li>
+</ul>
+</div>
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -85,7 +104,7 @@ This is the complete list of members for <a class="el" href="classTag.html">Tag<
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Wed Jun 5 2013 19:03:13 for play.core by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Aug 25 2013 01:52:52 for play.core by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

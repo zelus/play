@@ -1,9 +1,3 @@
-/*!
-  \file item.h
-  \author Gwendal Daniel
-  \date 2013-04-28
- */
-
 #ifndef ITEM_H
 #define ITEM_H
 
@@ -21,8 +15,7 @@ class Item
 {
 
 public:
-
-    Item(const std::string& id, const std::string& name, ItemType itemType = ItemType::ANY_TYPE, Item* parent = nullptr);
+    Item(const std::string& id, const std::string& name, ItemType type = ItemType::ANY_TYPE, Item* parent = nullptr);
     Item(const Item& item) = delete;
     virtual ~Item() = 0;
 

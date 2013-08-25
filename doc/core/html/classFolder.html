@@ -28,6 +28,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
@@ -68,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>Represents a concrete <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> with folder properties.  
  <a href="classFolder.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="folder_8h_source.html">folder.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="Folder_8h_source.html">Folder.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Folder:</div>
 <div class="dyncontent">
@@ -83,10 +84,10 @@ Inheritance diagram for Folder:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFolder.html#ac4554bbb6b9444c46365f6f421242d8c">Folder</a> (const string &amp;folderName=&quot;&quot;, <a class="el" href="classItem.html">Item</a> *parent=nullptr)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> from the given parameters.  <a href="#ac4554bbb6b9444c46365f6f421242d8c"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFolder.html#a5a356b957dcbe94f8ead2d87379a9cbf">Folder</a> (const <a class="el" href="classFolder.html">Folder</a> &amp;folder)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> from the given <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a>.  <a href="#a5a356b957dcbe94f8ead2d87379a9cbf"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a33fe7c8b40d6d2d87eebdd597a9cff94"></a><!-- doxytag: member="Folder::Folder" ref="a33fe7c8b40d6d2d87eebdd597a9cff94" args="(const std::string &amp;id, const std::string &amp;name, Item *parent=nullptr)" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>Folder</b> (const std::string &amp;id, const std::string &amp;name, <a class="el" href="classItem.html">Item</a> *parent=nullptr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5a356b957dcbe94f8ead2d87379a9cbf"></a><!-- doxytag: member="Folder::Folder" ref="a5a356b957dcbe94f8ead2d87379a9cbf" args="(const Folder &amp;folder)" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>Folder</b> (const <a class="el" href="classFolder.html">Folder</a> &amp;folder)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFolder.html#a7b9eaf0f340d5275809494685b0a3e1d">~Folder</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> and all its subItems recursively.  <a href="#a7b9eaf0f340d5275809494685b0a3e1d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFolder.html#ab4dc4f34d8962b17b4109b879f515d90">addSubItem</a> (<a class="el" href="classItem.html">Item</a> *item)</td></tr>
@@ -95,79 +96,19 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the basic removeSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class.  <a href="#a4f0e9f1ce101045cdd0335029acf8710"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFolder.html#a71ae365b392e42d08f52c9b118803286">deleteSubItem</a> (<a class="el" href="classItem.html">Item</a> *item)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the basic deleteSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class.  <a href="#a71ae365b392e42d08f52c9b118803286"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classItem.html">Item</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFolder.html#ac11905436ff6ca0d2c788c47403e8607">getSubItem</a> (const string &amp;itemName) const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the basic getSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class.  <a href="#ac11905436ff6ca0d2c788c47403e8607"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFolder.html#a9b93266ecbe60131f5b062a0867e82dd">containsSubItem</a> (const string &amp;itemName) const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the basic containsSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class.  <a href="#a9b93266ecbe60131f5b062a0867e82dd"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">ItemList&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFolder.html#a0cbb309bce189c6270cf70107ca97d94">getAllSubItems</a> () const </td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the basic getAllSubItems method defined in the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class.  <a href="#a0cbb309bce189c6270cf70107ca97d94"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classItem.html">Item</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFolder.html#a57c0e00d3094eab41ab58361a08e520b">getSubItem</a> (const std::string &amp;itemId) const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the basic getSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class.  <a href="#a57c0e00d3094eab41ab58361a08e520b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFolder.html#afed93f828f62cb5390c88199cdb5dea9">containsSubItem</a> (const std::string &amp;id) const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the basic containsSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class.  <a href="#afed93f828f62cb5390c88199cdb5dea9"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="classItem.html">Item</a> * &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classFolder.html#ab4dfb69ef287d31d25a0980b22392a7a">getAllSubItems</a> () const </td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the basic getAllSubItems method defined in the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class.  <a href="#ab4dfb69ef287d31d25a0980b22392a7a"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a98ed3c1e057fc9fe0b94884c7afbedf0"></a><!-- doxytag: member="Folder::accept" ref="a98ed3c1e057fc9fe0b94884c7afbedf0" args="(ItemVisitor *visitor)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>accept</b> (<a class="el" href="classItemVisitor.html">ItemVisitor</a> *visitor)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Represents a concrete <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> with folder properties. </p>
 <p>The <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> class is a part of the <em>composite</em> pattern used to store the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> tree. It is derivated from the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class and represents an <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> with children management methods. It overrides children management default methods defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class. </p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ac4554bbb6b9444c46365f6f421242d8c"></a><!-- doxytag: member="Folder::Folder" ref="ac4554bbb6b9444c46365f6f421242d8c" args="(const string &amp;folderName=&quot;&quot;, Item *parent=nullptr)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Folder::Folder </td>
-          <td>(</td>
-          <td class="paramtype">const string &amp;&#160;</td>
-          <td class="paramname"><em>folderName</em> = <code>&quot;&quot;</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classItem.html">Item</a> *&#160;</td>
-          <td class="paramname"><em>parent</em> = <code>nullptr</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Constructs a <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> from the given parameters. </p>
-<p>The given name and parent are delegated to the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> constructor, and the ItemType is statically defined to FOLDER_TYPE . </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">folderName</td><td>the name of the <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a>. </td></tr>
-    <tr><td class="paramname">parent</td><td>the parent of the <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a5a356b957dcbe94f8ead2d87379a9cbf"></a><!-- doxytag: member="Folder::Folder" ref="a5a356b957dcbe94f8ead2d87379a9cbf" args="(const Folder &amp;folder)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Folder::Folder </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classFolder.html">Folder</a> &amp;&#160;</td>
-          <td class="paramname"><em>folder</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Constructs a <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> from the given <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a>. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">folder</td><td>the <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> to construct from. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="a7b9eaf0f340d5275809494685b0a3e1d"></a><!-- doxytag: member="Folder::~Folder" ref="a7b9eaf0f340d5275809494685b0a3e1d" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -204,126 +145,21 @@ Public Member Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Overrides the basic addSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class. </p>
-<p>If the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> already has a not nullptr parent, it is removed from its parent child list. The <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> parent is then setted to the current <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a>. </p>
+<p>Set the parent of the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> to the current folder.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">item</td><td>the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> to add to the child list. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="classItem.html#ac8f334be74bfce0ef235174c93fe92da">Item</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9b93266ecbe60131f5b062a0867e82dd"></a><!-- doxytag: member="Folder::containsSubItem" ref="a9b93266ecbe60131f5b062a0867e82dd" args="(const string &amp;itemName) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Folder::containsSubItem </td>
-          <td>(</td>
-          <td class="paramtype">const string &amp;&#160;</td>
-          <td class="paramname"><em>itemName</em></td><td>)</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Overrides the basic containsSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">itemName</td><td>the name of the wanted <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>true if the wanted <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> is in the child list, false otherwise. </dd></dl>
-
-<p>Reimplemented from <a class="el" href="classItem.html#a1b2af18554fa8b33db93ee2550b776e5">Item</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a71ae365b392e42d08f52c9b118803286"></a><!-- doxytag: member="Folder::deleteSubItem" ref="a71ae365b392e42d08f52c9b118803286" args="(Item *item)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Folder::deleteSubItem </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classItem.html">Item</a> *&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td><code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Overrides the basic deleteSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class. </p>
-<p>The given <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> is removed from the child list and the destructor is called. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">item</td><td>the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> to delete. </td></tr>
+    <tr><td class="paramname">item</td><td>the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> to add to the child list.</td></tr>
   </table>
   </dd>
 </dl>
 <dl><dt><b>Exceptions:</b></dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::logic_error</td><td>if the <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> doesn't contain the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>. </td></tr>
+    <tr><td class="paramname"><a class="el" href="classCoreException.html">CoreException</a></td><td>if the <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> even contains the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="classItem.html#afb31ddd2d75d65de406c58faae9bb256">Item</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0cbb309bce189c6270cf70107ca97d94"></a><!-- doxytag: member="Folder::getAllSubItems" ref="a0cbb309bce189c6270cf70107ca97d94" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ItemList Folder::getAllSubItems </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Overrides the basic getAllSubItems method defined in the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class. </p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>the direct subItems list of the <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a>. </dd></dl>
-
-<p>Reimplemented from <a class="el" href="classItem.html#ac0dd29293787c0412afe49f5b45f7918">Item</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac11905436ff6ca0d2c788c47403e8607"></a><!-- doxytag: member="Folder::getSubItem" ref="ac11905436ff6ca0d2c788c47403e8607" args="(const string &amp;itemName) const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classItem.html">Item</a> * Folder::getSubItem </td>
-          <td>(</td>
-          <td class="paramtype">const string &amp;&#160;</td>
-          <td class="paramname"><em>itemName</em></td><td>)</td>
-          <td> const<code> [virtual]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Overrides the basic getSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">itemName</td><td>the name of the wanted <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> pointer if the wanted <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> is in the child list, nullptr otherwise. </dd></dl>
-
-<p>Reimplemented from <a class="el" href="classItem.html#a6c14777f3f79c0c59cf5afd39309336f">Item</a>.</p>
+<p>Reimplemented from <a class="el" href="classItem.html#ac8f334be74bfce0ef235174c93fe92da">Item</a>.</p>
 
 </div>
 </div>
@@ -343,28 +179,171 @@ Public Member Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Overrides the basic removeSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class. </p>
-<p>The <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> parent is restored to its default value : nullptr. </p>
+<p>The <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> parent is restored to its default value : nullptr.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">item</td><td>the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> to remove from the child list. </td></tr>
+    <tr><td class="paramname">item</td><td>the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> to remove from the child list.</td></tr>
   </table>
   </dd>
 </dl>
 <dl><dt><b>Exceptions:</b></dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::logic_error</td><td>if the <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> doesn't contain the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>. </td></tr>
+    <tr><td class="paramname"><a class="el" href="classCoreException.html">CoreException</a></td><td>if the <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> doesn't contain the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="note"><dt><b>Note:</b></dt><dd>The removed <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> is not deleted. To delete a child <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> see deleteSubItem method instead. </dd></dl>
+<dl class="note"><dt><b>Note:</b></dt><dd>The removed <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> is not deleted. To delete a child <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> </dd></dl>
+<dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classFolder.html#a71ae365b392e42d08f52c9b118803286" title="Overrides the basic deleteSubItem method defined in Item class.">deleteSubItem</a> method instead. </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classItem.html#a721341f149ee9d24bdba038d0337d5f6">Item</a>.</p>
 
 </div>
 </div>
+<a class="anchor" id="a71ae365b392e42d08f52c9b118803286"></a><!-- doxytag: member="Folder::deleteSubItem" ref="a71ae365b392e42d08f52c9b118803286" args="(Item *item)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Folder::deleteSubItem </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classItem.html">Item</a> *&#160;</td>
+          <td class="paramname"><em>item</em></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Overrides the basic deleteSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class. </p>
+<p>The given <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> is removed from the child list and its destructor is called.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">item</td><td>the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> to delete.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classCoreException.html">CoreException</a></td><td>if the <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a> doesn't contain the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="classItem.html#afb31ddd2d75d65de406c58faae9bb256">Item</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a57c0e00d3094eab41ab58361a08e520b"></a><!-- doxytag: member="Folder::getSubItem" ref="a57c0e00d3094eab41ab58361a08e520b" args="(const std::string &amp;itemId) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classItem.html">Item</a>* Folder::getSubItem </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>itemId</em></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Overrides the basic getSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class. </p>
+<p>Basic implementation of the getSubItem method.</p>
+<p>Return the subItem with the given ID.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">itemId</td><td>the ID of the wanted <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> pointer if the wanted <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> is in the child list, nullptr otherwise.</dd></dl>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">itemId</td><td>the ID of the wanted <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::logic_error</td><td>if the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> can not have children. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="warning"><dt><b>Warning:</b></dt><dd>This method fails default because basic Items are not allowed to have children. See design pattern <em>composite</em> for further informations about global interfaces. </dd></dl>
+<dl class="note"><dt><b>Note:</b></dt><dd>This method should be overriden by inherited classes that can handle children. </dd></dl>
+
+<p>Reimplemented from <a class="el" href="classItem.html#a39eed43ed47a3a9c7ec5cac2ee295bcb">Item</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afed93f828f62cb5390c88199cdb5dea9"></a><!-- doxytag: member="Folder::containsSubItem" ref="afed93f828f62cb5390c88199cdb5dea9" args="(const std::string &amp;id) const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Folder::containsSubItem </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>itemId</em></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Overrides the basic containsSubItem method defined in <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class. </p>
+<p>Basic implementation of the containsSubItem method.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">itemId</td><td>the ID of the wanted <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if the wanted <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> is in the child list, false otherwise.</dd></dl>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">itemId</td><td>the ID of the wanted <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::logic_error</td><td>if the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> can not have children. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="warning"><dt><b>Warning:</b></dt><dd>This method fails default because basic Items are not allowed to have children. See design pattern <em>composite</em> for further informations about global interfaces. </dd></dl>
+<dl class="note"><dt><b>Note:</b></dt><dd>This method should be overriden by inherited classes that can handle children. </dd></dl>
+
+<p>Reimplemented from <a class="el" href="classItem.html#a0d10075c67911cd3d6ffb4ce24c27f69">Item</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ab4dfb69ef287d31d25a0980b22392a7a"></a><!-- doxytag: member="Folder::getAllSubItems" ref="ab4dfb69ef287d31d25a0980b22392a7a" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const vector&lt; <a class="el" href="classItem.html">Item</a> * &gt; &amp; Folder::getAllSubItems </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const<code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Overrides the basic getAllSubItems method defined in the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>the subItems list of the <a class="el" href="classFolder.html" title="Represents a concrete Item with folder properties.">Folder</a>. </dd></dl>
+
+<p>Reimplemented from <a class="el" href="classItem.html#aad7512df7fb028485a95f924e8f1f8fe">Item</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="folder_8h_source.html">folder.h</a></li>
-<li>folder.cpp</li>
+<li>/home/gwendal/Projects/play/include/core/<a class="el" href="Folder_8h_source.html">Folder.h</a></li>
+<li>Folder.cpp</li>
 </ul>
 </div>
 <!-- window showing the filter options -->
@@ -372,7 +351,7 @@ Public Member Functions</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -381,7 +360,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Wed Jun 5 2013 19:03:13 for play.core by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Aug 25 2013 01:52:52 for play.core by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

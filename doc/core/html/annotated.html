@@ -28,6 +28,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
@@ -63,12 +64,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 <div class="textblock">Here are the classes, structs, unions and interfaces with brief descriptions:</div><table>
+  <tr><td class="indexkey"><a class="el" href="classCoreException.html">CoreException</a></td><td class="indexvalue"></td></tr>
   <tr><td class="indexkey"><a class="el" href="classFolder.html">Folder</a></td><td class="indexvalue">Represents a concrete <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> with folder properties </td></tr>
+  <tr><td class="indexkey"><a class="el" href="classIdItemSearcher.html">IdItemSearcher</a></td><td class="indexvalue"></td></tr>
   <tr><td class="indexkey"><a class="el" href="classItem.html">Item</a></td><td class="indexvalue">Represents an abstract <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> </td></tr>
   <tr><td class="indexkey"><a class="el" href="classItemManager.html">ItemManager</a></td><td class="indexvalue">High level interface providing <em>CRUD</em> operations on concrete Items </td></tr>
+  <tr><td class="indexkey"><a class="el" href="classItemSearcher.html">ItemSearcher</a></td><td class="indexvalue"></td></tr>
+  <tr><td class="indexkey"><a class="el" href="classItemVisitor.html">ItemVisitor</a></td><td class="indexvalue"></td></tr>
   <tr><td class="indexkey"><a class="el" href="classMovie.html">Movie</a></td><td class="indexvalue">Represents a concrete <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> with movies informations </td></tr>
-  <tr><td class="indexkey"><a class="el" href="classTag.html">Tag</a></td><td class="indexvalue">Represents a simple <a class="el" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a> (key-word) </td></tr>
-  <tr><td class="indexkey"><a class="el" href="classTagManager.html">TagManager</a></td><td class="indexvalue">High level interface ensuring <a class="el" href="classTag.html" title="Represents a simple Tag (key-word)">Tag</a> unicity. (see <em>Singleton</em> pattern for further informations </td></tr>
 </table>
 </div>
 <!-- window showing the filter options -->
@@ -76,7 +79,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -85,7 +88,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Wed Jun 5 2013 19:03:13 for play.core by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Aug 25 2013 01:52:52 for play.core by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

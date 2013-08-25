@@ -28,6 +28,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
@@ -68,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>Represents a concrete <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> with movies informations.  
  <a href="classMovie.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="movie_8h_source.html">movie.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="Movie_8h_source.html">Movie.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Movie:</div>
 <div class="dyncontent">
@@ -83,140 +84,28 @@ Inheritance diagram for Movie:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMovie.html#a29ff2137f9ba0ac471f044c9a9353720">Movie</a> (const string &amp;movieName=&quot;&quot;, <a class="el" href="classItem.html">Item</a> *parent=nullptr)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> from the given parameters.  <a href="#a29ff2137f9ba0ac471f044c9a9353720"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMovie.html#a0cfa22b4e76ee2fe2899d5fee5043787">Movie</a> (const string &amp;movieName, const string &amp;movieSummary, const short movieNotation, <a class="el" href="classItem.html">Item</a> *parent=nullptr)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> from the given parameters.  <a href="#a0cfa22b4e76ee2fe2899d5fee5043787"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMovie.html#a5332b146737f7c6cdd5a879b14371137">Movie</a> (const <a class="el" href="classMovie.html">Movie</a> &amp;movie)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> from the given <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a>.  <a href="#a5332b146737f7c6cdd5a879b14371137"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a74bca646af4c25d8554cfa22b419c07c"></a><!-- doxytag: member="Movie::Movie" ref="a74bca646af4c25d8554cfa22b419c07c" args="(const std::string &amp;id, const std::string &amp;name, Item *parent=nullptr)" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>Movie</b> (const std::string &amp;id, const std::string &amp;name, <a class="el" href="classItem.html">Item</a> *parent=nullptr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4fa9efb14788d700d7a4c49b07c45004"></a><!-- doxytag: member="Movie::Movie" ref="a4fa9efb14788d700d7a4c49b07c45004" args="(const std::string &amp;id, const std::string &amp;name, const std::string &amp;summary, const short notation, Item *parent=nullptr)" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>Movie</b> (const std::string &amp;id, const std::string &amp;name, const std::string &amp;summary, const short notation, <a class="el" href="classItem.html">Item</a> *parent=nullptr)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5332b146737f7c6cdd5a879b14371137"></a><!-- doxytag: member="Movie::Movie" ref="a5332b146737f7c6cdd5a879b14371137" args="(const Movie &amp;movie)" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>Movie</b> (const <a class="el" href="classMovie.html">Movie</a> &amp;movie)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMovie.html#abf1d82f3db5306141635e34cdb80273c">~Movie</a> ()</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a>.  <a href="#abf1d82f3db5306141635e34cdb80273c"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMovie.html#a3e1f79e2a27e767125700336c2735f95">getSummary</a> () const </td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMovie.html#a3e1f79e2a27e767125700336c2735f95">getSummary</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">short&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMovie.html#aca0ba32ceeebab5391d63f21d873f8a8">getNotation</a> () const </td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMovie.html#a175642db541f082da1e5065996a6d6d1">setSummary</a> (const string &amp;summary)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a new summary to the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a>.  <a href="#a175642db541f082da1e5065996a6d6d1"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMovie.html#a9612c9b521a6b30c2683b108877ecb79">setSummary</a> (const std::string &amp;summary)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a new summary to the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a>.  <a href="#a9612c9b521a6b30c2683b108877ecb79"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMovie.html#a71de7e0a8be012b00ceaf075fe2bb83f">setNotation</a> (const short notation)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a new notation to the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a>.  <a href="#a71de7e0a8be012b00ceaf075fe2bb83f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adf114b56b8c0fd7f4a3cb2ceb8552c06"></a><!-- doxytag: member="Movie::accept" ref="adf114b56b8c0fd7f4a3cb2ceb8552c06" args="(ItemVisitor *visitor)" -->
+void&#160;</td><td class="memItemRight" valign="bottom"><b>accept</b> (<a class="el" href="classItemVisitor.html">ItemVisitor</a> *visitor)</td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Represents a concrete <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> with movies informations. </p>
 <p>The <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> class is a part of the <em>composite</em> pattern used to store the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> tree. It is derivated from the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> class and represents a movie with specific movie informations : summary and notation. </p>
 <dl class="note"><dt><b>Note:</b></dt><dd><a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> class doesn't override children management method because a <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> is a basic <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> and can not have children. </dd></dl>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a29ff2137f9ba0ac471f044c9a9353720"></a><!-- doxytag: member="Movie::Movie" ref="a29ff2137f9ba0ac471f044c9a9353720" args="(const string &amp;movieName=&quot;&quot;, Item *parent=nullptr)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Movie::Movie </td>
-          <td>(</td>
-          <td class="paramtype">const string &amp;&#160;</td>
-          <td class="paramname"><em>movieName</em> = <code>&quot;&quot;</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classItem.html">Item</a> *&#160;</td>
-          <td class="paramname"><em>parent</em> = <code>nullptr</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Constructs a <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> from the given parameters. </p>
-<p>The given name and parent are delegated to the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> constructor, and the ItemType is statically defined as MOVIE_TYPE. The notation and the summary are setted to default values (respectively 0 and ""). </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">movieName</td><td>the name of the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a>. </td></tr>
-    <tr><td class="paramname">parent</td><td>the parent of the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a0cfa22b4e76ee2fe2899d5fee5043787"></a><!-- doxytag: member="Movie::Movie" ref="a0cfa22b4e76ee2fe2899d5fee5043787" args="(const string &amp;movieName, const string &amp;movieSummary, const short movieNotation, Item *parent=nullptr)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Movie::Movie </td>
-          <td>(</td>
-          <td class="paramtype">const string &amp;&#160;</td>
-          <td class="paramname"><em>movieName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const string &amp;&#160;</td>
-          <td class="paramname"><em>movieSummary</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const short&#160;</td>
-          <td class="paramname"><em>movieNotation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classItem.html">Item</a> *&#160;</td>
-          <td class="paramname"><em>parent</em> = <code>nullptr</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Constructs a <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> from the given parameters. </p>
-<p>The given name and parent are delegated to the <a class="el" href="classItem.html" title="Represents an abstract Item.">Item</a> constructo, and the ItemType is statically defined as MOVIE_TYPE. Notation and summary are setted with the given values. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">movieName</td><td>the name of the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a>. </td></tr>
-    <tr><td class="paramname">movieSummary</td><td>the summary of the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a>. </td></tr>
-    <tr><td class="paramname">movieNotation</td><td>the notation of the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a>. </td></tr>
-    <tr><td class="paramname">parent</td><td>the parent of the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a5332b146737f7c6cdd5a879b14371137"></a><!-- doxytag: member="Movie::Movie" ref="a5332b146737f7c6cdd5a879b14371137" args="(const Movie &amp;movie)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Movie::Movie </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classMovie.html">Movie</a> &amp;&#160;</td>
-          <td class="paramname"><em>movie</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Constructs a <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> from the given <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a>. </p>
-<p>Notation and summary of the given movie are also copied. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">movie</td><td>the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a> to construct from. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="abf1d82f3db5306141635e34cdb80273c"></a><!-- doxytag: member="Movie::~Movie" ref="abf1d82f3db5306141635e34cdb80273c" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -237,6 +126,23 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a3e1f79e2a27e767125700336c2735f95"></a><!-- doxytag: member="Movie::getSummary" ref="a3e1f79e2a27e767125700336c2735f95" args="() const " -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const string &amp; Movie::getSummary </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<dl class="return"><dt><b>Returns:</b></dt><dd>the summary of the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a>. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="aca0ba32ceeebab5391d63f21d873f8a8"></a><!-- doxytag: member="Movie::getNotation" ref="aca0ba32ceeebab5391d63f21d873f8a8" args="() const " -->
 <div class="memitem">
 <div class="memproto">
@@ -254,20 +160,28 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a3e1f79e2a27e767125700336c2735f95"></a><!-- doxytag: member="Movie::getSummary" ref="a3e1f79e2a27e767125700336c2735f95" args="() const " -->
+<a class="anchor" id="a9612c9b521a6b30c2683b108877ecb79"></a><!-- doxytag: member="Movie::setSummary" ref="a9612c9b521a6b30c2683b108877ecb79" args="(const std::string &amp;summary)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const string &amp; Movie::getSummary </td>
+          <td class="memname">void Movie::setSummary </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>summary</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="return"><dt><b>Returns:</b></dt><dd>the summary of the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a>. </dd></dl>
+
+<p>Sets a new summary to the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a>. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">summary</td><td>the new summary. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -296,34 +210,9 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a175642db541f082da1e5065996a6d6d1"></a><!-- doxytag: member="Movie::setSummary" ref="a175642db541f082da1e5065996a6d6d1" args="(const string &amp;summary)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Movie::setSummary </td>
-          <td>(</td>
-          <td class="paramtype">const string &amp;&#160;</td>
-          <td class="paramname"><em>summary</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Sets a new summary to the <a class="el" href="classMovie.html" title="Represents a concrete Item with movies informations.">Movie</a>. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">summary</td><td>the new summary. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="movie_8h_source.html">movie.h</a></li>
-<li>movie.cpp</li>
+<li>/home/gwendal/Projects/play/include/core/<a class="el" href="Movie_8h_source.html">Movie.h</a></li>
+<li>Movie.cpp</li>
 </ul>
 </div>
 <!-- window showing the filter options -->
@@ -331,7 +220,7 @@ Public Member Functions</h2></td></tr>
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -340,7 +229,7 @@ Public Member Functions</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Wed Jun 5 2013 19:03:13 for play.core by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Aug 25 2013 01:52:52 for play.core by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

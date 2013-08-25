@@ -1,9 +1,3 @@
-/*!
-  \file folder.h
-  \author Gwendal Daniel
-  \date 2013-04-28
- */
-
 #ifndef FOLDER_H
 #define FOLDER_H
 

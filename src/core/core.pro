@@ -34,4 +34,11 @@ HEADERS += \
     ItemVisitor.h \
     ItemSearcher.h \
     IdItemSearcher.h
-    
+
+# Doxygen target
+dox.target = doc
+dox.commands = doxygen Doxyfile
+dox.depends = $$SOURCES
+
+QMAKE_EXTRA_TARGETS += dox
+QMAKE_POST_LINK = make doc

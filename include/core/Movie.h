@@ -1,9 +1,3 @@
-/*!
-  \file movie.h
-  \author Gwendal Daniel
-  \date 2013-04-28
- */
-
 #ifndef MOVIE_H
 #define MOVIE_H
 

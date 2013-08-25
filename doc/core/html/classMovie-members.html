@@ -28,6 +28,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li id="searchli">
@@ -63,33 +64,33 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 This is the complete list of members for <a class="el" href="classMovie.html">Movie</a>, including all inherited members.<table>
+  <tr bgcolor="#f0f0f0"><td><b>accept</b>(ItemVisitor *visitor) (defined in <a class="el" href="classMovie.html">Movie</a>)</td><td><a class="el" href="classMovie.html">Movie</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classItem.html#ac8f334be74bfce0ef235174c93fe92da">addSubItem</a>(Item *item)</td><td><a class="el" href="classItem.html">Item</a></td><td><code> [virtual]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classItem.html#aaac22bfbe0dc62fb2a68c8d9a9545a52">addTag</a>(Tag *tag)</td><td><a class="el" href="classItem.html">Item</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classItem.html#a1b2af18554fa8b33db93ee2550b776e5">containsSubItem</a>(const string &amp;itemName) const </td><td><a class="el" href="classItem.html">Item</a></td><td><code> [virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classItem.html#a0d10075c67911cd3d6ffb4ce24c27f69">containsSubItem</a>(const std::string &amp;itemId) const </td><td><a class="el" href="classItem.html">Item</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classItem.html#afb31ddd2d75d65de406c58faae9bb256">deleteSubItem</a>(Item *item)</td><td><a class="el" href="classItem.html">Item</a></td><td><code> [virtual]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classItem.html#ac0dd29293787c0412afe49f5b45f7918">getAllSubItems</a>() const </td><td><a class="el" href="classItem.html">Item</a></td><td><code> [virtual]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classItem.html#aa827d6551444f10f47ae43aec4003949">getAllTags</a>() const </td><td><a class="el" href="classItem.html">Item</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classItem.html#aad7512df7fb028485a95f924e8f1f8fe">getAllSubItems</a>() const </td><td><a class="el" href="classItem.html">Item</a></td><td><code> [virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classItem.html#ab988c9afc35fff2fb89031bf10bba2bd">getId</a>() const </td><td><a class="el" href="classItem.html">Item</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classItem.html#a200045522653d7519b792f1e6f99168c">getName</a>() const </td><td><a class="el" href="classItem.html">Item</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classMovie.html#aca0ba32ceeebab5391d63f21d873f8a8">getNotation</a>() const </td><td><a class="el" href="classMovie.html">Movie</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classItem.html#a3bd8d92bb79f042db15e8e9381fe2e49">getParent</a>() const </td><td><a class="el" href="classItem.html">Item</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classItem.html#a6c14777f3f79c0c59cf5afd39309336f">getSubItem</a>(const string &amp;itemName) const </td><td><a class="el" href="classItem.html">Item</a></td><td><code> [virtual]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classItem.html#a39eed43ed47a3a9c7ec5cac2ee295bcb">getSubItem</a>(const std::string &amp;itemId) const </td><td><a class="el" href="classItem.html">Item</a></td><td><code> [virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classMovie.html#a3e1f79e2a27e767125700336c2735f95">getSummary</a>() const </td><td><a class="el" href="classMovie.html">Movie</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classItem.html#aab1466a8d14dda2edb1c488769c93225">getType</a>() const </td><td><a class="el" href="classItem.html">Item</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classItem.html#a6941e1ac3da4adb6be71a9366d551c96">Item</a>(const string &amp;itemName=&quot;&quot;, ItemType itemType=ANY_TYPE, Item *parent=nullptr)</td><td><a class="el" href="classItem.html">Item</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classItem.html#a74a0ff4d80e6a46b672304bf7b604ad2">Item</a>(const Item &amp;item)</td><td><a class="el" href="classItem.html">Item</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>itemName_</b> (defined in <a class="el" href="classItem.html">Item</a>)</td><td><a class="el" href="classItem.html">Item</a></td><td><code> [protected]</code></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>itemType_</b> (defined in <a class="el" href="classItem.html">Item</a>)</td><td><a class="el" href="classItem.html">Item</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classMovie.html#a29ff2137f9ba0ac471f044c9a9353720">Movie</a>(const string &amp;movieName=&quot;&quot;, Item *parent=nullptr)</td><td><a class="el" href="classMovie.html">Movie</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classMovie.html#a0cfa22b4e76ee2fe2899d5fee5043787">Movie</a>(const string &amp;movieName, const string &amp;movieSummary, const short movieNotation, Item *parent=nullptr)</td><td><a class="el" href="classMovie.html">Movie</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classMovie.html#a5332b146737f7c6cdd5a879b14371137">Movie</a>(const Movie &amp;movie)</td><td><a class="el" href="classMovie.html">Movie</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>id_</b> (defined in <a class="el" href="classItem.html">Item</a>)</td><td><a class="el" href="classItem.html">Item</a></td><td><code> [protected]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classItem.html#ae75d4737a509b4a51112bcabe3006a7d">Item</a>(const std::string &amp;id, const std::string &amp;name, ItemType type=ItemType::ANY_TYPE, Item *parent=nullptr)</td><td><a class="el" href="classItem.html">Item</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>Item</b>(const Item &amp;item) (defined in <a class="el" href="classItem.html">Item</a>)</td><td><a class="el" href="classItem.html">Item</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>Movie</b>(const std::string &amp;id, const std::string &amp;name, Item *parent=nullptr) (defined in <a class="el" href="classMovie.html">Movie</a>)</td><td><a class="el" href="classMovie.html">Movie</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>Movie</b>(const std::string &amp;id, const std::string &amp;name, const std::string &amp;summary, const short notation, Item *parent=nullptr) (defined in <a class="el" href="classMovie.html">Movie</a>)</td><td><a class="el" href="classMovie.html">Movie</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>Movie</b>(const Movie &amp;movie) (defined in <a class="el" href="classMovie.html">Movie</a>)</td><td><a class="el" href="classMovie.html">Movie</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>name_</b> (defined in <a class="el" href="classItem.html">Item</a>)</td><td><a class="el" href="classItem.html">Item</a></td><td><code> [protected]</code></td></tr>
   <tr bgcolor="#f0f0f0"><td><b>parent_</b> (defined in <a class="el" href="classItem.html">Item</a>)</td><td><a class="el" href="classItem.html">Item</a></td><td><code> [protected]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classItem.html#a721341f149ee9d24bdba038d0337d5f6">removeSubItem</a>(Item *item)</td><td><a class="el" href="classItem.html">Item</a></td><td><code> [virtual]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classItem.html#ae518005fac59895ccfbb6a60a315ea53">removeTag</a>(Tag *tag)</td><td><a class="el" href="classItem.html">Item</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classItem.html#aa4ead6b11bb6b168d568b7d2e10e21d4">setName</a>(const std::string &amp;name)</td><td><a class="el" href="classItem.html">Item</a></td><td></td></tr>
   <tr class="memlist"><td><a class="el" href="classMovie.html#a71de7e0a8be012b00ceaf075fe2bb83f">setNotation</a>(const short notation)</td><td><a class="el" href="classMovie.html">Movie</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classItem.html#afab45e064df9df96e30c51b45eb5d540">setParent</a>(Item *parent)</td><td><a class="el" href="classItem.html">Item</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="classMovie.html#a175642db541f082da1e5065996a6d6d1">setSummary</a>(const string &amp;summary)</td><td><a class="el" href="classMovie.html">Movie</a></td><td></td></tr>
-  <tr bgcolor="#f0f0f0"><td><b>tagList_</b> (defined in <a class="el" href="classItem.html">Item</a>)</td><td><a class="el" href="classItem.html">Item</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="classItem.html#a11663c84075b78c3ae5e30fdfcd7c458">~Item</a>()</td><td><a class="el" href="classItem.html">Item</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classItem.html#af0e99f5198007f612f0a63e23aae9c54">setParent</a>(Item *newParent)</td><td><a class="el" href="classItem.html">Item</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="classMovie.html#a9612c9b521a6b30c2683b108877ecb79">setSummary</a>(const std::string &amp;summary)</td><td><a class="el" href="classMovie.html">Movie</a></td><td></td></tr>
+  <tr bgcolor="#f0f0f0"><td><b>type_</b> (defined in <a class="el" href="classItem.html">Item</a>)</td><td><a class="el" href="classItem.html">Item</a></td><td><code> [protected]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="classItem.html#a0fa84a8ac1a4560611b1ebfb75fe5e61">~Item</a>()=0</td><td><a class="el" href="classItem.html">Item</a></td><td><code> [pure virtual]</code></td></tr>
   <tr class="memlist"><td><a class="el" href="classMovie.html#abf1d82f3db5306141635e34cdb80273c">~Movie</a>()</td><td><a class="el" href="classMovie.html">Movie</a></td><td></td></tr>
 </table></div>
 <!-- window showing the filter options -->
@@ -97,7 +98,7 @@ This is the complete list of members for <a class="el" href="classMovie.html">Mo
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -106,7 +107,7 @@ This is the complete list of members for <a class="el" href="classMovie.html">Mo
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Wed Jun 5 2013 19:03:13 for play.core by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Aug 25 2013 01:52:52 for play.core by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>
