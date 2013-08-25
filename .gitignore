@@ -23,6 +23,7 @@ Makefile
 build
 bin
 lib
+doc/core/html
 # text editor misc
 *~
 *.swp
