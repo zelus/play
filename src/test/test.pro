@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     TestItem.cpp \
     TestItemManager.cpp \
     TestMovie.cpp \
-    TestIdItemSearcher.cpp
+    TestIdItemSearcher.cpp \
+    MockItemVisitor.cpp
 
 HEADERS += \
     TestFolder.h \
@@ -28,4 +29,5 @@ HEADERS += \
     TestItem.h \
     TestItemManager.h \
     TestMovie.h \
-    TestIdItemSearcher.h
+    TestIdItemSearcher.h \
+    MockItemVisitor.h

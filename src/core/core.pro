@@ -21,7 +21,9 @@ SOURCES += \
 	CoreException.cpp \
     ItemVisitor.cpp \
     ItemSearcher.cpp \
-    IdItemSearcher.cpp
+    IdItemSearcher.cpp \
+    IllegalOperationException.cpp \
+    InternalErrorException.cpp
 	
 
 
@@ -33,7 +35,9 @@ HEADERS += \
     CoreException.h \
     ItemVisitor.h \
     ItemSearcher.h \
-    IdItemSearcher.h
+    IdItemSearcher.h \
+    IllegalOperationException.h \
+    InternalErrorException.h
 
 # Doxygen target
 dox.target = doc

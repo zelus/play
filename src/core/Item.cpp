@@ -1,5 +1,7 @@
 #include "Item.h"
 #include "CoreException.h"
+#include "InternalErrorException.h"
+#include "IllegalOperationException.h"
 #include "ItemVisitor.h"
 #include <sstream>
 // debug
@@ -8,16 +10,16 @@
 using namespace std;
 
 /*!
-  \brief Constructs an Item from the given parameters.
+  \brief Construct an Item from the given parameters.
 
-  \note If a parent is given the constructed Item is added to its parent child list.
-  \param id A unique ID associated to the Item.
-  \param name The name of the Item.
-  \param type The type of the Item.
-  \param parent The parent of the Item.
-  \exception CoreException if the given parent cannot handle subItems.
-  \note There is no consistency checking done on the ID unicity. To create Items with consistent
-  unique ID see \see ItemManager::createItem and its derivated methods.
+  \param id a unique ID associated to the Item.
+  \param name the name of the Item.
+  \param type the type of the Item.
+  \param parent the parent of the Item (if not nullptr the Item is appended to the parent).
+  \exception IllegalOperationException if the given parent cannot handle subItems.
+  \exception CoreException if the parent even contains an Item with the same ID.
+  \note There is no consistency checking done on the ID unicity.
+  \see ItemManager::createItem and its derivated methods to create Items with valid and unique ID.
  */
 Item::Item(const std::string& id, const std::string& name, ItemType type, Item* parent)
 {
@@ -29,7 +31,13 @@ Item::Item(const std::string& id, const std::string& name, ItemType type, Item* 
         try {
             parent_->addSubItem(this);
         }catch(CoreException& e) {
-            throw e;
+            /*
+                The parent cannot handle sub Items or even
+                contains the constructed Item (or an other
+                one with the same ID). This would break tree
+                consistency.
+            */
+            throw;
         }
     }
 }
@@ -41,16 +49,17 @@ Item::Item(const std::string& id, const std::string& name, ItemType type, Item* 
  */
 Item::~Item()
 {
-    /*
-        Check if the parent contains the subItem to avoid infinite
-        call loop (if the delete method is called from the parent
-        it has even remove the Item from it subItem list, and the
-        removeSubItem method doesn't need to be called. Doing this
-        might cause a call loop between setParent and removeSubItem
-        methods).
-    */
-    if(parent_ != nullptr && parent_->containsSubItem(id_)) {
-        parent_->removeSubItem(this);
+    if(parent_ != nullptr) {
+        try {
+            parent_->removeSubItem(this);
+        }catch(CoreException& e) {
+            /*
+                The parent doesn't contain the Item and cannot
+                remove it. It may be a consequence of parent
+                deletion. In any case this would not break tree
+                consistency and nothing more needs to be done.
+            */
+        }
     }
 }
 
@@ -64,9 +73,6 @@ Item* Item::getParent() const
 
 /*!
   \return the id of the Item.
-  \note This method is required by the Tag template.
-  \bug The method return the name of the Item, a unique ID must
-  be returned containing the full path of the item.
  */
 const string& Item::getId() const
 {
@@ -95,23 +101,55 @@ ItemType Item::getType() const
   If the new parent is not nullptr then try to add the Item to
   the new parent.
 
-  \param parent the new parent.
+  \param newParent the new parent of the Item.
 
-  \exception CoreException if the new parent cannot handle subItems.
+  \exception IllegalOperationException if the new parent cannot handle sub Items.
+  \exception InternalErrorException if a consistency issue is found.
+  \note If an exception happens during the process the original parent value
+  is restored to keep tree consistency.
  */
 void Item::setParent(Item* newParent)
 {
     if(parent_ != newParent) {
         Item* old_parent = parent_;
-        parent_ = newParent;
-        if(old_parent != nullptr && old_parent->containsSubItem(id_)) {
-            old_parent->removeSubItem(this);
-        }
-        if(parent_ != nullptr && !parent_->containsSubItem(id_)) {
+        if(newParent != nullptr) {
             try {
-                parent_->addSubItem(this);
-            }catch(CoreException& e) {
+                newParent->addSubItem(this);
+            }catch(IllegalOperationException& e) {
+                /*
+                    The parent cannot handle sub Item, reset Item's
+                    parent to its original value and throw the exception.
+                */
                 throw;
+            }catch(InternalErrorException& e) {
+                throw;
+            }catch(CoreException& e) {
+                /*
+                    The parent even contains the Item, it may
+                    be a consistency error but nothing more can
+                    be done here.
+                */
+            }
+        }
+        parent_ = newParent;
+        if(old_parent != nullptr) {
+            try {
+                old_parent->removeSubItem(this);
+            }catch(IllegalOperationException& e) {
+                /*
+                    The actual parent cannot handle sub Item, this results
+                    of a consistency error when it was set as the Item parent
+                    and create a tree consistency issue.
+                 */
+                stringstream ss;
+                ss << "Parent of Item " << id_ << " [" << name_ << "] cannot handle sub Item";
+                throw InternalErrorException(ss.str(),__FILE__,__LINE__);
+            }catch(CoreException& e) {
+                /*
+                    The parent doesn't contain the Item, it may
+                    be a consistency error but nothing more can
+                    be done here.
+                */
             }
         }
     }
@@ -119,8 +157,6 @@ void Item::setParent(Item* newParent)
 
 /*!
   \brief Set a new name to the Item.
-
-  The Tag list is also updated with the new name.
 
   \param name the new name of the Item.
  */
@@ -132,89 +168,92 @@ void Item::setName(const string& name)
 /*!
   \brief Basic implementation of the addSubItem method.
   \param item the Item to add to the child list.
-  \exception std::logic_error if the Item can not have children.
-  \warning This method fails default because basic Items are not allowed to have children.
+  \exception IllegalOperationException if the Item can not have children.
+  \warning This method fails default because basic Item is not allowed to have children.
   See design pattern \em composite for further informations about global interfaces.
   \note This method should be overriden by inherited classes that can handle children.
  */
-void Item::addSubItem(Item *item)
+void Item::addSubItem(Item*)
 {
     stringstream ss;
-    ss << "The Item " << name_ << " is not a container.";
-    throw CoreException(ss.str(),__FILE__,__LINE__);
+    ss << "The Item " << id_ << "[" << name_ << "] is not a container.";
+    throw IllegalOperationException(ss.str(),__FILE__,__LINE__);
 }
 
 /*!
   \brief Basic implementation of the removeSubItem method.
   \param item the Item to remove from the child list.
-  \exception std::logic_error if the Item can not have children.
-  \warning This method fails default because basic Items are not allowed to have children.
+  \exception IllegalOperationException if the Item can not have children.
+  \warning This method fails default because basic Item is not allowed to have children.
   See design pattern \em composite for further informations about global interfaces.
   \note This method should be overriden by inherited classes that can handle children.
  */
-void Item::removeSubItem(Item *item)
+void Item::removeSubItem(Item*)
 {
     stringstream ss;
-    ss << "The Item " << name_ << " is not a container.";
-    throw CoreException(ss.str(),__FILE__,__LINE__);
+    ss << "The Item " << id_ << "[" << name_ << "] is not a container.";
+    throw IllegalOperationException(ss.str(),__FILE__,__LINE__);
 }
 
 /*!
   \brief Basic implementation of the deleteSubItem method.
   \param item the Item to remove from the child list.
-  \exception std::logic_error if the Item can not have children.
-  \warning This method fails default because basic Items are not allowed to have children.
+  \exception IllegalOperationException if the Item can not have children.
+  \warning This method fails default because basic Item is not allowed to have children.
   See design pattern \em composite for further informations about global interfaces.
   \note This method should be overriden by inherited classes that can handle children.
  */
-void Item::deleteSubItem(Item *item)
+void Item::deleteSubItem(Item*)
 {
     stringstream ss;
-    ss << "The Item " << name_ << " is not a container.";
-    throw CoreException(ss.str(),__FILE__,__LINE__);
+    ss << "The Item " << id_ << "[" << name_ << "] is not a container.";
+    throw IllegalOperationException(ss.str(),__FILE__,__LINE__);
 }
 
 /*!
   \brief Basic implementation of the getSubItem method.
-  \param itemId the ID of the wanted Item.
-  \exception std::logic_error if the Item can not have children.
-  \warning This method fails default because basic Items are not allowed to have children.
+
+  \param id the ID of the wanted Item.
+  \return a pointer to the found Item, nullptr otherwise.
+  \exception IllegalOperationException if the Item can not have children.
+  \warning This method fails default because basic Item is not allowed to have children.
   See design pattern \em composite for further informations about global interfaces.
   \note This method should be overriden by inherited classes that can handle children.
  */
-Item* Item::getSubItem(const string &itemId) const
+Item* Item::getSubItem(const string&) const
 {
     stringstream ss;
-    ss << "The Item " << name_ << " is not a container.";
-    throw CoreException(ss.str(),__FILE__,__LINE__);
+    ss << "The Item " << id_ << "[" << name_ << "] is not a container.";
+    throw IllegalOperationException(ss.str(),__FILE__,__LINE__);
 }
 
 /*!
   \brief Basic implementation of the containsSubItem method.
-  \param itemId the ID of the wanted Item.
-  \exception std::logic_error if the Item can not have children.
-  \warning This method fails default because basic Items are not allowed to have children.
+  \param id the ID of the wanted Item.
+  \return true if the Item is found in the children list, false otherwise.
+  \exception IllegalOperationException if the Item can not have children.
+  \warning This method fails default because basic Item is not allowed to have children.
   See design pattern \em composite for further informations about global interfaces.
   \note This method should be overriden by inherited classes that can handle children.
  */
-bool Item::containsSubItem(const string& itemId) const
+bool Item::containsSubItem(const string&) const
 {
     stringstream ss;
-    ss << "The Item " << name_ << " is not a container.";
-    throw CoreException(ss.str(),__FILE__,__LINE__);
+    ss << "The Item " << id_ << "[" <<name_ << "] is not a container.";
+    throw IllegalOperationException(ss.str(),__FILE__,__LINE__);
 }
 
 /*!
   \brief Basic implementation of the getAllSubItems method.
-
-  \exception std::logic_error if the Item can not have children.
-  \warning This method fails default because basic Items are not allowed to have children.
+  \return a vector containing the pointers to Item's children.
+  \exception IllegalOperationException if the Item can not have children.
+  \warning This method fails default because basic Item is not allowed to have children.
   See design pattern \em composite for further imformations about global interfaces.
   \note This method should be overriden by inherited classes that can handle children.
  */
 const vector<Item*>& Item::getAllSubItems() const
 {
     stringstream ss;
-    ss << "The Item " << name_ << " is not a container.";
-    throw CoreException(ss.str(),__FILE__,__LINE__);
+    ss << "The Item " << id_ << "[" << name_ << "] is not a container.";
+    throw IllegalOperationException(ss.str(),__FILE__,__LINE__);
 }

@@ -10,6 +10,7 @@
   The Movie class is a part of the \em composite pattern used to store
   the Item tree. It is derivated from the Item class and represents a movie
   with specific movie informations : summary and notation.
+
   \note Movie class doesn't override children management method because a Movie
   is a basic Item and can not have children.
  */
@@ -18,6 +19,10 @@ class Movie : public Item
 public:
     Movie(const std::string& id, const std::string& name, Item* parent = nullptr);
     Movie(const std::string& id, const std::string& name, const std::string& summary, const short notation, Item* parent = nullptr);
+    /*!
+      \warning Copy constructor is deleted to prevent ID
+      duplication
+    */
     Movie(const Movie& movie) = delete;
     ~Movie();
 

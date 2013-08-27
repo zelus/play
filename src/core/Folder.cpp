@@ -1,5 +1,7 @@
 #include "Folder.h"
 #include "CoreException.h"
+#include "InternalErrorException.h"
+#include "IllegalOperationException.h"
 #include "ItemVisitor.h"
 #include <sstream>
 // debug
@@ -11,25 +13,28 @@ using namespace std;
   \brief Constructs a Folder from the given parameters.
 
   The given name and parent are delegated to the Item constructor, and
-  the ItemType is statically defined to FOLDER_TYPE .
+  the ItemType is statically defined to FOLDER_TYPE.
+
   \param id a unique ID associated to the Folder.
-  \param folderName the name of the Folder.
+  \param name the name of the Folder.
   \param parent the parent of the Folder.
-  \note There is no consistency checking done on the ID unicity. To create Folders with consistent
-  unique ID see \see ItemManager::createFolder method.
+  \exception IllegalOperationException if the given parent cannot handle subItems.
+  \exception CoreException if the parent even contains an Item with the same ID.
+  \note There is no consistency checking done on the ID unicity.
+  \see ItemManager::createFolder to create Items with valid and unique ID.
  */
-Folder::Folder(const string& id, const string& name, Item* parent) : Item(id,name,ItemType::FOLDER_TYPE,parent)
+Folder::Folder(const std::string& id, const std::string& name, Item* parent) : Item(id,name,ItemType::FOLDER_TYPE,parent)
 {
 
 }
 
 /*!
   \brief  Deletes the Folder and all its subItems recursively.
-  \note Parent management is handled in Item superclass.
+
+  If the Folder has a parent it is removed from its children list.
  */
 Folder::~Folder()
 {
-    cout << "delete folder" << endl;
     /*
         A local copy is needed because a clear method is
         called on the subItem vector to prevent multiple
@@ -53,17 +58,18 @@ Folder::~Folder()
 /*!
   \brief Overrides the basic addSubItem method defined in Item class.
 
-  Set the parent of the Item to the current folder.
+  Set the parent of item to the current folder.
 
   \param item the Item to add to the child list.
 
   \exception CoreException if the Folder even contains the Item.
+  \exception InternalErrorException if a consistency issue is found.
  */
 void Folder::addSubItem(Item *item)
 {
     if(containsSubItem(item->getId())) {
         stringstream ss;
-        ss << "The Folder " << name_ << " already contains an Item with the name " << item->getName();
+        ss << "The Folder " << name_ << " already contains an Item with the id " << item->getId();
         throw CoreException(ss.str(),__FILE__,__LINE__);
     }
     /*
@@ -80,19 +86,32 @@ void Folder::addSubItem(Item *item)
         consistency).
     */
     if(item->getParent() == nullptr || item->getParent()->getId() != id_) {
-        item->setParent(this);
+        try {
+            item->setParent(this);
+        }catch(IllegalOperationException& e) {
+            /*
+                No exception should be thrown by the call because
+                the parent of the sub Item is the current Item which
+                can handle sub Items.
+            */
+            stringstream ss;
+            ss << "Parent of Item " << item->getId() << " [" << item->getName() << "] cannot handle sub Item";
+            throw InternalErrorException(ss.str(),__FILE__,__LINE__);
+        }
     }
 }
 
 /*!
   \brief Overrides the basic removeSubItem method defined in Item class.
 
-  The Item parent is restored to its default value : nullptr.
+  Set the parent of item to nullptr.
 
   \param item the Item to remove from the child list.
 
   \exception CoreException if the Folder doesn't contain the Item.
-  \note The removed Item is not deleted. To delete a child Item \see deleteSubItem method instead.
+  \exception InternalErrorException if a consistency issue is found.
+  \note The removed Item is not deleted.
+  \see deleteSubItem method if you want to delete a child Item.
   */
 void Folder::removeSubItem(Item *item)
 {
@@ -119,7 +138,18 @@ void Folder::removeSubItem(Item *item)
                 ensure composite consistency).
             */
             if(erased_item->getParent() != nullptr && erased_item->getParent()->getId() == id_) {
-                erased_item->setParent(nullptr);
+                try {
+                    erased_item->setParent(nullptr);
+                }catch(IllegalOperationException& e) {
+                    /*
+                        No exception should be thrown because
+                        the parent of the sub Item is the current
+                        Item which can handle sub Items.
+                    */
+                    stringstream ss;
+                    ss << "Parent of Item " << item->getId() << " [" << item->getName() << "] cannot handle sub Item";
+                    throw InternalErrorException(ss.str(),__FILE__,__LINE__);
+                }
             }
             return;
         }
@@ -132,10 +162,9 @@ void Folder::removeSubItem(Item *item)
 /*!
   \brief Overrides the basic deleteSubItem method defined in Item class.
 
-  The given Item is removed from the child list and its destructor is called.
+  Remove item from the child list and its destructor is called.
 
   \param item the Item to delete.
-
   \exception CoreException if the Folder doesn't contain the Item.
  */
 void Folder::deleteSubItem(Item *item)
@@ -171,18 +200,16 @@ void Folder::deleteSubItem(Item *item)
 /*!
   \brief Overrides the basic getSubItem method defined in Item class.
 
-  Return the subItem with the given ID.
+  \param id the ID of the wanted Item.
 
-  \param itemId the ID of the wanted Item.
-
-  \return the Item pointer if the wanted Item is in the child list, nullptr
+  \return the Item pointer if the wanted Item's ID is in the child list, nullptr
   otherwise.
  */
-Item* Folder::getSubItem(const string& itemId) const
+Item* Folder::getSubItem(const string& id) const
 {
     vector<Item*>::const_iterator it;
     for(it = items_.begin(); it != items_.end(); ++it) {
-        if((*it)->getId() == itemId) {
+        if((*it)->getId() == id) {
             return *it;
         }
     }
@@ -192,11 +219,11 @@ Item* Folder::getSubItem(const string& itemId) const
 /*!
   \brief Overrides the basic containsSubItem method defined in Item class.
 
-  \param itemId the ID of the wanted Item.
-  \return true if the wanted Item is in the child list, false
+  \param id the ID of the wanted Item.
+  \return true if the wanted Item's ID is in the child list, false
   otherwise.
  */
-bool Folder::containsSubItem(const string &id) const
+bool Folder::containsSubItem(const string& id) const
 {
     vector<Item*>::const_iterator it;
     for(it = items_.begin(); it != items_.end(); ++it) {
@@ -217,6 +244,13 @@ const vector<Item*>& Folder::getAllSubItems() const
 }
 
 
+/*!
+  \brief Overrides the basic accept method defined in the Item class.
+
+  Call dedicated method in visitor.
+
+  \param visitor the ItemVisitor to use through the Folder.
+ */
 void Folder::accept(ItemVisitor* visitor)
 {
     visitor->visitFolder(this);

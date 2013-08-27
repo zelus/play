@@ -18,7 +18,15 @@ class ItemManager
 {
 public:
     ItemManager();
+    /*!
+      \warning Copy constructor is deleted to prevent ID
+      duplication and consistency issues.
+     */
     ItemManager(const ItemManager& itemManager) = delete;
+    /*!
+      \warning Assignment operator is deleted to prevent ID
+      duplication and consistency issues.
+     */
     ItemManager& operator=(const ItemManager&) = delete;
     ~ItemManager();
 

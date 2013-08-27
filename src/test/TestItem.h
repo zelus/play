@@ -5,6 +5,8 @@
 
 #include "Item.h"
 #include "CoreException.h"
+#include "IllegalOperationException.h"
+#include "InternalErrorException.h"
 
 #include <stdexcept>
 
@@ -15,9 +17,11 @@ class TestItem : public CppUnit::TestFixture
   CPPUNIT_TEST_SUITE(TestItem);
 
   CPPUNIT_TEST(test_constructor_nullparent);
-  CPPUNIT_TEST_EXCEPTION(test_constructor_itemparent,CoreException);
+  CPPUNIT_TEST_EXCEPTION(test_constructor_movieparent,IllegalOperationException);
   CPPUNIT_TEST(test_constructor_folderparent);
+  CPPUNIT_TEST_EXCEPTION(test_constructor_folderparent_evencontains,CoreException);
 
+  CPPUNIT_TEST(test_destructor_nullparent);
   CPPUNIT_TEST(test_destructor_folderparent);
 
   CPPUNIT_TEST(test_getParent);
@@ -31,9 +35,13 @@ class TestItem : public CppUnit::TestFixture
 
   CPPUNIT_TEST(test_getType);
 
-  CPPUNIT_TEST(test_setParent);
-  CPPUNIT_TEST(test_setParent_nullptr);
-  CPPUNIT_TEST(test_setParent_fromitemtoitem);
+  CPPUNIT_TEST(test_setParent_fromnulltofolder);
+  CPPUNIT_TEST_EXCEPTION(test_setParent_fromnulltomovie,IllegalOperationException);
+  CPPUNIT_TEST(test_setParent_fromnulltomovie_parentrestored);
+  CPPUNIT_TEST(test_setParent_fromfoldertonull);
+  CPPUNIT_TEST(test_setParent_fromfoldertofolder);
+  CPPUNIT_TEST_EXCEPTION(test_setParent_fromfoldertomovie,IllegalOperationException);
+  CPPUNIT_TEST(test_setParent_fromfoldertomovie_parentrestored);
 
   CPPUNIT_TEST(test_setName);
 
@@ -51,9 +59,11 @@ public:
   void tearDown();
 
   void test_constructor_nullparent();
-  void test_constructor_itemparent();
+  void test_constructor_movieparent();
   void test_constructor_folderparent();
+  void test_constructor_folderparent_evencontains();
 
+  void test_destructor_nullparent();
   void test_destructor_folderparent();
 
   void test_getParent();
@@ -67,9 +77,13 @@ public:
 
   void test_getType();
 
-  void test_setParent();
-  void test_setParent_nullptr();
-  void test_setParent_fromitemtoitem();
+  void test_setParent_fromnulltofolder();
+  void test_setParent_fromnulltomovie();
+  void test_setParent_fromnulltomovie_parentrestored();
+  void test_setParent_fromfoldertonull();
+  void test_setParent_fromfoldertofolder();
+  void test_setParent_fromfoldertomovie();
+  void test_setParent_fromfoldertomovie_parentrestored();
 
   void test_setName();
 
