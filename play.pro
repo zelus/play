@@ -1,7 +1,8 @@
 TEMPLATE = subdirs
 SUBDIRS = \
-    $$PWD/src/core
+        $$PWD/src/core \
+        $$PWD/src/ui
 	
 CONFIG += ordered
 SUBDIRS += \
-    $$PWD/src/test
+	$$PWD/src/app
