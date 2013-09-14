@@ -15,6 +15,10 @@ OBJECTS_DIR = $$BUILD_DIR/app/objs
 MOC_DIR = $$BUILD_DIR/app/mocs
 UI_DIR = $$BUILD_DIR/app/uics
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    ItemController.cpp \
+    LibraryTreeModel.cpp
 
-HEADERS += 
+HEADERS += \ 
+    ItemController.h \
+    LibraryTreeModel.h
