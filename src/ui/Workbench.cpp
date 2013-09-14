@@ -13,7 +13,7 @@ Workbench::Workbench(QWidget *parent) : QMainWindow(parent)
     QWidget* central = new QWidget(this);
     QHBoxLayout* central_layout = new QHBoxLayout;
 
-    QTreeWidget* libTree = new QTreeWidget;
+    /*QTreeWidget* libTree = new QTreeWidget;
     libTree->setColumnCount(1);
     libTree->setHeaderLabel("name");
     QTreeWidgetItem* lib1 = new QTreeWidgetItem(QStringList("Lib1"));
@@ -26,10 +26,18 @@ Workbench::Workbench(QWidget *parent) : QMainWindow(parent)
     libTree->setSortingEnabled(true);
     QTextEdit* edit2 = new QTextEdit("main view");
 
-    central_layout->addWidget(libTree);
+    central_layout->addWidget(libTree);*/
+    QTextEdit* edit2 = new QTextEdit("main view");
+    libraryTreeView_ = new QTreeView;
+    central_layout->addWidget(libraryTreeView_);
     central_layout->addWidget(edit2);
 
     central->setLayout(central_layout);
 
     setCentralWidget(central);
+}
+
+QTreeView* Workbench::getLibraryTreeView() const
+{
+    return libraryTreeView_;
 }

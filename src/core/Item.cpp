@@ -164,6 +164,42 @@ void Item::setName(const string& name)
 {
     name_ = name;
 }
+/*!
+  \brief Calculate the index of the Item relatively to its parent.
+  \return the index of the Item relatively to its parent.
+  \exception CoreException if the Item parent is not set, or if it doesn't contain the Item.
+  \exception InternalErrorException if a consistency issue is found (parent that cannot handle sub Item.
+  \bug There is no way to set the index of an Item relatively to its parent. A parameter should be added to
+  the addSubItem method.
+ */
+unsigned int Item::getIndex() const
+{
+    if(parent_ == nullptr) {
+        stringstream ss;
+        ss << "Cannot get the index of the Item " << id_ << "[" << name_ << "], parent not set";
+        throw CoreException(ss.str(),__FILE__,__LINE__);
+    }
+    try {
+        const vector<Item*>& parent_children = parent_->getAllSubItems();
+        for(size_t i = 0; i < parent_children.size(); ++i) {
+            if(parent_children[i]->getId() == id_) {
+                return i;
+            }
+        }
+    }catch(IllegalOperationException& e) {
+        /*
+            The actual parent cannot handle sub Item, this results
+            of a consistency error when it was set as the Item parent
+            and create a tree consistency issue.
+         */
+        stringstream ss;
+        ss << "Cannot get the index of the Item Item " << id_ << " [" << name_ << "], parent cannot handle sub Item";
+        throw InternalErrorException(ss.str(),__FILE__,__LINE__);
+    }
+    stringstream ss;
+    ss << "Cannot get the index of the Item " << id_ << "[" << name_ << "], parent  doesn't contain the Item";
+    throw CoreException(ss.str(),__FILE__,__LINE__);
+}
 
 /*!
   \brief Basic implementation of the addSubItem method.

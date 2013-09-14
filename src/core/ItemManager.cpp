@@ -135,6 +135,16 @@ unsigned int ItemManager::getItemNumber() const
 }
 
 /*!
+  \return the root Item of the Item tree.
+  \note This Item doesn't store any information and should be used only
+  for value comparisons.
+ */
+Item* ItemManager::getRootItem() const
+{
+    return treeRoot_;
+}
+
+/*!
   \return the number of top level Item registered to the ItemManager.
  */
 unsigned int ItemManager::getTopLevelItemNumber() const

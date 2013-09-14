@@ -39,6 +39,7 @@ public:
 
     void setParent(Item* newParent);
     void setName(const std::string& name);
+    unsigned int getIndex() const;
     virtual void addSubItem(Item* item);
     virtual void removeSubItem(Item* item);
     virtual void deleteSubItem(Item* item);

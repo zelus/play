@@ -1,5 +1,8 @@
 #include "ItemController.h"
+#include "IllegalOperationException.h"
 #include <QString>
+// debug
+#include <iostream>
 
 ItemController::ItemController(ItemManager& itemManager) : itemManager_(itemManager)
 {
@@ -8,6 +11,7 @@ ItemController::ItemController(ItemManager& itemManager) : itemManager_(itemMana
 
 QVariant ItemController::getData(Item* item, int field) const
 {
+    std::cout << "call ItemController::data" << std::endl;
     switch(field) {
         case 0 :
         return QString::fromStdString(item->getName());
@@ -25,6 +29,11 @@ Item* ItemController::getParent(Item* item) const
     return item_parent;
 }
 
+Item* ItemController::getRootItem() const
+{
+    return itemManager_.getRootItem();
+}
+
 int ItemController::getTopLevelItemNumber() const
 {
     return itemManager_.getTopLevelItemNumber();
@@ -32,5 +41,9 @@ int ItemController::getTopLevelItemNumber() const
 
 int ItemController::getChildNumber(Item* item) const
 {
-    return item->getAllSubItems().size();
+    try {
+        return item->getAllSubItems().size();
+    }catch(IllegalOperationException&) {
+        return 0;
+    }
 }

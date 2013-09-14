@@ -36,6 +36,7 @@ public:
     void deleteItem(Item* item);
 
     unsigned int getItemNumber() const;
+    Item* getRootItem() const;
     unsigned int getTopLevelItemNumber() const;
 
 private:

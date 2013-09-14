@@ -10,6 +10,7 @@ public:
     ItemController(ItemManager& itemManager);
     QVariant getData(Item* item, int field) const;
     Item* getParent(Item* item) const;
+    Item* getRootItem() const;
     int getTopLevelItemNumber() const;
     int getChildNumber(Item* item) const;
 
