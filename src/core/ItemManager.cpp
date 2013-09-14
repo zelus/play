@@ -133,3 +133,11 @@ unsigned int ItemManager::getItemNumber() const
 {
     return itemNumber_;
 }
+
+/*!
+  \return the number of top level Item registered to the ItemManager.
+ */
+unsigned int ItemManager::getTopLevelItemNumber() const
+{
+    return treeRoot_->getAllSubItems().size();
+}
