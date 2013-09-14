@@ -28,6 +28,17 @@ QVariant LibraryTreeModel::data(const QModelIndex& index, int role) const
     return itemController_.getData(item,index.column());
 }
 
+QVariant LibraryTreeModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+    if(orientation == Qt::Horizontal && role == Qt::DisplayRole) {
+        switch(section) {
+            case 0 :
+            return QString(tr("Title"));
+        }
+    }
+    return QVariant();
+}
+
 QModelIndex LibraryTreeModel::index(int row, int column, const QModelIndex& parent) const
 {
     std::cout << "call LibraryTreeModel::index(" << row << "," << column << ")" << std::endl;
@@ -49,7 +60,11 @@ QModelIndex LibraryTreeModel::index(int row, int column, const QModelIndex& pare
     }
     Item* child_item = nullptr;
     const std::vector<Item*>& children = parent_item->getAllSubItems();
-    if(children.size() < row) {
+    /*
+        Can do the cast without any problem : if the row value is negative then
+        the hasIndex method has failed and an invalid QModelIndex has been returned.
+    */
+    if(children.size() < static_cast<unsigned int>(row)) {
         std::cout << "size error" << std::endl;
         // Invalid item
         return QModelIndex();
@@ -103,7 +118,7 @@ int LibraryTreeModel::rowCount(const QModelIndex& parent) const
     }
 }
 
-int LibraryTreeModel::columnCount(const QModelIndex& parent) const
+int LibraryTreeModel::columnCount(const QModelIndex&) const
 {
     std::cout << "call LibraryTreeModel::columnCount" << std::endl;
     // on affiche que le nom des items
