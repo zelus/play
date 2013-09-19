@@ -17,9 +17,9 @@
   visit methods (associated to each Item type) that allow
   basic subclass to just override rank methods.
 
-  ItemSearcher default behavious only provides descendant research
+  ItemSearcher default behaviour only provides descendant research
   (it cannot find Item at a higher level than the one provided by the search
-  method parameter. If such a behavious is needed by a specific subclass it
+  method parameter. If such a behaviour is needed by a specific subclass it
   needs to override the visit methods.
  */
 class ItemSearcher : public ItemVisitor
@@ -27,13 +27,13 @@ class ItemSearcher : public ItemVisitor
 public:
     ItemSearcher();
 
-    void visitFolder(Folder* folder);
-    void visitMovie(Movie* movie);
-    virtual void search(Item* item);
+    void            visitFolder(Folder* folder);
+    void            visitMovie(Movie* movie);
+    virtual void    search(Item* item);
 
     /*!
-      \return eturn the list of found Items matching the
-      rank methods.
+      \return the list of found Items matching the rank methods or an
+      empty vector if no Item were found.
     */
     virtual const std::vector<Item*> getFoundItems() const = 0;
 
@@ -65,7 +65,6 @@ protected:
 
       \param rank the rank of the Item to sort.
       \param item the Item to sort.
-
       \return true if the research needs to continue, false otherwise.
 
       \note the return value is used in default visit methods to

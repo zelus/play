@@ -6,7 +6,7 @@
 #include <string>
 
 /*!
-  \brief Represents a concrete Item with folder properties.
+  \brief Represents a concrete Item which can handle children (sub Items).
 
   The Folder class is a part of the \em composite pattern used to store
   the Item tree. It is derivated from the Item class and represents an Item
@@ -17,7 +17,7 @@
 class Folder : public Item
 {
 public:
-    Folder(const std::string& id, const std::string& name, Item* parent = nullptr);
+    Folder(const std::string& name, ItemTree& itemTree);
     /*!
       \warning Copy constructor is deleted to prevent ID
       duplication
@@ -25,14 +25,16 @@ public:
     Folder(const Folder& folder) = delete;
     ~Folder();
 
-    void addSubItem(Item* item);
-    void removeSubItem(Item *item);
-    void deleteSubItem(Item *item);
-    Item* getSubItem(const std::string& id) const;
-    bool containsSubItem(const std::string& id) const;
-    const std::vector<Item*>& getAllSubItems() const;
+    void                        addSubItem(Item* item);
+    void                        removeSubItem(Item *item);
+    void                        deleteSubItem(Item *item);
+    Item*                       getSubItem(const std::string& id)       const;
+    bool                        containsSubItem(const std::string& id)  const;
+    int                         getSubItemIndex(Item* item)             const;
+    const std::vector<Item*>&   getAllSubItems()                        const;
+    unsigned int                getSubItemNumber()                      const;
 
-    void accept(ItemVisitor* visitor);
+    void accept(ItemVisitor& visitor);
 
 private:
     std::vector<Item*> items_;

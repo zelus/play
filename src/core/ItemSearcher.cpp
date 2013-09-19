@@ -6,13 +6,9 @@
 using namespace std;
 
 /*!
-  \brief Constructs an ItemSearcher.
+  \brief Construct an ItemSearcher.
 
-  No parameters are needed by ItemSearcher constructor, it is
-  the responsability of the subclasses if it is needed.
-
-  The continueRecursiveSearch flag (use to stop the recursion)
-  is set to true.
+  Initialize the recursion flag to true (enable recursion).
  */
 ItemSearcher::ItemSearcher() : ItemVisitor()
 {
@@ -24,8 +20,9 @@ ItemSearcher::ItemSearcher() : ItemVisitor()
 
   The Folder is ranked first and then the accept method
   is called to each one of its children.
-  The loop ends when all the children have been traveled
-  or if the continueRecursiveSearch flag has been put to false.
+
+  The loop ends when all the children have been processed
+  or if the recursion flag has been put to false.
 
   \param folder the folder to visit.
  */
@@ -39,7 +36,7 @@ void ItemSearcher::visitFolder(Folder* folder)
     vector<Item*>::const_iterator it;
     for(it = folder_children.begin(); it != folder_children.end(); ++it) {
         if(continueRecursiveSearch_) {
-            (*it)->accept(this);
+            (*it)->accept(*this);
         }
         else {
             return;
@@ -50,8 +47,7 @@ void ItemSearcher::visitFolder(Folder* folder)
 /*!
   \brief Basic visit method for Movie.
 
-  The Movie is ranked and the continueRecursiveSearch flag is
-  updated.
+  The Movie is ranked and the recursion flag is updated.
 
   \param movie the Movie to visit.
  */
@@ -63,15 +59,14 @@ void ItemSearcher::visitMovie(Movie* movie)
 /*!
   \brief Basic search method.
 
-  Cleans the continueRecursiveSearch flag and launch the
-  research.
+  Cleans the recursion flag and launch a new research.
 
   \param item the Item to start the research from.
  */
 void ItemSearcher::search(Item* item)
 {
     reset();
-    item->accept(this);
+    item->accept(*this);
 }
 
 /*!

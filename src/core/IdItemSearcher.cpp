@@ -5,7 +5,7 @@
 using namespace std;
 
 /*!
-  \brief Constructs an IdItemSearcher with the given id to search.
+  \brief Construct an IdItemSearcher with the given id to search.
 
   \param searchedId the id to search for.
  */
@@ -16,13 +16,13 @@ IdItemSearcher::IdItemSearcher(const std::string& searchedId)
 }
 
 /*!
-  \brief Constructs a vector containing the result of the search.
+  \brief Construct a vector containing the result of the search.
 
   \return a vector containing the search result.
 
   \note this method is needed for API uniformity, but the returned
-  vector will always contain one value : a pointer to an Item
-  if the ID was found, nullptr otherwise.
+  vector will always contain 0 or 1 element (depending if an Item
+  has been found or not).
   \see getFoundItem for specific return method (not in the common
   interface).
  */
@@ -44,6 +44,14 @@ Item* IdItemSearcher::getFoundItem() const
 }
 
 /*!
+  \return the current id assigned to the searcher.
+ */
+const string& IdItemSearcher::getSearchedId() const
+{
+    return searchedId_;
+}
+
+/*!
   \brief Set a new id to search for.
 
   \param id the new id to search for.
@@ -53,14 +61,6 @@ Item* IdItemSearcher::getFoundItem() const
 void IdItemSearcher::setSearchedId(const string& id)
 {
     searchedId_ = id;
-}
-
-/*!
-  \return the current id assigned to the searcher.
- */
-const string& IdItemSearcher::getSearchedId() const
-{
-    return searchedId_;
 }
 
 /*!
@@ -76,7 +76,7 @@ void IdItemSearcher::reset()
 }
 
 /*!
-  \brief ItemSearcher::rankFolder override.
+  \brief Rank the given Folder according to its ID.
 
   \param folder the Folder to rank.
   \return 1 if the ID match the searched one, 0 otherwise.
@@ -87,7 +87,7 @@ int IdItemSearcher::rankFolder(Folder* folder) const
 }
 
 /*!
-  \brief ItemSearcher::rankMovie override.
+  \brief Rank the given Movie according to its ID.
 
   \param movie the Movie to rank.
   \return 1 if the ID match the searched one, 0 otherwise.
@@ -98,11 +98,11 @@ int IdItemSearcher::rankMovie(Movie* movie) const
 }
 
 /*!
-  \brief ItemSearcher::sortItem override.
+  \brief Sort the given Item according to the rank provided
+  and the search parameters.
 
-  \param rank the of the Item to sort.
-  \param item the Item to rank.
-
+  \param rank the rank of the Item to sort.
+  \param item the Item to sort.
   \return false if the given rank corresponds to a matching
   between item's ID and searched ID, true otherwhise.
 
@@ -119,7 +119,7 @@ bool IdItemSearcher::sortItem(const int rank, Item* item)
 }
 
 /*!
-  \brief Unique ranking method.
+  \brief Rank the given Item according to its ID.
 
   IdItemSearcher search Item by ID, regardless to their
   concrete type, each rank method delegates to this method.

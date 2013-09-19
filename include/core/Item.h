@@ -3,10 +3,9 @@
 
 #include <vector>
 #include <string>
+#include "ItemTree.h"
 
 class ItemVisitor;
-
-enum class ItemType { ANY_TYPE, FOLDER_TYPE, MOVIE_TYPE };
 
 /*!
   \brief Represents an abstract Item.
@@ -19,33 +18,43 @@ enum class ItemType { ANY_TYPE, FOLDER_TYPE, MOVIE_TYPE };
 
   If the class inherited of Item defines a container it should override
   subItem management methods.
+
+  Item are strongly coupled with their context (i.e. ItemTree) : it ensures
+  base consistency of the composite tree by providing IDs and a global tree
+  root.
  */
 class Item
 {
 
 public:
-    Item(const std::string& id, const std::string& name, ItemType type = ItemType::ANY_TYPE, Item* parent = nullptr);
+    Item(const std::string& name, ItemTree& itemTree);
     /*!
       \warning Copy constructor is deleted to prevent ID
       duplication
     */
     Item(const Item& item) = delete;
+    /*!
+      \warning Assignment operator is deleted to prevent ID
+      duplication.
+     */
+    Item& operator=(const Item&) = delete;
+
     virtual ~Item() = 0;
 
-    Item* getParent() const;
-    const std::string& getId() const;
-    const std::string& getName() const;
-    ItemType getType() const;
+    Item*                               getParent()                             const;
+    const std::string&                  getId()                                 const;
+    const std::string&                  getName()                               const;
 
-    void setParent(Item* newParent);
-    void setName(const std::string& name);
-    unsigned int getIndex() const;
-    virtual void addSubItem(Item* item);
-    virtual void removeSubItem(Item* item);
-    virtual void deleteSubItem(Item* item);
-    virtual Item* getSubItem(const std::string& id) const;
-    virtual bool containsSubItem(const std::string& id) const;
-    virtual const std::vector<Item*>& getAllSubItems() const;
+    void                                setName(const std::string& name);
+
+    virtual void                        addSubItem(Item* item);
+    virtual void                        removeSubItem(Item* item);
+    virtual void                        deleteSubItem(Item* item);
+    virtual Item*                       getSubItem(const std::string& id)       const;
+    virtual bool                        containsSubItem(const std::string& id)  const;
+    virtual int                         getSubItemIndex(Item* item)             const;
+    virtual const std::vector<Item*>&   getAllSubItems()                        const;
+    virtual unsigned int                getSubItemNumber()                      const;
 
     /*!
       \brief Generic accept method for ItemVisitor.
@@ -53,15 +62,18 @@ public:
       This method needs to be overriden in each subclass to
       call the dedicated ItemVisitor::visit method.
 
-      \param visitor the ItemVisitor use through the Item.
+      \param visitor the ItemVisitor to use through the Item.
      */
-    virtual void accept(ItemVisitor* visitor) = 0;
+    virtual void accept(ItemVisitor& visitor) = 0;
+
+    void setParent(Item* parent);
+    void setId(const std::string& id);
 
 protected:
     /*!
       The unique ID associated to the Item.
-      See ItemManager creation methods to create Item with
-      consistent and valid ID.
+      This ID is given by the context (ItemTree) provided
+      for the Item construction.
      */
     std::string id_;
     /*!
@@ -69,16 +81,25 @@ protected:
      */
     std::string name_;
     /*!
-      The parent of the Item.
+      The parent of the Item. Default parent (at construction time)
+      is provided by the context (ItemTree).
      */
     Item* parent_;
     /*!
-      The type of the Item. This is a convenience member
-      variable to avoid type cast in polymorphic Item
-      management (for example dispatch Item between different
-      manager and delegate the specific processing part).
+      The tree the Item belongs to. This variable is used internally
+      to get a unique ID (relative to the tree) during the creation.
+      Some call also have impact on the ItemTree pointed (e.g. destructor
+      call will forward the deletion to the ItemTree for counting issues).
      */
-    ItemType type_;
+    ItemTree& itemTree_;
+
+    /*!
+      Enforce encapsulation by removing access to
+      setParent and setId method to client. Parent management
+      is provided by both parent Item and ItemTree. ID management
+      is provided by the ItemTree.
+     */
+//friend void ItemTree::registerItem(Item*);
 };
 
 #endif // ITEM_H

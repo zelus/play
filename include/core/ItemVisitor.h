@@ -6,22 +6,19 @@
 #include "Movie.h"
 
 /*!
-  \brief Base visitor class.
+  \brief Abstract Item visitor class.
 
   All the \em composite visitors used in the core package have
   to inherite from ItemVisitor.
 
-  ItemVisitor provides an interface containing each Item type
-  dedicated visit method. They are all pure virtual and have to
-  be overriden in subclasses.
+  Provide an interface containing each Item specific handle method.
+  They are all pure virtual and have to be overriden in subclasses.
 
   ItemVisitor is an implementation of \em Visitor design pattern.
  */
 class ItemVisitor
 {
 public:
-    ItemVisitor();
-
     /*!
       \brief Abstract visit method for Folder.
 

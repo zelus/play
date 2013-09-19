@@ -1,64 +1,49 @@
 #include "Item.h"
 #include "CoreException.h"
-#include "InternalErrorException.h"
 #include "IllegalOperationException.h"
 #include "ItemVisitor.h"
 #include <sstream>
 // debug
 #include <iostream>
 
+
+#include "ItemTree.h"
 using namespace std;
 
 /*!
-  \brief Construct an Item from the given parameters.
+  \brief Construct an Item with the given name in the given context (ItemTree)
 
-  \param id a unique ID associated to the Item.
   \param name the name of the Item.
-  \param type the type of the Item.
-  \param parent the parent of the Item (if not nullptr the Item is appended to the parent).
-  \exception IllegalOperationException if the given parent cannot handle subItems.
-  \exception CoreException if the parent even contains an Item with the same ID.
-  \note There is no consistency checking done on the ID unicity.
-  \see ItemManager::createItem and its derivated methods to create Items with valid and unique ID.
+  \param itemTree the tree the Item belongs to.
+
+  \note The given ItemTree affects an ID and a default parent to the Item.
  */
-Item::Item(const std::string& id, const std::string& name, ItemType type, Item* parent)
+Item::Item(const std::string& name, ItemTree& itemTree) : itemTree_(itemTree)
 {
-    id_ = id;
     name_ = name;
-    parent_ = parent;
-    type_ = type;
-    if(parent_ != nullptr) {
-        try {
-            parent_->addSubItem(this);
-        }catch(CoreException& e) {
-            /*
-                The parent cannot handle sub Items or even
-                contains the constructed Item (or an other
-                one with the same ID). This would break tree
-                consistency.
-            */
-            throw;
-        }
-    }
+    itemTree_ = itemTree;
+    itemTree.registerItem(this);
 }
 
 /*!
   \brief Deletes the Item.
 
-  If the Item has a parent the reference contained in the parent is removed.
+  If the Item has a parent it is removed from its children list.
  */
 Item::~Item()
 {
     if(parent_ != nullptr) {
         try {
             parent_->removeSubItem(this);
-        }catch(CoreException& e) {
+        }catch(CoreException&) {
             /*
-                The parent doesn't contain the Item and cannot
-                remove it. It may be a consequence of parent
-                deletion. In any case this would not break tree
-                consistency and nothing more needs to be done.
-            */
+              Nothing need to be done here : the parent doesn't handle
+              the Item. This append when parent calls itself this method
+              and has removed the Item from its children before.
+
+              If the exception is the result of an invalid call
+              (IllegalOperationException) the exception is ignored.
+             */
         }
     }
 }
@@ -88,74 +73,6 @@ const string& Item::getName() const
 }
 
 /*!
-  \return the ItemType of the Item.
- */
-ItemType Item::getType() const
-{
-    return type_;
-}
-
-/*!
-  \brief Set a new parent to the Item.
-
-  If the new parent is not nullptr then try to add the Item to
-  the new parent.
-
-  \param newParent the new parent of the Item.
-
-  \exception IllegalOperationException if the new parent cannot handle sub Items.
-  \exception InternalErrorException if a consistency issue is found.
-  \note If an exception happens during the process the original parent value
-  is restored to keep tree consistency.
- */
-void Item::setParent(Item* newParent)
-{
-    if(parent_ != newParent) {
-        Item* old_parent = parent_;
-        if(newParent != nullptr) {
-            try {
-                newParent->addSubItem(this);
-            }catch(IllegalOperationException& e) {
-                /*
-                    The parent cannot handle sub Item, reset Item's
-                    parent to its original value and throw the exception.
-                */
-                throw;
-            }catch(InternalErrorException& e) {
-                throw;
-            }catch(CoreException& e) {
-                /*
-                    The parent even contains the Item, it may
-                    be a consistency error but nothing more can
-                    be done here.
-                */
-            }
-        }
-        parent_ = newParent;
-        if(old_parent != nullptr) {
-            try {
-                old_parent->removeSubItem(this);
-            }catch(IllegalOperationException& e) {
-                /*
-                    The actual parent cannot handle sub Item, this results
-                    of a consistency error when it was set as the Item parent
-                    and create a tree consistency issue.
-                 */
-                stringstream ss;
-                ss << "Parent of Item " << id_ << " [" << name_ << "] cannot handle sub Item";
-                throw InternalErrorException(ss.str(),__FILE__,__LINE__);
-            }catch(CoreException& e) {
-                /*
-                    The parent doesn't contain the Item, it may
-                    be a consistency error but nothing more can
-                    be done here.
-                */
-            }
-        }
-    }
-}
-
-/*!
   \brief Set a new name to the Item.
 
   \param name the new name of the Item.
@@ -164,48 +81,15 @@ void Item::setName(const string& name)
 {
     name_ = name;
 }
-/*!
-  \brief Calculate the index of the Item relatively to its parent.
-  \return the index of the Item relatively to its parent.
-  \exception CoreException if the Item parent is not set, or if it doesn't contain the Item.
-  \exception InternalErrorException if a consistency issue is found (parent that cannot handle sub Item.
-  \bug There is no way to set the index of an Item relatively to its parent. A parameter should be added to
-  the addSubItem method.
- */
-unsigned int Item::getIndex() const
-{
-    if(parent_ == nullptr) {
-        stringstream ss;
-        ss << "Cannot get the index of the Item " << id_ << "[" << name_ << "], parent not set";
-        throw CoreException(ss.str(),__FILE__,__LINE__);
-    }
-    try {
-        const vector<Item*>& parent_children = parent_->getAllSubItems();
-        for(size_t i = 0; i < parent_children.size(); ++i) {
-            if(parent_children[i]->getId() == id_) {
-                return i;
-            }
-        }
-    }catch(IllegalOperationException& e) {
-        /*
-            The actual parent cannot handle sub Item, this results
-            of a consistency error when it was set as the Item parent
-            and create a tree consistency issue.
-         */
-        stringstream ss;
-        ss << "Cannot get the index of the Item Item " << id_ << " [" << name_ << "], parent cannot handle sub Item";
-        throw InternalErrorException(ss.str(),__FILE__,__LINE__);
-    }
-    stringstream ss;
-    ss << "Cannot get the index of the Item " << id_ << "[" << name_ << "], parent  doesn't contain the Item";
-    throw CoreException(ss.str(),__FILE__,__LINE__);
-}
 
 /*!
-  \brief Basic implementation of the addSubItem method.
-  \param item the Item to add to the child list.
-  \exception IllegalOperationException if the Item can not have children.
-  \warning This method fails default because basic Item is not allowed to have children.
+  \brief Add the given Item to the child list.
+
+  \param item the Item to add.
+
+  \exception IllegalOperationException if the Item cannot handle children.
+
+  \warning This method fails default because basic Item cannot handle children.
   See design pattern \em composite for further informations about global interfaces.
   \note This method should be overriden by inherited classes that can handle children.
  */
@@ -217,10 +101,13 @@ void Item::addSubItem(Item*)
 }
 
 /*!
-  \brief Basic implementation of the removeSubItem method.
-  \param item the Item to remove from the child list.
-  \exception IllegalOperationException if the Item can not have children.
-  \warning This method fails default because basic Item is not allowed to have children.
+  \brief Remove the given Item from the child list.
+
+  \param item the Item to remove.
+
+  \exception IllegalOperationException if the Item cannot handle children.
+
+  \warning This method fails default because basic Item cannot handle children.
   See design pattern \em composite for further informations about global interfaces.
   \note This method should be overriden by inherited classes that can handle children.
  */
@@ -232,10 +119,13 @@ void Item::removeSubItem(Item*)
 }
 
 /*!
-  \brief Basic implementation of the deleteSubItem method.
-  \param item the Item to remove from the child list.
-  \exception IllegalOperationException if the Item can not have children.
-  \warning This method fails default because basic Item is not allowed to have children.
+  \brief Delete the given Item and remove it from the child list.
+
+  \param item the Item to delete.
+
+  \exception IllegalOperationException if the Item cannot handle children.
+
+  \warning This method fails default because basic Item cannot handle children.
   See design pattern \em composite for further informations about global interfaces.
   \note This method should be overriden by inherited classes that can handle children.
  */
@@ -247,12 +137,15 @@ void Item::deleteSubItem(Item*)
 }
 
 /*!
-  \brief Basic implementation of the getSubItem method.
+  \brief Search if a child match the given ID and return it.
 
   \param id the ID of the wanted Item.
-  \return a pointer to the found Item, nullptr otherwise.
-  \exception IllegalOperationException if the Item can not have children.
-  \warning This method fails default because basic Item is not allowed to have children.
+  \return a pointer to the Item if at least one child match the given ID,
+  nullptr otherwise.
+
+  \exception IllegalOperationException if the Item cannot handle children.
+
+  \warning This method fails default because basic Item cannot handle children.
   See design pattern \em composite for further informations about global interfaces.
   \note This method should be overriden by inherited classes that can handle children.
  */
@@ -264,27 +157,50 @@ Item* Item::getSubItem(const string&) const
 }
 
 /*!
-  \brief Basic implementation of the containsSubItem method.
+  \brief Search if a child match the given ID.
+
   \param id the ID of the wanted Item.
-  \return true if the Item is found in the children list, false otherwise.
-  \exception IllegalOperationException if the Item can not have children.
-  \warning This method fails default because basic Item is not allowed to have children.
+  \return true if at least one child match the given ID, false otherwise.
+
+  \exception IllegalOperationException if the Item cannot handle children.
+
+  \warning This method fails default because basic Item cannot handle children.
   See design pattern \em composite for further informations about global interfaces.
   \note This method should be overriden by inherited classes that can handle children.
  */
 bool Item::containsSubItem(const string&) const
 {
     stringstream ss;
-    ss << "The Item " << id_ << "[" <<name_ << "] is not a container.";
+    ss << "The Item " << id_ << "[" << name_ << "] is not a container.";
     throw IllegalOperationException(ss.str(),__FILE__,__LINE__);
 }
 
 /*!
-  \brief Basic implementation of the getAllSubItems method.
+  \brief Calculate the position of the given item in the child list.
+
+  \param item the Item to match in the child list.
+  \return the index of the given Item, or -1 if there is no child matching it.
+
+  \exception IllegalOperationException if the Item cannot handle children.
+
+  \warning This method fails default because basic Item cannot handle children.
+  See design pattern \em composite for further informations about global interfaces.
+  \note This method should be overriden by inherited classes that can handle children.
+ */
+int Item::getSubItemIndex(Item*) const
+{
+    stringstream ss;
+    ss << "The Item " << id_ << "[" << name_ << "] is not a container.";
+    throw IllegalOperationException(ss.str(),__FILE__,__LINE__);
+}
+
+/*!
   \return a vector containing the pointers to Item's children.
-  \exception IllegalOperationException if the Item can not have children.
-  \warning This method fails default because basic Item is not allowed to have children.
-  See design pattern \em composite for further imformations about global interfaces.
+
+  \exception IllegalOperationException if the Item cannot handle children.
+
+  \warning This method fails default because basic Item cannot handle children.
+  See design pattern \em composite for further informations about global interfaces.
   \note This method should be overriden by inherited classes that can handle children.
  */
 const vector<Item*>& Item::getAllSubItems() const
@@ -292,4 +208,47 @@ const vector<Item*>& Item::getAllSubItems() const
     stringstream ss;
     ss << "The Item " << id_ << "[" << name_ << "] is not a container.";
     throw IllegalOperationException(ss.str(),__FILE__,__LINE__);
+}
+
+/*!
+  \return the number of children handled by the Item.
+
+  \exception IllegalOperationException if the Item cannot handle children.
+
+  \warning This method fails default because basic Item cannot handle children.
+  See design pattern \em composite for further informations about global interfaces.
+  \note This method should be overriden by inherited classes that can handle children.
+ */
+unsigned int Item::getSubItemNumber() const
+{
+    stringstream ss;
+    ss << "The Item " << id_ << "[" << name_ << "] is not a container.";
+    throw IllegalOperationException(ss.str(),__FILE__,__LINE__);
+}
+
+/*!
+  \brief Set the parent member of the Item to the given parent value.
+
+  \param parent the new parent of the Item.
+
+  \warning Don't call this method directly, it is used by the context to ensure
+  tree consistency. To change the parent of an Item use addSubItem and removeSubItem
+  methods instead.
+*/
+void Item::setParent(Item* parent)
+{
+    parent_ = parent;
+}
+
+/*!
+  \brief Set the ID member of the Item to the given value.
+
+  \param id the new ID of the Item.
+
+  \warning Don't call this method directly, it is used by the context to give
+  a unique ID to the Item.
+ */
+void Item::setId(const std::string& id)
+{
+    id_ = id;
 }
