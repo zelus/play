@@ -3,7 +3,8 @@
 
 #include <vector>
 #include <string>
-#include "ItemTree.h"
+
+namespace play_core {
 
 class ItemVisitor;
 
@@ -17,17 +18,13 @@ class ItemVisitor;
   accept method.
 
   If the class inherited of Item defines a container it should override
-  subItem management methods.
-
-  Item are strongly coupled with their context (i.e. ItemTree) : it ensures
-  base consistency of the composite tree by providing IDs and a global tree
-  root.
+  child management methods.
  */
 class Item
 {
 
 public:
-    Item(const std::string& name, ItemTree& itemTree);
+    Item(const std::string& name);
     /*!
       \warning Copy constructor is deleted to prevent ID
       duplication
@@ -47,14 +44,14 @@ public:
 
     void                                setName(const std::string& name);
 
-    virtual void                        addSubItem(Item* item);
-    virtual void                        removeSubItem(Item* item);
-    virtual void                        deleteSubItem(Item* item);
-    virtual Item*                       getSubItem(const std::string& id)       const;
-    virtual bool                        containsSubItem(const std::string& id)  const;
-    virtual int                         getSubItemIndex(Item* item)             const;
-    virtual const std::vector<Item*>&   getAllSubItems()                        const;
-    virtual unsigned int                getSubItemNumber()                      const;
+    virtual void                        addChild(Item* item);
+    virtual void                        removeChild(Item* item);
+    virtual void                        deleteChild(Item* item);
+    virtual Item*                       getChild(const std::string& id)         const;
+    virtual bool                        containsChild(const std::string& id)    const;
+    virtual int                         getChildIndex(Item* item)               const;
+    virtual const std::vector<Item*>&   getChildren()                           const;
+    virtual unsigned int                childCount()                            const;
 
     /*!
       \brief Generic accept method for ItemVisitor.
@@ -85,21 +82,8 @@ protected:
       is provided by the context (ItemTree).
      */
     Item* parent_;
-    /*!
-      The tree the Item belongs to. This variable is used internally
-      to get a unique ID (relative to the tree) during the creation.
-      Some call also have impact on the ItemTree pointed (e.g. destructor
-      call will forward the deletion to the ItemTree for counting issues).
-     */
-    ItemTree& itemTree_;
-
-    /*!
-      Enforce encapsulation by removing access to
-      setParent and setId method to client. Parent management
-      is provided by both parent Item and ItemTree. ID management
-      is provided by the ItemTree.
-     */
-//friend void ItemTree::registerItem(Item*);
 };
+
+} // namespace
 
 #endif // ITEM_H

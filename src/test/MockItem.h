@@ -5,18 +5,18 @@
 #include <string>
 
 using namespace std;
-
+using namespace play_core;
 /*
-  A mock of the Item class to test the
-  Folder destructor (subItems destructors
-  calls).
+  A mock of the Item class to test if its destruction
  */
 class MockItem : public Item
 {
 public:
-    MockItem(const string& id, const string& name, ItemType type, Item* parent, bool& isDeleted);
+    MockItem(const string& name, bool& isDeleted);
+
     ~MockItem();
-    void accept(ItemVisitor* visitor);
+
+    void accept(ItemVisitor& visitor);
 private:
     bool& isDeleted_;
 };

@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+namespace play_core {
+
 /*!
   \brief Searcher based on ID comparisons.
 
@@ -39,5 +41,7 @@ private:
     std::string searchedId_;
     Item* foundedItem_;
 };
+
+} // namespace
 
 #endif // IDITEMSEARCHER_H

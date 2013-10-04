@@ -4,6 +4,8 @@
 #include "CoreException.h"
 #include <string>
 
+namespace play_core {
+
 /*!
   \brief Specific consistency related exception.
 
@@ -24,5 +26,7 @@ public:
     InternalErrorException(const std::string& message, const char* file, int line);
     virtual ~InternalErrorException() throw();
 };
+
+} // namespace
 
 #endif // INTERNALERROREXCEPTION_H

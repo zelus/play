@@ -1,6 +1,8 @@
 #include "InternalErrorException.h"
 #include <sstream>
 
+namespace play_core {
+
 using namespace std;
 /*!
   \brief Construct an InternalErrorException from the given parameters.
@@ -25,3 +27,5 @@ InternalErrorException::~InternalErrorException() throw()
 {
 
 }
+
+} // namespace

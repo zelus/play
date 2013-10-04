@@ -1,7 +1,11 @@
 #include "TestItem.h"
 
+#include "TreeContext.h"
 #include "Folder.h"
 #include "Movie.h"
+#include "MockItem.h"
+
+#include <string>
 #include <vector>
 #include <iostream>
 
@@ -9,338 +13,266 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestItem);
 
 void TestItem::setUp()
 {
-    folder1 = new Folder("0","folder1",nullptr);
-    folder2 = new Folder("1","folder2",nullptr);
-    item1 = new Movie("2","item1",nullptr);
-    item2 = new Movie("3","item2",nullptr);
+    folder1 = new Folder("folder1");
+    folder2 = new Folder("folder2");
+    item1 = new Movie("item1");
+    item2 = new Movie("item2");
 }
 
 void TestItem::tearDown()
 {
-    if(!folder1->containsSubItem(item1->getId()) && !folder2->containsSubItem(item1->getId())) {
-        delete item1;
-    }
-    if(!folder1->containsSubItem(item2->getId()) && !folder2->containsSubItem(item2->getId())) {
-        delete item2;
-    }
-    delete folder1;
-    delete folder2;
+
 }
 
 /*
-  Constructor test with basic parameters. Parent is not
-  tested.
+  Constructor test with basic parameters.
+  ID generation and default parent management are not tested in this test
+  suite (see TestITemTree class for those tests).
  */
-void TestItem::test_constructor_nullparent()
+void TestItem::test_constructor_basic()
 {
-    item1 = new Movie("2","item",nullptr);
-    CPPUNIT_ASSERT_MESSAGE("Wrong Item name", item1->getId() == "2");
-    CPPUNIT_ASSERT_MESSAGE("Wrong Item type", item1->getType() == ItemType::MOVIE_TYPE);
-    CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent() == nullptr);
-}
-
-/*
-  Constructor test with an Item object as parent.
-  A core::IllegalOperationException is expected (basic Item cannot
-  handle subItems)
- */
-void TestItem::test_constructor_movieparent()
-{
-    item1 = new Movie("2","parent");
-    item2 = new Movie("3","item",item1);
-}
-
-/*
-  Constructor test with a Folder object as parent.
-  The subItems management behavior is not tested here, see
-  TestFolder class for those tests.
-  Parent is tested by its name (different pointers to the same
-  object are allowed).
- */
-void TestItem::test_constructor_folderparent()
-{
-    item1 = new Movie("2","item",folder1);
-    CPPUNIT_ASSERT_MESSAGE("Parent not set", item1->getParent() != nullptr);
-    CPPUNIT_ASSERT_MESSAGE("Wrong parent", item1->getParent()->getId() == folder1->getId());
-}
-
-/*
-  Constructor test with a Folder even containing an object with the ID to add.
-  A core::CoreException is expected (Folder cannot contain the same ID twice).
- */
-void TestItem::test_constructor_folderparent_evencontains()
-{
-    item1 = new Movie("2","item",folder1);
-    item2 = new Movie("2","item2",folder1);
+    string movie_name = "movie";
+    item1 = new Movie(movie_name);
+    CPPUNIT_ASSERT_MESSAGE("Wrong movie name", item1->getName() == movie_name);
 }
 
 /*
   Destructor test with nullptr as the Item parent.
 
-  The objective is to catch exceptions thrown during the deletion when running
-  the tests.
+  This test use MockItem to check if the Item destructor
+  has been called.
+
+  This test should never fail on its condition. It would only fail if
+  an internal Item error occured.
  */
 void TestItem::test_destructor_nullparent()
 {
-    Item* item1 = new Movie("item1","item2",nullptr);
-    delete item1;
+    bool is_deleted = false;
+    MockItem* item = new MockItem("item",is_deleted);
+    delete item;
+    CPPUNIT_ASSERT_MESSAGE("The Item hasn't been deleted", is_deleted);
 }
 
 /*
-  Destructor test with Items registered to a parent.
+  Destructor test with Folder registered as parent.
+  Because tree consistency is not ensured by direct Item destructor
+  the Folder child list is not updated.
 
-  Composite consistency is checked by the parent children list.
+  Folder child list is checked by size (cannot check by children IDs :
+  the Folder contains an invalid pointer).
  */
 void TestItem::test_destructor_folderparent()
 {
-    Item* folder = new Folder("folder","folder",nullptr);
-    Item* item1 = new Movie("item1","item1",folder);
-    Item* item2 = new Movie("item2","item2",folder);
+    Item* folder = new Folder("folder");
+    Item* item1 = new Movie("item1");
+    Item* item2 = new Movie("item2");
+    folder->addChild(item1);
+    folder->addChild(item2);
     delete item1;
-    CPPUNIT_ASSERT_MESSAGE("item1 hasn't been removed from its parent", !folder->containsSubItem("item1"));
+    CPPUNIT_ASSERT_MESSAGE("Folder has removed the deleted Item item1", folder->childCount() == 2);
     delete item2;
-    CPPUNIT_ASSERT_MESSAGE("item2 hasn't been removed from its parent", !folder->containsSubItem("item2"));
-    CPPUNIT_ASSERT_MESSAGE("folder is not empty", folder->getAllSubItems().size() == 0);
+    CPPUNIT_ASSERT_MESSAGE("Folder has removed the deleted Item item2", folder->childCount() == 2);
 }
 
 /*
-  getParent test with a Folder object as parent.
-  Parent is tested by its name.
+  getParent test with Folder as parent.
+  Parent is tested by its ID.
  */
 void TestItem::test_getParent()
 {
-    item1 = new Movie("2","item",folder1);
+    item1 = new Movie("item1");
+    item1->setParent(folder1);
     CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent()->getId() == folder1->getId());
 }
 
 /*
   getParent test with nullptr as parent.
+  Parent is tested by the pointer value.
  */
 void TestItem::test_getParent_nullptr()
 {
-    item1 = new Movie("2","item",nullptr);
-    CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent() == nullptr);
+    item1 = new Movie("item1");
+    item1->setParent(nullptr);
+    CPPUNIT_ASSERT_MESSAGE("Item parent is different of nullptr", item1->getParent() == nullptr);
 }
 
 /*
-  getId test with basic constructed item.
+  getId test with basic set ID.
+  The test cannot be done on a new constructed Item : the construction delegates
+  ID calculation to the context, which use setId method.
  */
 void TestItem::test_getId()
 {
-    item1 = new Movie("2","item",nullptr);
-    CPPUNIT_ASSERT_MESSAGE("Wrong Item Id", item1->getId() == "2");
+    item1 = new Movie("item");
+    string item_id = "item_id";
+    item1->setId(item_id);
+    CPPUNIT_ASSERT_MESSAGE("Wrong Item Id", item1->getId() == item_id);
 }
 
 /*
-  getId test with a setName method call
+  getId test after setName method call.
   The test is done by checking that the Id hasn't been updated
-  in any way after the setName call (that would cause consistency
-  errors : two items with different ID may have the same ID after a call
-  to setName method).
+  in any way after setName method call (that would cause consistency
+  problems : names doesn't have to be unique in a given context).
  */
 void TestItem::test_getId_namechanged()
 {
-    item1 = new Movie("2","item",nullptr);
+    item1 = new Movie("item");
+    string item_id = "item_id";
+    item1->setId(item_id);
     item1->setName("item2");
-    CPPUNIT_ASSERT_MESSAGE("Item Id has been updated (that should be impossible)", item1->getId() == "2");
+    CPPUNIT_ASSERT_MESSAGE("Consistency error : item ID has been updated", item1->getId() == item_id);
 }
 
 /*
-  getId test with a setParent method call
+  getId test after setParent method call
   The test is done by checking that the Id hasn't been updated
-  in any way after the setParent call (that would cause consistency
-  errors : two items with different ID may have the same ID after a call
-  to setParent method).
+  in any way after setParent method call (that would cause consistency
+  problems : names doesn't have to be unique in a given context).
  */
 void TestItem::test_getId_parentchanged()
 {
-    item1 = new Movie("2","item",nullptr);
+    item1 = new Movie("item");
+    string item_id = "item_id";
+    item1->setId(item_id);
     item1->setParent(folder1);
-    CPPUNIT_ASSERT_MESSAGE("Item Id has been updated (that should be impossible)", item1->getId() == "2");
+    CPPUNIT_ASSERT_MESSAGE("Consistency error : item ID has been updated", item1->getId() == item_id);
 }
 
 /*
-  getName test
+  getName test.
  */
 void TestItem::test_getName()
 {
-    item1 = new Movie("2","item");
-    CPPUNIT_ASSERT_MESSAGE("Wrong Item name", item1->getName() == "item");
+    string item_name = "item_name";
+    item1 = new Movie(item_name);
+    CPPUNIT_ASSERT_MESSAGE("Wrong Item name", item1->getName() == item_name);
 }
 
 /*
-  getType test
+  setParent test with any Item subclass as new parent (here Movie). Previous
+  parent is nullptr.
+  The test cannot be done on a new constructed Item : the construction delegates
+  default parent assignment to the context, which use setParent method.
+  Parent is tested by its ID. Parent child list consistency is not checked
+  because setParent method doesn't ensure context consistency.
  */
-void TestItem::test_getType()
+void TestItem::test_setParent_fromnullptrtoitem()
 {
-    item1 = new Movie("2","item",nullptr);
-    CPPUNIT_ASSERT_MESSAGE("Wrong Item type", item1->getType() == ItemType::MOVIE_TYPE);
-}
-
-/*
-  setParent test with a Folder object as new parent.
-  Previous parent is nullptr.
-  Parent is tested by its id and consistency of its subItem list is checked by ID.
- */
-void TestItem::test_setParent_fromnulltofolder()
-{
-    item1->setParent(folder1);
-    CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent()->getId() == folder1->getId());
-    CPPUNIT_ASSERT_MESSAGE("Parent doesn't have a reference to the Item in its children list",folder1->containsSubItem(item1->getId()));
-}
-
-/*
-  setParent test with a Movie as new Parent.
-  Previous parent is nullptr.
-  A core::IllegalOperationException is expected (Movie cannot handle subItem).
-  To see consistency test for previous parent and parent value see
-  test_setParent_fromnulltomovie_consistency and test_setParent_fromfoldertomovie_consistency.
- */
-void TestItem::test_setParent_fromnulltomovie()
-{
-    item1->setParent(item2);
-}
-
-/*
-  setParent test with a Movie as new Parent.
-  Previous parent is nullptr.
-  The exception is not tested (see test_setParent_fromnulltomovie).
-  The consistency test is done on the new value of parent, which should be
-  restored to its previous value.
- */
-void TestItem::test_setParent_fromnulltomovie_parentrestored()
-{
-    try {
-        item1->setParent(item2);
-    }catch(IllegalOperationException& e) {
-
-    }
-    CPPUNIT_ASSERT_MESSAGE("Item1 parent hasn't been restored",item1->getParent() == nullptr);
-}
-
-/*
-  setParent test with nullptr as new parent.
-  Previous parent is a Folder object.
-  Old parent subItem list consistency is checked by ID.
- */
-void TestItem::test_setParent_fromfoldertonull()
-{
-    item1 = new Movie("2","item",folder1);
     item1->setParent(nullptr);
-    CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent() == nullptr);
-    CPPUNIT_ASSERT_MESSAGE("Folder still contains the Item", !folder1->containsSubItem(item1->getId()));
-}
-
-/*
-  setParent test with a Folder object as new parent.
-  Previous parent is an other Folder object.
-  Parents subItem list consistency is checked by ID.
- */
-void TestItem::test_setParent_fromfoldertofolder()
-{
-    item1 = new Movie("2","item",folder1);
-    item1->setParent(folder2);
-    CPPUNIT_ASSERT_MESSAGE("Wrong Item parent", item1->getParent()->getId() == folder2->getId());
-    CPPUNIT_ASSERT_MESSAGE("Folder1 still contains the Item", !folder1->containsSubItem(item1->getId()));
-    CPPUNIT_ASSERT_MESSAGE("Folder2 doesn't contain the Item", folder2->containsSubItem(item1->getId()));
-}
-
-/*
-  setParent test with a Movie as new Parent.
-  Previous parent is a Folder.
-  A core::IllegalOperationException is expected (Movie cannot handle subItem).
-  To see consistency test for previous parent and parent value see
-  test_setParent_fromnulltomovie_consistency and test_setParent_fromfoldertomovie_consistency.
- */
-void TestItem::test_setParent_fromfoldertomovie()
-{
-    item1->setParent(folder1);
     item1->setParent(item2);
+    CPPUNIT_ASSERT_MESSAGE("Wrong parent Item", item1->getParent()->getId() == item2->getId());
 }
 
 /*
-  setParent test with a Movie as new Parent.
-  Previous parent is a Folder.
-  The exception is not tested (see test_setParent_fromfoldertomovie).
-  The consistency test is done on the new value of parent, which should be
-  restored to its previous value.
-  Parent consistency is done by children ID.
+  setParent test with nullptr as new parent. Previous parent is any Item subclass
+  (here Movie).
+  The test cannot be done on a new constructed Item : the construction delegates
+  default parent assignment to the context, which use setParent method.
+  Parent is tested by its pointer value. Parent child list consistency is not checked
+  because setParent method doesn't ensure context consistency.
  */
-void TestItem::test_setParent_fromfoldertomovie_parentrestored()
+void TestItem::test_setParent_fromitemtonullptr()
 {
-    item1->setParent(folder1);
-    try {
-        item1->setParent(item2);
-    }catch(IllegalOperationException& e) {
-
-    }
-    CPPUNIT_ASSERT_MESSAGE("Item1 parent is nullptr",item1->getParent() != nullptr);
-    CPPUNIT_ASSERT_MESSAGE("Item1 parent hasn't been restored", item1->getParent()->getId() == folder1->getId());
-    CPPUNIT_ASSERT_MESSAGE("Folder1 doesn't contain Item1 anymore", folder1->containsSubItem(item1->getId()));
+    item1->setParent(item2);
+    item1->setParent(nullptr);
+    CPPUNIT_ASSERT_MESSAGE("Wrong parent Item", item1->getParent() == nullptr);
 }
 
 /*
-  setName test with a valid new name.
-  Tag consistency is checked through the TagManager::containsTag method
-  and the registered Item list returned by the Tag.
+  setParent test with any Item subclass (here Folder) as new parent. Previous
+  parent is any Item subclass (here Movie).
+  The test cannot be done on a new constructed Item : the construction delegates
+  default parent assignment to the context, which use setParent method.
+  Parent is tested by its ID. Parent child list consistency is not checked
+  because setParent method doesn't ensure context consistency.
+ */
+void TestItem::test_setParent_fromitemtoitem()
+{
+    item1->setParent(item2);
+    item1->setParent(folder1);
+    CPPUNIT_ASSERT_MESSAGE("Wrong parent Item", item1->getParent()->getId() == folder1->getId());
+}
+
+/*
+  setName test.
  */
 void TestItem::test_setName()
 {
-    item1 = new Movie("2","item",nullptr);
-    item1->setName("item2");
-    CPPUNIT_ASSERT_MESSAGE("Item name hasn't been updated",item1->getName() == "item2");
+    item1 = new Movie("item");
+    string item_name = "item2";
+    item1->setName(item_name);
+    CPPUNIT_ASSERT_MESSAGE("Item name hasn't been updated",item1->getName() == item_name);
 }
 
 /*
-  addSubItem test.
-  A core::CoreException is expected (Item cannot handle subItems).
+  addChild test.
+  A core::IllegalOperationException is expected (Item cannot handle sub Items).
  */
-void TestItem::test_addSubItem()
+void TestItem::test_addChild()
 {
-    item1->addSubItem(item2);
+    item1->addChild(item2);
 }
 
 /*
-  removeSubItem test.
-  A core::CoreException is expected (Item cannot handle subItems).
+  removeChild test.
+  A core::IllegalOperationException is expected (Item cannot handle sub Items).
  */
-void TestItem::test_removeSubItem()
+void TestItem::test_removeChild()
 {
-    item1->removeSubItem(item2);
+    item1->removeChild(item2);
 }
 
 /*
-  deleteSubItem test.
-  A core::CoreException is expected (Item cannot handle subItems).
+  deleteChild test.
+  A core::IllegalOperationException is expected (Item cannot handle sub Items).
  */
-void TestItem::test_deleteSubItem()
+void TestItem::test_deleteChild()
 {
-    item1->deleteSubItem(item2);
+    item1->deleteChild(item2);
 }
 
 /*
-  getSubItem test.
-  A core::CoreException is expected (Item cannot handle subItems).
+  getChild test.
+  A core::IllegalOperationException is expected (Item cannot handle sub Items).
  */
-void TestItem::test_getSubItem()
+void TestItem::test_getChild()
 {
-    item1->getSubItem("item2");
+    item1->getChild("item2");
 }
 
 /*
-  containsSubItem test.
-  A core::CoreException is expected (Item cannot handle subItems).
+  containsChild test.
+  A core::IllegalOperationException is expected (Item cannot handle sub Items).
  */
-void TestItem::test_containsSubItem()
+void TestItem::test_containsChild()
 {
-    item1->containsSubItem("item2");
+    item1->containsChild("item2");
 }
 
 /*
-  getAllSubItems test.
-  A core::CoreException is expected (Item cannot handle subItems).
+  getChildIndex test.
+  A core::IllegalOperationException is expected (Item cannot handle sub Items).
  */
-void TestItem::test_getAllSubItems()
+void TestItem::test_getChildIndex()
 {
-    item1->getAllSubItems();
+    item1->getChildIndex(item2);
+}
+
+/*
+  getAllChildren test.
+  A core::IllegalOperationException is expected (Item cannot handle sub Items).
+ */
+void TestItem::test_getChildren()
+{
+    item1->getChildren();
+}
+
+/*
+  childCount test.
+  A core::IllegalOperationException is expected (Item cannot handle sub Items).
+ */
+void TestItem::test_childCount()
+{
+    item1->childCount();
 }

@@ -3,6 +3,8 @@
 // debug
 #include <iostream>
 
+namespace play_core {
+
 using namespace std;
 
 /*!
@@ -32,7 +34,7 @@ void ItemSearcher::visitFolder(Folder* folder)
     if(!continueRecursiveSearch_) {
         return;
     }
-    const vector<Item*>& folder_children = folder->getAllSubItems();
+    const vector<Item*>& folder_children = folder->getChildren();
     vector<Item*>::const_iterator it;
     for(it = folder_children.begin(); it != folder_children.end(); ++it) {
         if(continueRecursiveSearch_) {
@@ -83,3 +85,5 @@ void ItemSearcher::reset()
 {
     continueRecursiveSearch_ = true;
 }
+
+} // namespace

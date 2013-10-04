@@ -2,15 +2,18 @@
 #define TEST_MOVIE_H
 
 #include <cppunit/extensions/HelperMacros.h>
+#include "TreeContext.h"
 #include "Item.h"
 #include "Movie.h"
+
+using namespace play_core;
 
 class TestMovie : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestMovie);
 
-    CPPUNIT_TEST(test_constructor);
-    CPPUNIT_TEST(test_constructor_defaultparameters);
+    CPPUNIT_TEST(test_constructor_basic);
+    CPPUNIT_TEST(test_constructor_complete);
 
     CPPUNIT_TEST(test_getSummary);
 
@@ -27,8 +30,8 @@ public:
     void setUp();
     void tearDown();
 
-    void test_constructor();
-    void test_constructor_defaultparameters();
+    void test_constructor_basic();
+    void test_constructor_complete();
 
     void test_getSummary();
 

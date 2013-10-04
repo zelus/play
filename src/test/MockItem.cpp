@@ -7,21 +7,24 @@
   to know if the MockItem destructor has been
   called.
  */
-MockItem::MockItem(const string& id, const string &name, ItemType type, Item *parent, bool& isDeleted) : Item(id,name,type,parent), isDeleted_(isDeleted)
+MockItem::MockItem(const string &name, bool& isDeleted) : Item(name), isDeleted_(isDeleted)
 {
 
 }
 
 /*
   MockItem destructor. Sets the value pointed
-  by the isDeleted pointer to true.
+  by isDeleted to true.
  */
 MockItem::~MockItem()
 {
     isDeleted_ = true;
 }
 
-void MockItem::accept(ItemVisitor*)
+/*
+  Needed override to allow MockItem instanciation.
+ */
+void MockItem::accept(ItemVisitor&)
 {
 
 }

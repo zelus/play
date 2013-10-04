@@ -3,42 +3,25 @@
 // debug
 #include <iostream>
 
+namespace play_core {
+
 using namespace std;
 
 /*!
-  \brief Construct a Movie with the given name in the given context (ItemTree).
-
-  Summary and notation are set to their default values (respectively an empty string
-  and 0).
-
-  \param name the name of the Movie.
-  \param itemTree the tree the Movie belongs to.
- */
-Movie::Movie(const std::string name, ItemTree& itemTree) : Item(name,itemTree)
-{
-    summary_ = "";
-    notation_ = 0;
-}
-
-/*!
-  \brief Construct a Movie with the given name, summary and notation in
-  the context (ItemTree).
+  \brief Construct a Movie with the given name, summary and notation.
 
   \param name the name of the Movie.
   \param summary the summary of the Movie.
   \param notation the notation of the Movie.
-  \param itemTree the tree the Movie belongs to.
  */
-Movie::Movie(const std::string& name, const std::string& summary, const short notation, ItemTree& itemTree) : Item(name,itemTree)
+Movie::Movie(const std::string& name, const std::string& summary, const short notation) : Item(name)
 {
     notation_ = notation;
     summary_ = summary;
 }
 
 /*!
-  \brief Deletes the Movie.
-
-  The Movie is also removed of its parent child list.
+  \brief Delete the Movie.
  */
 Movie::~Movie()
 {
@@ -90,3 +73,5 @@ void Movie::accept(ItemVisitor& visitor)
 {
     visitor.visitMovie(this);
 }
+
+} // namespace

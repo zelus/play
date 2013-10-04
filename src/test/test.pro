@@ -18,16 +18,16 @@ SOURCES += main.cpp \
     MockItem.cpp \
     TestFolder.cpp \
     TestItem.cpp \
-    TestItemManager.cpp \
     TestMovie.cpp \
     TestIdItemSearcher.cpp \
-    MockItemVisitor.cpp
+    MockItemVisitor.cpp \
+    TestTreeContext.cpp
 
 HEADERS += \
     TestFolder.h \
     MockItem.h \
     TestItem.h \
-    TestItemManager.h \
     TestMovie.h \
     TestIdItemSearcher.h \
-    MockItemVisitor.h
+    MockItemVisitor.h \
+    TestTreeContext.h

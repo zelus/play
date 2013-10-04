@@ -5,8 +5,10 @@
 #include <vector>
 #include <string>
 
+namespace play_core {
+
 /*!
-  \brief Represents a concrete Item which can handle children (sub Items).
+  \brief Represents a concrete Item which can handle children.
 
   The Folder class is a part of the \em composite pattern used to store
   the Item tree. It is derivated from the Item class and represents an Item
@@ -17,22 +19,27 @@
 class Folder : public Item
 {
 public:
-    Folder(const std::string& name, ItemTree& itemTree);
+    Folder(const std::string& name);
     /*!
       \warning Copy constructor is deleted to prevent ID
       duplication
     */
     Folder(const Folder& folder) = delete;
+    /*!
+      \warning Assignment operator is deleted to prevent ID
+      duplication
+     */
+
     ~Folder();
 
-    void                        addSubItem(Item* item);
-    void                        removeSubItem(Item *item);
-    void                        deleteSubItem(Item *item);
-    Item*                       getSubItem(const std::string& id)       const;
-    bool                        containsSubItem(const std::string& id)  const;
-    int                         getSubItemIndex(Item* item)             const;
-    const std::vector<Item*>&   getAllSubItems()                        const;
-    unsigned int                getSubItemNumber()                      const;
+    void                        addChild(Item* item);
+    void                        removeChild(Item *item);
+    void                        deleteChild(Item *item);
+    Item*                       getChild(const std::string& id)       const;
+    bool                        containsChild(const std::string& id)  const;
+    int                         getChildIndex(Item* item)             const;
+    const std::vector<Item*>&   getChildren()                         const;
+    unsigned int                childCount()                          const;
 
     void accept(ItemVisitor& visitor);
 
@@ -41,4 +48,5 @@ private:
 
 };
 
+} // namespace
 #endif // FOLDER_H

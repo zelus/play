@@ -5,6 +5,8 @@
 #include "Folder.h"
 #include "Movie.h"
 
+namespace play_core {
+
 /*!
   \brief Abstract Item visitor class.
 
@@ -32,5 +34,7 @@ public:
      */
     virtual void visitMovie(Movie* movie) = 0;
 };
+
+} // namespace
 
 #endif // ITEMVISITOR_H

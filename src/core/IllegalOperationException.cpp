@@ -1,6 +1,8 @@
 #include "IllegalOperationException.h"
 #include <sstream>
 
+namespace play_core {
+
 using namespace std;
 
 /*!
@@ -26,3 +28,5 @@ IllegalOperationException::~IllegalOperationException() throw()
 {
 
 }
+
+} // namespace

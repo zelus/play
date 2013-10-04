@@ -24,7 +24,7 @@ QVariant LibraryTreeModel::data(const QModelIndex& index, int role) const
     }
     // Investigate pro and cons for storing the Item pointer in the
     // index. (faster but not really clear for encapsulation.
-    Item* item = static_cast<Item*>(index.internalPointer());
+    play_core::Item* item = static_cast<play_core::Item*>(index.internalPointer());
     return itemController_.getData(item,index.column());
 }
 
@@ -46,7 +46,7 @@ QModelIndex LibraryTreeModel::index(int row, int column, const QModelIndex& pare
         std::cout << "no index" << std::endl;
         return QModelIndex();
     }
-    Item* parent_item;
+    const play_core::Item* parent_item;
     if(!parent.isValid()) {
         std::cout << "LibraryTreeModel::index, invalid parent" << std::endl;
         // invalide parent = top level, à traiter avec null dans le controller sans doute
@@ -54,12 +54,12 @@ QModelIndex LibraryTreeModel::index(int row, int column, const QModelIndex& pare
     }
     else {
         std::cout << "LibraryTreeModel::index, valid parent" << std::endl;
-        parent_item = static_cast<Item*>(parent.internalPointer());
+        parent_item = static_cast<play_core::Item*>(parent.internalPointer());
         // todo : une méthode dans Item qui permet de retourner le ième fils d'un item
         // plus simple que l'accès au tableau dans sa globalité
     }
-    Item* child_item = nullptr;
-    const std::vector<Item*>& children = parent_item->getAllSubItems();
+    play_core::Item* child_item = nullptr;
+    const std::vector<play_core::Item*>& children = parent_item->getChildren();
     /*
         Can do the cast without any problem : if the row value is negative then
         the hasIndex method has failed and an invalid QModelIndex has been returned.
@@ -85,9 +85,9 @@ QModelIndex LibraryTreeModel::parent(const QModelIndex& child) const
         std::cout << "invalid child" << std::endl;
         return QModelIndex();
     }
-    Item* child_item = static_cast<Item*>(child.internalPointer());
+    play_core::Item* child_item = static_cast<play_core::Item*>(child.internalPointer());
     std::cout << "LibraryTreeModel::parent child = " << child_item->getName() << std::endl;
-    Item* parent_item = itemController_.getParent(child_item);
+    play_core::Item* parent_item = itemController_.getParent(child_item);
     if(parent_item == nullptr) {
         std::cout << "LibraryTreeModel::parent parent_item == nullptr" << std::endl;
         return QModelIndex();
@@ -97,7 +97,7 @@ QModelIndex LibraryTreeModel::parent(const QModelIndex& child) const
         // son parent, obligatoire pour l'argument row
         // 0 comme colonne : seules les premiers éléments (le nom en gros
         // dans un arbre peuvent avoir des enfants, convention).
-        return createIndex(parent_item->getIndex(),0,parent_item);
+        return createIndex(parent_item->getChildIndex(child_item),0,parent_item);
     }
 }
 
@@ -113,7 +113,7 @@ int LibraryTreeModel::rowCount(const QModelIndex& parent) const
         return itemController_.getTopLevelItemNumber();
     }
     else {
-        Item* parent_item = static_cast<Item*>(parent.internalPointer());
+        play_core::Item* parent_item = static_cast<play_core::Item*>(parent.internalPointer());
         return itemController_.getChildNumber(parent_item);
     }
 }

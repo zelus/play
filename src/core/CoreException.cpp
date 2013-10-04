@@ -2,6 +2,8 @@
 
 #include <sstream>
 
+namespace play_core {
+
 using namespace std;
 
 /*!
@@ -37,3 +39,5 @@ const char* CoreException::what() const throw()
 {
     return message_.c_str();
 }
+
+} // namespace

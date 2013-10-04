@@ -4,6 +4,8 @@
 #include "CoreException.h"
 #include <string>
 
+namespace play_core {
+
 /*!
   \brief Specific \em composite related exception.
 
@@ -20,5 +22,7 @@ public:
     IllegalOperationException(const std::string message, const char* file, int line);
     virtual ~IllegalOperationException() throw();
 };
+
+} // namespace
 
 #endif // ILLEGALOPERATIONEXCEPTION_H

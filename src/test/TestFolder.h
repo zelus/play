@@ -2,34 +2,57 @@
 #define TEST_FOLDER_H
 
 #include <cppunit/extensions/HelperMacros.h>
+#include "TreeContext.h"
 #include "Item.h"
 #include "CoreException.h"
+
+using namespace play_core;
 
 class TestFolder : public CppUnit::TestFixture
 {
     CPPUNIT_TEST_SUITE(TestFolder);
 
-    CPPUNIT_TEST(test_constructor);
+    CPPUNIT_TEST(test_constructor_basic);
 
     CPPUNIT_TEST(test_destructor);
 
-    CPPUNIT_TEST(test_addSubItem);
-    CPPUNIT_TEST_EXCEPTION(test_addSubItem_doubleaddition,CoreException);
+    CPPUNIT_TEST(test_addChild_emptyfolder);
+    CPPUNIT_TEST(test_addChild_notemptyfolder);
+    CPPUNIT_TEST_EXCEPTION(test_addChild_doubleaddition,CoreException);
 
-    CPPUNIT_TEST(test_removeSubItem);
-    CPPUNIT_TEST_EXCEPTION(test_removeSubItem_notchild,CoreException);
+    CPPUNIT_TEST_EXCEPTION(test_removeChild_emptyfolder,CoreException);
+    CPPUNIT_TEST(test_removeChild_singlechild);
+    CPPUNIT_TEST(test_removeChild_multiplechild);
+    CPPUNIT_TEST_EXCEPTION(test_removeChild_notchild,CoreException);
 
-    CPPUNIT_TEST(test_deleteSubItem);
-    CPPUNIT_TEST_EXCEPTION(test_deleteSubItem_notChild,CoreException);
+    CPPUNIT_TEST_EXCEPTION(test_deleteChild_emptyfolder,CoreException);
+    CPPUNIT_TEST(test_deleteChild_singlechild);
+    CPPUNIT_TEST(test_deleteChild_multiplechild);
+    CPPUNIT_TEST_EXCEPTION(test_deleteChild_notChild,CoreException);
 
-    CPPUNIT_TEST(test_getSubItem);
-    CPPUNIT_TEST(test_getSubItem_notchild);
+    CPPUNIT_TEST(test_getChild_emptyfolder);
+    CPPUNIT_TEST(test_getChild_singlechild);
+    CPPUNIT_TEST(test_getChild_multiplechild);
+    CPPUNIT_TEST(test_getChild_notchild);
 
-    CPPUNIT_TEST(test_containsSubItem);
-    CPPUNIT_TEST(test_containsSubItem_notchild);
+    CPPUNIT_TEST(test_containsChild_emptyfolder);
+    CPPUNIT_TEST(test_containsChild_singlechild);
+    CPPUNIT_TEST(test_containsChild_multiplechild);
+    CPPUNIT_TEST(test_containsChild_notchild);
 
-    CPPUNIT_TEST(test_getAllSubItems);
-    CPPUNIT_TEST(test_getAllSubItems_emptychildrenlist);
+    CPPUNIT_TEST(test_getChildIndex_emptyfolder);
+    CPPUNIT_TEST(test_getChildIndex_singlechild);
+    CPPUNIT_TEST(test_getChildIndex_multiplechild_first);
+    CPPUNIT_TEST(test_getChildIndex_multiplechild_last);
+    CPPUNIT_TEST(test_getChildIndex_notchild);
+
+    CPPUNIT_TEST(test_getChildren_emptyfolder);
+    CPPUNIT_TEST(test_getChildren_singlechild);
+    CPPUNIT_TEST(test_getChildren_multiplechild);
+
+    CPPUNIT_TEST(test_childCount_emptyfolder);
+    CPPUNIT_TEST(test_childCount_singlechild);
+    CPPUNIT_TEST(test_childCount_multiplechild);
 
     CPPUNIT_TEST(test_accept);
 
@@ -38,27 +61,47 @@ public:
     void setUp();
     void tearDown();
 
-    void test_constructor();
+    void test_constructor_basic();
 
     void test_destructor();
 
-    void test_addSubItem();
-    void test_addSubItem_doubleaddition();
+    void test_addChild_emptyfolder();
+    void test_addChild_notemptyfolder();
+    void test_addChild_doubleaddition();
 
-    void test_removeSubItem();
-    void test_removeSubItem_notchild();
+    void test_removeChild_emptyfolder();
+    void test_removeChild_singlechild();
+    void test_removeChild_multiplechild();
+    void test_removeChild_notchild();
 
-    void test_deleteSubItem();
-    void test_deleteSubItem_notChild();
+    void test_deleteChild_emptyfolder();
+    void test_deleteChild_singlechild();
+    void test_deleteChild_multiplechild();
+    void test_deleteChild_notChild();
 
-    void test_getSubItem();
-    void test_getSubItem_notchild();
+    void test_getChild_emptyfolder();
+    void test_getChild_singlechild();
+    void test_getChild_multiplechild();
+    void test_getChild_notchild();
 
-    void test_containsSubItem();
-    void test_containsSubItem_notchild();
+    void test_containsChild_emptyfolder();
+    void test_containsChild_singlechild();
+    void test_containsChild_multiplechild();
+    void test_containsChild_notchild();
 
-    void test_getAllSubItems();
-    void test_getAllSubItems_emptychildrenlist();
+    void test_getChildIndex_emptyfolder();
+    void test_getChildIndex_singlechild();
+    void test_getChildIndex_multiplechild_first();
+    void test_getChildIndex_multiplechild_last();
+    void test_getChildIndex_notchild();
+
+    void test_getChildren_emptyfolder();
+    void test_getChildren_singlechild();
+    void test_getChildren_multiplechild();
+
+    void test_childCount_emptyfolder();
+    void test_childCount_singlechild();
+    void test_childCount_multiplechild();
 
     void test_accept();
 

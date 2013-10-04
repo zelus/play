@@ -4,6 +4,8 @@
 #include <string>
 #include <exception>
 
+namespace play_core {
+
 /*!
   \brief Base exception class of the package core.
 
@@ -26,5 +28,7 @@ protected:
     */
     std::string message_;
 };
+
+} // namesace
 
 #endif // COREEXCEPTION_H

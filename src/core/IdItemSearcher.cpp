@@ -2,6 +2,8 @@
 // debug
 #include <iostream>
 
+namespace play_core {
+
 using namespace std;
 
 /*!
@@ -9,7 +11,7 @@ using namespace std;
 
   \param searchedId the id to search for.
  */
-IdItemSearcher::IdItemSearcher(const std::string& searchedId)
+IdItemSearcher::IdItemSearcher(const std::string& searchedId) : ItemSearcher()
 {
     searchedId_ = searchedId;
     foundedItem_ = nullptr;
@@ -134,3 +136,5 @@ int IdItemSearcher::rankItem(Item *item) const
     }
     return 0;
 }
+
+} // namespace

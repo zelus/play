@@ -18,12 +18,11 @@ SOURCES += \
 	Movie.cpp \
 	Item.cpp \
 	CoreException.cpp \
-    ItemVisitor.cpp \
     ItemSearcher.cpp \
     IdItemSearcher.cpp \
     IllegalOperationException.cpp \
     InternalErrorException.cpp \
-    ItemTree.cpp
+    TreeContext.cpp
 	
 
 
@@ -38,7 +37,7 @@ HEADERS += \
     IdItemSearcher.h \
     IllegalOperationException.h \
     InternalErrorException.h \
-    ItemTree.h
+    TreeContext.h
 
 # Doxygen target
 dox.target = doc

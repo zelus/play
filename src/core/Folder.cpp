@@ -5,46 +5,43 @@
 // debug
 #include <iostream>
 
+namespace play_core {
+
 using namespace std;
 
 /*!
-  \brief Construct a Folder with the given name in the given context (ItemTree)
+  \brief Construct a Folder with the given name.
 
   \param name the name of the Folder.
-  \param itemTree the tree the Folder belongs to.
  */
-Folder::Folder(const std::string& name, ItemTree& itemTree) : Item(name,itemTree)
+Folder::Folder(const std::string& name) : Item(name)
 {
 
 }
 
 /*!
-  \brief  Deletes the Folder and all its children recursively.
+  \brief  Delete the Folder and all its children recursively.
 
-  The Folder is also removed of its parent child list.
+  \warning Consistency with the eventual parent child list is not ensured.
+  \see Item::deleteChild for a parent-consistent deletion.
+
  */
 Folder::~Folder()
 {
-    for(size_t i = 0; i < items_.size(); i++) {
-        try {
-            deleteSubItem(items_[i]);
-        }catch(CoreException&) {
-            /*
-              No exception could be thrown during the call, the
-              current object is the current Folder (and it can
-              handle children). Moreover, the calls are done during
-              a children iteration, so each call will find the child
-              to delete.
-             */
-        }
+    /*
+      Don't call Folder::deleteItem here : each call will check
+      if the child to delete is actually a child of the Folder, which
+      is useless in that case.
+     */
+    for(size_t i = 0; i < items_.size(); ++i) {
+        delete items_[i];
     }
 }
 
 /*!
   \brief Add the given Item to the child list.
 
-  Add the Item to the managed child list and set its parent
-  to the current folder.
+  Add the Item to the child list and set its parent to the current Folder.
 
   \param item the Item to add.
 
@@ -52,11 +49,14 @@ Folder::~Folder()
 
   \note Previous Item's parent child list consistency is not ensured
   (no removeSubItem call). To move an Item and preserve parent consistency
-  see ItemTree::moveItem(Item*, Item*).
+  see TreeContext::moveItem.
+
+  \bug There is no simple way to add a child at a given position (all additions
+  are done at the end of the vector), see #11.
  */
-void Folder::addSubItem(Item* item)
+void Folder::addChild(Item* item)
 {
-    if(containsSubItem(item->getId())) {
+    if(containsChild(item->getId())) {
         stringstream ss;
         ss << "The Folder " << name_ << " already contains an Item with the id " << item->getId();
         throw CoreException(ss.str(),__FILE__,__LINE__);
@@ -68,23 +68,22 @@ void Folder::addSubItem(Item* item)
 /*!
   \brief Remove the given Item from the child list.
 
-  Remove the Item from the managed children list and set its parent
-  to the default context parent (provided by TreeItem).
+  Remove the Item from the child list and set its parent to nullptr.
 
   \param item the Item to remove.
 
   \exception CoreException if the Folder doesn't contain the Item.
 
   \note The removed Item is not deleted.
-  \see deleteSubItem method if you want to delete a child Item.
+  \see deleteChild method if you want to delete a child Item.
   */
-void Folder::removeSubItem(Item *item)
+void Folder::removeChild(Item *item)
 {
     vector<Item*>::iterator it;
     for(it = items_.begin(); it != items_.end(); ++it) {
         if((*it)->getId() == item->getId()) {
+            (*it)->setParent(nullptr);
             items_.erase(it);
-            (*it)->setParent(itemTree_.getDefaultItemParent());
             return;
         }
     }
@@ -96,20 +95,17 @@ void Folder::removeSubItem(Item *item)
 /*!
   \brief Delete the given Item and remove it from the child list.
 
-  Remove the Item from the managed children list and delegate its destruction
-  to the context (TreeItem::deleteItem) to ensure consistent destruction.
-
   \param item the Item to delete.
 
   \exception CoreException if the Folder doesn't contain the Item.
  */
-void Folder::deleteSubItem(Item *item)
+void Folder::deleteChild(Item *item)
 {
     vector<Item*>::iterator it;
     for(it = items_.begin(); it != items_.end(); ++it) {
         if((*it)->getId() == item->getId()) {
+            delete *it;
             items_.erase(it);
-            itemTree_.deleteItem(*it);
             return;
         }
     }
@@ -125,7 +121,7 @@ void Folder::deleteSubItem(Item *item)
   \return a pointer to the Item if at least one child match the given ID,
   nullptr otherwise.
  */
-Item* Folder::getSubItem(const string& id) const
+Item* Folder::getChild(const string& id) const
 {
     vector<Item*>::const_iterator it;
     for(it = items_.begin(); it != items_.end(); ++it) {
@@ -137,12 +133,12 @@ Item* Folder::getSubItem(const string& id) const
 }
 
 /*!
-  \brief Search if a child match the given ID.
+  \brief Search if there is at least one child matching the given ID.
 
   \param id the ID of the wanted Item.
   \return true if at least one child match the given ID, false otherwise.
  */
-bool Folder::containsSubItem(const string& id) const
+bool Folder::containsChild(const string& id) const
 {
     vector<Item*>::const_iterator it;
     for(it = items_.begin(); it != items_.end(); ++it) {
@@ -154,12 +150,12 @@ bool Folder::containsSubItem(const string& id) const
 }
 
 /*!
-  \brief Calculate the position of the given item in the child list.
+  \brief Calculate the position of the given Item in the child list.
 
   \param item the Item to match in the child list.
   \return the index of the given Item, or -1 if there is no child matching it.
  */
-int Folder::getSubItemIndex(Item* item) const
+int Folder::getChildIndex(Item* item) const
 {
     for(size_t i = 0; i < items_.size(); ++i) {
         if(items_[i]->getId() == item->getId()) {
@@ -170,17 +166,17 @@ int Folder::getSubItemIndex(Item* item) const
 }
 
 /*!
-  \return a vector containing the pointers to Item's children.
+  \return a vector containing the pointers to the Folder's children.
  */
-const vector<Item*>& Folder::getAllSubItems() const
+const vector<Item*>& Folder::getChildren() const
 {
     return items_;
 }
 
 /*!
-  \return the number of children handled by the Item.
+  \return the number of children handled by the current Folder.
  */
-unsigned int Folder::getSubItemNumber() const
+unsigned int Folder::childCount() const
 {
     return items_.size();
 }
@@ -195,3 +191,5 @@ void Folder::accept(ItemVisitor& visitor)
 {
     visitor.visitFolder(this);
 }
+
+} // namespace

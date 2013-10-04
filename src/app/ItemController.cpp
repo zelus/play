@@ -4,12 +4,12 @@
 // debug
 #include <iostream>
 
-ItemController::ItemController(ItemManager& itemManager) : itemManager_(itemManager)
+ItemController::ItemController(play_core::TreeContext& treeContext) : treeContext_(treeContext)
 {
 
 }
 
-QVariant ItemController::getData(Item* item, int field) const
+QVariant ItemController::getData(play_core::Item* item, int field) const
 {
     std::cout << "call ItemController::data" << std::endl;
     switch(field) {
@@ -19,9 +19,9 @@ QVariant ItemController::getData(Item* item, int field) const
     return QVariant();
 }
 
-Item* ItemController::getParent(Item* item) const
+play_core::Item* ItemController::getParent(play_core::Item* item) const
 {
-    Item* item_parent = item->getParent();
+    play_core::Item* item_parent = item->getParent();
     // parent du parent pour supprimer l'item racine
     if(item_parent == nullptr || item_parent->getParent() == nullptr) {
         return nullptr;
@@ -29,21 +29,21 @@ Item* ItemController::getParent(Item* item) const
     return item_parent;
 }
 
-Item* ItemController::getRootItem() const
+const play_core::Item* ItemController::getRootItem() const
 {
-    return itemManager_.getRootItem();
+    return treeContext_.getRootItem();
 }
 
 int ItemController::getTopLevelItemNumber() const
 {
-    return itemManager_.getTopLevelItemNumber();
+    return treeContext_.getTopLevelItemCount();
 }
 
-int ItemController::getChildNumber(Item* item) const
+int ItemController::getChildNumber(play_core::Item* item) const
 {
     try {
-        return item->getAllSubItems().size();
-    }catch(IllegalOperationException&) {
+        return item->childCount();
+    }catch(play_core::IllegalOperationException&) {
         return 0;
     }
 }

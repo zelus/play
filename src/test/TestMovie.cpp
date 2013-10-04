@@ -7,7 +7,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(TestMovie);
 
 void TestMovie::setUp()
 {
-    movie1 = new Movie("0","movie1");
+    movie1 = new Movie("movie1");
 }
 
 void TestMovie::tearDown()
@@ -16,29 +16,31 @@ void TestMovie::tearDown()
 }
 
 /*
-  Constructor test with basic parameters. Item specific
-  inherited behaviour is not tested, see TestItem
-  for those tests.
+  Base constructor test with basic parameters.
+  Initialization is checked with summary and notation values.
+  Name setting is not tested (see TestItem::test_constructor_basic
+  for this test).
  */
-void TestMovie::test_constructor()
+void TestMovie::test_constructor_basic()
 {
-    movie1 = new Movie("0","movie1","summary_movie1",2);
-    CPPUNIT_ASSERT_MESSAGE("Wrong summary", movie1->getSummary() == "summary_movie1");
-    CPPUNIT_ASSERT_MESSAGE("Wrong notation", movie1->getNotation() == 2);
-    CPPUNIT_ASSERT_MESSAGE("Wrong ItemType", movie1->getType() == ItemType::MOVIE_TYPE);
+    movie1 = new Movie("movie");
+    CPPUNIT_ASSERT_MESSAGE("Wrong summary", movie1->getSummary() == "");
+    CPPUNIT_ASSERT_MESSAGE("Wrong notation", movie1->getNotation() == 0);
 }
 
 /*
-  Constructor test with default parameters. Item specific
-  inherited behaviour is not tested, see TestItem for those
-  tests.
+  Complete constructor test with basic parameters.
+  Initialization is checked with summary and notation values.
+  Name setting is not tested (see TestItem::test_constructor_basic
+  for this test).
  */
-void TestMovie::test_constructor_defaultparameters()
+void TestMovie::test_constructor_complete()
 {
-    movie1 = new Movie("movie","name");
-    CPPUNIT_ASSERT_MESSAGE("Wrong summary", movie1->getSummary() == "");
-    CPPUNIT_ASSERT_MESSAGE("Wrong notation", movie1->getNotation() == 0);
-    CPPUNIT_ASSERT_MESSAGE("Wrong ItemType", movie1->getType() == ItemType::MOVIE_TYPE);
+    string summary = "summary";
+    short notation = 3;
+    movie1 = new Movie("movie",summary,notation);
+    CPPUNIT_ASSERT_MESSAGE("Wrong summary", movie1->getSummary() == summary);
+    CPPUNIT_ASSERT_MESSAGE("Wrong notation", movie1->getNotation() == notation);
 }
 
 /*
@@ -46,8 +48,9 @@ void TestMovie::test_constructor_defaultparameters()
  */
 void TestMovie::test_getSummary()
 {
-    movie1 = new Movie("0","movie1","summary_movie1",2);
-    CPPUNIT_ASSERT_MESSAGE("Wrong summary", movie1->getSummary() == "summary_movie1");
+    string summary = "summary";
+    movie1 = new Movie("movie",summary,2);
+    CPPUNIT_ASSERT_MESSAGE("Wrong summary", movie1->getSummary() == summary);
 }
 
 /*
@@ -55,42 +58,42 @@ void TestMovie::test_getSummary()
  */
 void TestMovie::test_getNotation()
 {
-    movie1 = new Movie("0","movie1","summary_movie1",2);
-    CPPUNIT_ASSERT_MESSAGE("Wrong notation", movie1->getNotation() == 2);
+    short notation = 2;
+    movie1 = new Movie("movie","sum",notation);
+    CPPUNIT_ASSERT_MESSAGE("Wrong notation", movie1->getNotation() == notation);
 }
 
 /*
-  setParent test.
-  Previous summary setUp summary ("summary").
+  setSummary test.
  */
 void TestMovie::test_setSummary()
 {
-    movie1->setSummary("new summary");
-    CPPUNIT_ASSERT_MESSAGE("Wrong summary",movie1->getSummary() == "new summary");
+    string new_summary = "new summary";
+    movie1->setSummary(new_summary);
+    CPPUNIT_ASSERT_MESSAGE("Wrong summary",movie1->getSummary() == new_summary);
 }
 
 /*
   setNotation test.
-  Previous notation is setUp notation (5).
  */
 void TestMovie::test_setNotation()
 {
-    movie1->setNotation(3);
-    CPPUNIT_ASSERT_MESSAGE("Wrong notation", movie1->getNotation() == 3);
+    short notation = 3;
+    movie1->setNotation(notation);
+    CPPUNIT_ASSERT_MESSAGE("Wrong notation", movie1->getNotation() == notation);
 }
 
 /*
   accept test.
-  Check is done by using a MockItemVisitor class
-  that set an integer according to the method called.
+  Check is done by using a MockItemVisitor class that set an integer
+  according to the method called.
   See MockItemVisitor constructor documentation for explanation
   about values given.
  */
 void TestMovie::test_accept()
 {
     int called_method = 0;
-    MockItemVisitor* mock_visitor = new MockItemVisitor(called_method);
+    MockItemVisitor mock_visitor(called_method);
     movie1->accept(mock_visitor);
     CPPUNIT_ASSERT_MESSAGE("Wrong method called in Visitor", called_method == 2);
-    delete mock_visitor;
 }

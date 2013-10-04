@@ -3,49 +3,38 @@
 #include "IllegalOperationException.h"
 #include "ItemVisitor.h"
 #include <sstream>
+
 // debug
 #include <iostream>
 
+namespace play_core {
 
-#include "ItemTree.h"
 using namespace std;
 
 /*!
-  \brief Construct an Item with the given name in the given context (ItemTree)
+  \brief Construct an Item with the given name.
+
+  The ID is set to the given name value to allow simple tree construction
+  (without ID generation feature).
 
   \param name the name of the Item.
-  \param itemTree the tree the Item belongs to.
-
-  \note The given ItemTree affects an ID and a default parent to the Item.
  */
-Item::Item(const std::string& name, ItemTree& itemTree) : itemTree_(itemTree)
+Item::Item(const std::string& name)
 {
     name_ = name;
-    itemTree_ = itemTree;
-    itemTree.registerItem(this);
+    id_ = name;
+    parent_ = nullptr;
 }
 
 /*!
-  \brief Deletes the Item.
+  \brief Delete the Item.
 
-  If the Item has a parent it is removed from its children list.
+  \warning Consistency with the eventual parent child list is not ensured.
+  \see Item::deleteChild for a parent-consistent deletion.
  */
 Item::~Item()
 {
-    if(parent_ != nullptr) {
-        try {
-            parent_->removeSubItem(this);
-        }catch(CoreException&) {
-            /*
-              Nothing need to be done here : the parent doesn't handle
-              the Item. This append when parent calls itself this method
-              and has removed the Item from its children before.
 
-              If the exception is the result of an invalid call
-              (IllegalOperationException) the exception is ignored.
-             */
-        }
-    }
 }
 
 /*!
@@ -87,13 +76,16 @@ void Item::setName(const string& name)
 
   \param item the Item to add.
 
-  \exception IllegalOperationException if the Item cannot handle children.
+  \exception IllegalOperationException if the current Item cannot handle
+  children.
 
   \warning This method fails default because basic Item cannot handle children.
-  See design pattern \em composite for further informations about global interfaces.
-  \note This method should be overriden by inherited classes that can handle children.
+  See design pattern \em composite for further informations about global
+  interfaces.
+  \note This method should be overriden by inherited classes that can handle
+  children.
  */
-void Item::addSubItem(Item*)
+void Item::addChild(Item*)
 {
     stringstream ss;
     ss << "The Item " << id_ << "[" << name_ << "] is not a container.";
@@ -105,13 +97,16 @@ void Item::addSubItem(Item*)
 
   \param item the Item to remove.
 
-  \exception IllegalOperationException if the Item cannot handle children.
+  \exception IllegalOperationException if the current Item cannot handle
+  children.
 
   \warning This method fails default because basic Item cannot handle children.
-  See design pattern \em composite for further informations about global interfaces.
-  \note This method should be overriden by inherited classes that can handle children.
+  See design pattern \em composite for further informations about global
+  interfaces.
+  \note This method should be overriden by inherited classes that can handle
+  children.
  */
-void Item::removeSubItem(Item*)
+void Item::removeChild(Item*)
 {
     stringstream ss;
     ss << "The Item " << id_ << "[" << name_ << "] is not a container.";
@@ -123,13 +118,16 @@ void Item::removeSubItem(Item*)
 
   \param item the Item to delete.
 
-  \exception IllegalOperationException if the Item cannot handle children.
+  \exception IllegalOperationException if the current Item cannot handle
+  children.
 
   \warning This method fails default because basic Item cannot handle children.
-  See design pattern \em composite for further informations about global interfaces.
-  \note This method should be overriden by inherited classes that can handle children.
+  See design pattern \em composite for further informations about global
+  interfaces.
+  \note This method should be overriden by inherited classes that can handle
+  children.
  */
-void Item::deleteSubItem(Item*)
+void Item::deleteChild(Item*)
 {
     stringstream ss;
     ss << "The Item " << id_ << "[" << name_ << "] is not a container.";
@@ -143,13 +141,16 @@ void Item::deleteSubItem(Item*)
   \return a pointer to the Item if at least one child match the given ID,
   nullptr otherwise.
 
-  \exception IllegalOperationException if the Item cannot handle children.
+  \exception IllegalOperationException if the current Item cannot handle
+  children.
 
   \warning This method fails default because basic Item cannot handle children.
-  See design pattern \em composite for further informations about global interfaces.
-  \note This method should be overriden by inherited classes that can handle children.
+  See design pattern \em composite for further informations about global
+  interfaces.
+  \note This method should be overriden by inherited classes that can handle
+  children.
  */
-Item* Item::getSubItem(const string&) const
+Item* Item::getChild(const string&) const
 {
     stringstream ss;
     ss << "The Item " << id_ << "[" << name_ << "] is not a container.";
@@ -162,13 +163,16 @@ Item* Item::getSubItem(const string&) const
   \param id the ID of the wanted Item.
   \return true if at least one child match the given ID, false otherwise.
 
-  \exception IllegalOperationException if the Item cannot handle children.
+  \exception IllegalOperationException if the current Item cannot handle
+  children.
 
   \warning This method fails default because basic Item cannot handle children.
-  See design pattern \em composite for further informations about global interfaces.
-  \note This method should be overriden by inherited classes that can handle children.
+  See design pattern \em composite for further informations about global
+  interfaces.
+  \note This method should be overriden by inherited classes that can handle
+  children.
  */
-bool Item::containsSubItem(const string&) const
+bool Item::containsChild(const string&) const
 {
     stringstream ss;
     ss << "The Item " << id_ << "[" << name_ << "] is not a container.";
@@ -176,18 +180,21 @@ bool Item::containsSubItem(const string&) const
 }
 
 /*!
-  \brief Calculate the position of the given item in the child list.
+  \brief Calculate the position of the given child Item in the child list.
 
   \param item the Item to match in the child list.
   \return the index of the given Item, or -1 if there is no child matching it.
 
-  \exception IllegalOperationException if the Item cannot handle children.
+  \exception IllegalOperationException if the current Item cannot handle
+  children.
 
   \warning This method fails default because basic Item cannot handle children.
-  See design pattern \em composite for further informations about global interfaces.
-  \note This method should be overriden by inherited classes that can handle children.
+  See design pattern \em composite for further informations about global
+  interfaces.
+  \note This method should be overriden by inherited classes that can handle
+  children.
  */
-int Item::getSubItemIndex(Item*) const
+int Item::getChildIndex(Item*) const
 {
     stringstream ss;
     ss << "The Item " << id_ << "[" << name_ << "] is not a container.";
@@ -197,13 +204,16 @@ int Item::getSubItemIndex(Item*) const
 /*!
   \return a vector containing the pointers to Item's children.
 
-  \exception IllegalOperationException if the Item cannot handle children.
+  \exception IllegalOperationException if the current Item cannot handle
+  children.
 
   \warning This method fails default because basic Item cannot handle children.
-  See design pattern \em composite for further informations about global interfaces.
-  \note This method should be overriden by inherited classes that can handle children.
+  See design pattern \em composite for further informations about global
+  interfaces.
+  \note This method should be overriden by inherited classes that can handle
+  children.
  */
-const vector<Item*>& Item::getAllSubItems() const
+const vector<Item*>& Item::getChildren() const
 {
     stringstream ss;
     ss << "The Item " << id_ << "[" << name_ << "] is not a container.";
@@ -213,13 +223,16 @@ const vector<Item*>& Item::getAllSubItems() const
 /*!
   \return the number of children handled by the Item.
 
-  \exception IllegalOperationException if the Item cannot handle children.
+  \exception IllegalOperationException if the current Item cannot handle
+  children.
 
   \warning This method fails default because basic Item cannot handle children.
-  See design pattern \em composite for further informations about global interfaces.
-  \note This method should be overriden by inherited classes that can handle children.
+  See design pattern \em composite for further informations about global
+  interfaces.
+  \note This method should be overriden by inherited classes that can handle
+  children.
  */
-unsigned int Item::getSubItemNumber() const
+unsigned int Item::childCount() const
 {
     stringstream ss;
     ss << "The Item " << id_ << "[" << name_ << "] is not a container.";
@@ -227,13 +240,13 @@ unsigned int Item::getSubItemNumber() const
 }
 
 /*!
-  \brief Set the parent member of the Item to the given parent value.
+  \brief Set the parent of the Item to the given parent value.
 
   \param parent the new parent of the Item.
 
-  \warning Don't call this method directly, it is used by the context to ensure
-  tree consistency. To change the parent of an Item use addSubItem and removeSubItem
-  methods instead.
+  \warning Consistency with the parents (new and previous) child list is not
+  ensured.
+  \see Item::addChild for a parent-consistent deletion.
 */
 void Item::setParent(Item* parent)
 {
@@ -241,14 +254,17 @@ void Item::setParent(Item* parent)
 }
 
 /*!
-  \brief Set the ID member of the Item to the given value.
+  \brief Set the ID of the Item to the given value.
 
   \param id the new ID of the Item.
 
-  \warning Don't call this method directly, it is used by the context to give
-  a unique ID to the Item.
+  \warning If the Item is registered to a context this method may break Item
+  unicity.
+  \note This method is used internally by ItemContext to provide Item unicity.
  */
 void Item::setId(const std::string& id)
 {
     id_ = id;
 }
+
+} // namespace

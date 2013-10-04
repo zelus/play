@@ -1,21 +1,21 @@
 #ifndef ITEMCONTROLLER_H
 #define ITEMCONTROLLER_H
 
-#include "ItemManager.h"
+#include "TreeContext.h"
 #include "Item.h"
 #include <QVariant>
 class ItemController
 {
 public:
-    ItemController(ItemManager& itemManager);
-    QVariant getData(Item* item, int field) const;
-    Item* getParent(Item* item) const;
-    Item* getRootItem() const;
+    ItemController(play_core::TreeContext& treeContext);
+    QVariant getData(play_core::Item* item, int field) const;
+    play_core::Item* getParent(play_core::Item* item) const;
+    const play_core::Item* getRootItem() const;
     int getTopLevelItemNumber() const;
-    int getChildNumber(Item* item) const;
+    int getChildNumber(play_core::Item* item) const;
 
 private:
-    ItemManager& itemManager_;
+    play_core::TreeContext& treeContext_;
 };
 
 #endif // ITEMCONTROLLER_H

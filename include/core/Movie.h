@@ -4,6 +4,8 @@
 #include "Item.h"
 #include <string>
 
+namespace play_core {
+
 /*!
   \brief Represents a concrete Item which can store specific movie informations.
 
@@ -17,8 +19,7 @@
 class Movie : public Item
 {
 public:
-    Movie(const std::string name, ItemTree& itemTree);
-    Movie(const std::string& name, const std::string& summary, const short notation, ItemTree& itemTree);
+    Movie(const std::string& name, const std::string& summary="", const short notation=0);
     /*!
       \warning Copy constructor is deleted to prevent ID
       duplication
@@ -44,5 +45,7 @@ private:
     std::string summary_;
     short notation_;
 };
+
+} // namespace
 
 #endif // MOVIE_H

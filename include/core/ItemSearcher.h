@@ -7,6 +7,8 @@
 #include "Folder.h"
 #include <vector>
 
+namespace play_core {
+
 /*!
   \brief Base searcher class.
 
@@ -78,5 +80,7 @@ protected:
      */
     bool continueRecursiveSearch_;
 };
+
+} // namespace
 
 #endif // ITEMSEARCHER_H
