@@ -7,7 +7,8 @@ CONFIG -= qt
 TARGET = $$LIB_DIR/core/core
 
 INCLUDEPATH += $$INCLUDE_DIR/core
-DEPENDPATH += $$INCLUDE_DIR/core
+VPATH += $$INCLUDE_DIR/core
+#DEPENDPATH += $$INCLUDE_DIR/core
 
 OBJECTS_DIR = $$BUILD_DIR/core/objs
 MOC_DIR = $$BUILD_DIR/core/mocs

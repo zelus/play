@@ -8,7 +8,8 @@ class Workbench : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit Workbench(QWidget* parent = 0);
+    Workbench(QWidget* parent = 0);
+    ~Workbench();
     QTreeView* getLibraryTreeView() const;
 
 signals:

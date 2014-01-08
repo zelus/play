@@ -6,3 +6,6 @@ SUBDIRS = \
 CONFIG += ordered
 SUBDIRS += \
 	$$PWD/src/app
+
+OTHER_FILES += \
+    README.md

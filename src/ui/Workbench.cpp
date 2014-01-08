@@ -37,6 +37,10 @@ Workbench::Workbench(QWidget *parent) : QMainWindow(parent)
     setCentralWidget(central);
 }
 
+Workbench::~Workbench() {
+
+}
+
 QTreeView* Workbench::getLibraryTreeView() const
 {
     return libraryTreeView_;
